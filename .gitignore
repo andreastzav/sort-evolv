@@ -1,0 +1,40 @@
+# Dependencies / package-manager caches
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Generated binary table caches. Benchmarks generate deterministic rows from seeds.
+algorithms/*/tables/
+
+# Generated simulation artifacts.
+algorithms/*/evolution/**/*.fake.json
+algorithms/*/evolution/**/*.fake.svg
+algorithms/*/evolution/**/*.fake.html
+
+# Rendered graph outputs can be regenerated from evolution JSON metadata.
+algorithms/*/evolution/**/*.svg
+algorithms/*/evolution/**/*.html
+
+# One-off benchmark reports. Keep canonical progress logs and iterations metadata.
+algorithms/*/evolution/**/benchmark*.txt
+algorithms/*/evolution/**/benchmark*.csv
+algorithms/*/evolution/**/benchmark*.json
+algorithms/*/evolution/**/*_vs_*.txt
+algorithms/*/evolution/**/*_vs_*.csv
+algorithms/*/evolution/**/*_vs_*.json
+algorithms/*/evolution/**/*_large*.txt
+algorithms/*/evolution/**/*_large*.csv
+algorithms/*/evolution/**/*_large*.json
+algorithms/*/evolution/**/*_qmb*.txt
+algorithms/*/evolution/**/*_qmb*.csv
+algorithms/*/evolution/**/*_qmb*.json

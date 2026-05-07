@@ -1,0 +1,48 @@
+Shortlist generated at 2026-04-01T09:08:35.848Z
+Input: algorithms\timsort\evolution\timsort_base_0120\timsort_progress.jsonl
+Counts: records=170, snapshots=170, benchmark_valid=170, after_filters=163, shortlisted=8
+Config: top=8, strict_noise=false
+Noise policy: MADx3, rel_fallback=15.0%, display_overall_gap>5.0%
+
+Top 10 By overall_score_p50:
+1. snapshot=0018 | overall=0.914785
+2. snapshot=0060 | overall=0.918728
+3. snapshot=0064 | overall=0.922966
+4. snapshot=0113 | overall=0.923067
+5. snapshot=0168 | overall=0.926396
+6. snapshot=0137 | overall=0.927451
+7. snapshot=0089 | overall=0.927634
+8. snapshot=0158 | overall=0.928970
+9. snapshot=0093 | overall=0.933755
+10. snapshot=0047 | overall=0.933908
+
+Shortlist (8 selected):
+1. snapshot=0018 | role=top_ranked | status=winner | branch=B03.S01.S01.S01 | family=B03.S01.S01 | overall=0.914785 | quick=0.882881 | medium=0.915221 | balanced=0.947391 | worst=0.947391 | spread=0.064510 | delta_vs_anchor=3.064% | noise_penalty=0 | idea=B03.S01.S01.S01 depth1: from anchor0017 raise DEFAULT_MIN_MERGE 40->64
+2. snapshot=0060 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02 | family=B03.S01.S01 | overall=0.918728 | quick=0.877708 | medium=0.926377 | balanced=0.953726 | worst=0.953726 | spread=0.076018 | delta_vs_anchor=1.211% | noise_penalty=0 | idea=B03.S01.S01.S03.S02.S01.S01.S02 depth2: lower DEFAULT_MIN_MERGE 68->64 to recover medium
+3. snapshot=0064 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01 | family=B03.S01.S01 | overall=0.922966 | quick=0.914171 | medium=0.899777 | balanced=0.955861 | worst=0.955861 | spread=0.056084 | delta_vs_anchor=0.019% | noise_penalty=0 | idea=B03.S01.S01.S03.S02.S01.S01.S02.S01 depth3: restore DEFAULT_MIN_GALLOPING 8->7
+4. snapshot=0113 | role=top_ranked | status=winner | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02 | family=B03.S01.S01 | overall=0.923067 | quick=0.859570 | medium=0.960833 | balanced=0.952294 | worst=0.960833 | spread=0.101263 | delta_vs_anchor=1.867% | noise_penalty=0 | idea=implementation: final S02 probe lower BULK_COPY_THRESHOLD 896->832
+5. snapshot=0168 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S02 | family=B03.S01.S01 | overall=0.926396 | quick=0.923745 | medium=0.923798 | balanced=0.931667 | worst=0.931667 | spread=0.007922 | delta_vs_anchor=1.196% | noise_penalty=0 | idea=implementation: final forward step tune BULK_COPY_THRESHOLD 768->736 on 0166 chain
+6. snapshot=0137 | role=top_ranked | status=winner | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03 | family=B03.S01.S01 | overall=0.927451 | quick=0.901048 | medium=0.935908 | balanced=0.946003 | worst=0.946003 | spread=0.044955 | delta_vs_anchor=2.494% | noise_penalty=0 | idea=implementation: with case4+threshold800 tune DEFAULT_MIN_GALLOPING 8->9
+7. snapshot=0089 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01 | family=B03.S01.S01 | overall=0.927634 | quick=0.911924 | medium=0.949982 | balanced=0.921417 | worst=0.949982 | spread=0.038058 | delta_vs_anchor=-1.084% | noise_penalty=0 | idea=B03...S03.S01 depth1: from anchor0088 raise DEFAULT_MIN_MERGE 84->88
+8. snapshot=0158 | role=top_ranked | status=winner | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02 | family=B03.S01.S01 | overall=0.928970 | quick=0.870406 | medium=0.953658 | balanced=0.965807 | worst=0.965807 | spread=0.095401 | delta_vs_anchor=1.967% | noise_penalty=0 | idea=implementation: final forward step tune DEFAULT_MIN_MERGE 72->76 on tmp288 sibling chain
+
+Excluded Top-Overall (Not In Shortlist) With Reasons:
+1. snapshot=0093 | overall=0.933755 | family=B03.S01.S01 | reasons=slot_policy
+2. snapshot=0047 | overall=0.933908 | family=B03.S01.S01 | reasons=slot_policy
+
+Important Decision Metrics (End):
+1. snapshot=0018 | overall_score_p50=0.914785 | worst_preset_score=0.947391 | preset_spread=0.064510 | delta_vs_anchor_overall_score_p50=3.064% | improvement_vs_native_overall_p50=8.522%
+2. snapshot=0060 | overall_score_p50=0.918728 | worst_preset_score=0.953726 | preset_spread=0.076018 | delta_vs_anchor_overall_score_p50=1.211% | improvement_vs_native_overall_p50=8.127%
+3. snapshot=0064 | overall_score_p50=0.922966 | worst_preset_score=0.955861 | preset_spread=0.056084 | delta_vs_anchor_overall_score_p50=0.019% | improvement_vs_native_overall_p50=7.703%
+4. snapshot=0113 | overall_score_p50=0.923067 | worst_preset_score=0.960833 | preset_spread=0.101263 | delta_vs_anchor_overall_score_p50=1.867% | improvement_vs_native_overall_p50=7.693%
+5. snapshot=0168 | overall_score_p50=0.926396 | worst_preset_score=0.931667 | preset_spread=0.007922 | delta_vs_anchor_overall_score_p50=1.196% | improvement_vs_native_overall_p50=7.360%
+6. snapshot=0137 | overall_score_p50=0.927451 | worst_preset_score=0.946003 | preset_spread=0.044955 | delta_vs_anchor_overall_score_p50=2.494% | improvement_vs_native_overall_p50=7.255%
+7. snapshot=0089 | overall_score_p50=0.927634 | worst_preset_score=0.949982 | preset_spread=0.038058 | delta_vs_anchor_overall_score_p50=-1.084% | improvement_vs_native_overall_p50=7.237%
+8. snapshot=0158 | overall_score_p50=0.928970 | worst_preset_score=0.965807 | preset_spread=0.095401 | delta_vs_anchor_overall_score_p50=1.967% | improvement_vs_native_overall_p50=7.103%
+
+Selection Criteria (End):
+1. Hard filters: benchmark-valid snapshot rows, tests_failed=0, full suite scores present.
+2. Hard filters (continued): improvement_vs_native_overall_p50>0 and worst_preset_score<=1.02.
+3. Noise handling: native_p50 outlier via MADx3 (or 15.0% fallback), display-vs-overall mismatch threshold 5.0%, strict drop penalty>=2 only when strict_noise=true.
+4. Ranking order: overall_score_p50 asc, worst_preset_score asc, preset_spread asc, delta_vs_anchor_overall_score_p50 desc.
+5. Diversity policy: family cap disabled; no forced specialist/contrarian slots.

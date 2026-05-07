@@ -1,0 +1,239 @@
+0001 | implementation: pointer-loop copyFromBuffer with switch tail
+0002 | implementation: revert copyFromBuffer loop; lower copyWithin threshold 32->16
+0003 | implementation: restore threshold32; lower minGalloping 7->6
+0004 | implementation: raise minGalloping 6->8 to stabilize presets
+0005 | implementation: combine case4 shift + threshold24
+0006 | implementation: root branch test case4 shift + threshold24
+0007 | implementation: raise initial tmp storage 256->1024
+0008 | implementation: keep tmp1024 + case4, revert threshold24->32
+0009 | implementation: revert tmp storage 1024->256 (keep case4 + threshold32)
+0010 | implementation: raise minGalloping 7->9 with case4+threshold32
+0011 | implementation: disable copyWithin path (very high bulk threshold)
+0012 | implementation: partial copyWithin restore with threshold96
+0013 | implementation: push copyWithin threshold96->256
+0014 | implementation: tune copyWithin threshold256->128
+0015 | implementation: final B03 shot case4 shift + threshold256
+0016 | implementation: root branch pure minGalloping 7->8
+0017 | implementation: child of 0016 raise minGalloping 8->9
+0018 | implementation: child of 0016 lower minGalloping 8->7
+0019 | implementation: return to minGalloping8 + add case4 insertion shift
+0020 | implementation: min8 + threshold24 (remove case4 shift)
+0021 | implementation: min8 + lower bulk copy threshold 24->16
+0022 | adaptive candidate: disable copyWithin path (very high bulk threshold) from minGalloping=8 anchor
+0023 | adaptive tuning: reduce bulk threshold 1000000->256 to recover quick while keeping medium/balanced gains
+0024 | threshold sweep from winner: bulk copy threshold 256->192
+0025 | speculative opposite sweep: bulk copy threshold 192->320
+0026 | speculative midpoint sweep: bulk copy threshold 320->288
+0027 | combine case4 insertion shift + BULK_COPY_THRESHOLD 24
+0028 | case4 fast path with threshold reset 24->256
+0029 | adaptive sibling: bulk copy threshold 256->384
+0030 | adaptive continuation: bulk copy threshold 384->512
+0031 | anchor 0030 sibling: bulk copy threshold 512->640
+0032 | speculative continuation: bulk copy threshold 640->448
+0033 | guardrail recovery attempt: bulk copy threshold 448->496
+0034 | speculative non-threshold tweak: minGalloping 8->9 with threshold496
+0035 | final speculative opposite gallop bias: minGalloping 9->7 with threshold496
+0036 | anchor 0030 sibling: add case4 insertion-shift fast path with threshold512
+0037 | speculative continuation: keep case4 and raise bulk threshold 512->1024
+0038 | guardrail tuning: lower bulk threshold 1024->768 with case4
+0039 | fine sweep near threshold: bulk copy threshold 768->832 with case4
+0040 | anchor 0039 sibling: bulk copy threshold 832->896 with case4
+0041 | anchor 0040 sibling: bulk copy threshold 896->960 with case4
+0042 | guardrail recovery: bulk copy threshold 960->928 with case4
+0043 | speculative continuation: bulk copy threshold 928->880 with case4
+0044 | speculative gallop tuning: minGalloping 8->9 with threshold880+case4
+0045 | final speculative nudge: threshold 880->896 with min9+case4
+0046 | anchor 0045 sibling: fine threshold sweep 896->864 (min9+case4)
+0047 | anchor 0046 sibling: threshold sweep 864->832 (min9+case4)
+0048 | speculative recovery: threshold 832->880 (min9+case4)
+0049 | speculative dimension switch: minGalloping 9->8 at threshold880+case4
+0050 | speculative gallop probe: minGalloping 8->10 at threshold880+case4
+0051 | final speculative combo: minGalloping 10->9 and threshold 880->848 with case4
+0052 | anchor 0046 sibling: remove case4 insertion fast path (keep min9, threshold864)
+0053 | speculative without case4: raise threshold 864->1024
+0054 | speculative without case4: minGalloping 9->8 at threshold1024
+0055 | speculative structural reset: re-enable case4 at min8 threshold1024
+0056 | final speculative combo: minGalloping 8->9 and threshold 1024->840 with case4
+0057 | anchor 0046 final sibling: increase state/tmp pooling (pool 1->2, tmp cap x64->x128)
+0058 | speculative pooling opposite: pool 2->1 and tmp cap x128->x32
+0059 | speculative algorithmic tweak: DEFAULT_MIN_MERGE 32->64
+0060 | speculative opposite algorithmic tweak: DEFAULT_MIN_MERGE 64->16
+0061 | final speculative blend: MIN_MERGE 48 with tmp cap restored x64
+0062 | anchor 0045 sibling: fine threshold probe 896->912 (min9+case4)
+0063 | speculative guardrail tune: threshold 912->904 (min9+case4)
+0064 | speculative gallop tune: minGalloping 9->8 at threshold904+case4
+0065 | speculative opposite gallop tune: minGalloping 8->10 at threshold904+case4
+0066 | final speculative blend: minGalloping 10->9 and threshold 904->888 with case4
+0067 | anchor 0045 final sibling: algorithmic tweak DEFAULT_MIN_MERGE 32->40
+0068 | speculative MIN_MERGE correction: 40->36
+0069 | speculative MIN_MERGE fine step: 36->34
+0070 | recover from MIN_MERGE branch: restore MIN_MERGE 32 and lower threshold 896->872 (min9+case4)
+0071 | final attempt in S03: threshold 872->864 (MIN_MERGE32, min9, case4)
+0072 | anchor 0040 sibling S02: minGalloping 8->7 (threshold896+case4)
+0073 | speculative correction from min7: minGalloping 7->9 (threshold896+case4)
+0074 | speculative threshold shift: 896->864 at min9+case4
+0075 | speculative gallop fallback: minGalloping 9->8 at threshold864+case4
+0076 | final attempt S02: reset threshold 864->896 at min8+case4
+0077 | anchor 0040 final sibling S03: algorithmic MIN_MERGE 32->40
+0078 | anchor 0077 sibling: MIN_MERGE sweep 40->48
+0079 | speculative midpoint: MIN_MERGE 48->44
+0080 | speculative combo around anchor: MIN_MERGE 44->40 and threshold 896->864
+0081 | speculative threshold direction check: 864->928 with MIN_MERGE40
+0082 | final S01 attempt: minGalloping 8->9 and threshold 928->896 with MIN_MERGE40
+0083 | anchor 0077 sibling S02: remove case4 fast path (MIN_MERGE40, min8, threshold896)
+0084 | speculative no-case4 tune: minGalloping 8->9 (MIN_MERGE40, threshold896)
+0085 | speculative no-case4 threshold sweep: 896->864 with min9
+0086 | fine tune near close miss: threshold 864->872 (no-case4, min9)
+0087 | final no-case4 attempt: threshold 872->860 with min9
+0088 | anchor 0077 final sibling S03: high threshold 896->1024 (case4 on)
+0089 | speculative guardrail recovery: threshold 1024->960 (case4 on)
+0090 | speculative continuation: threshold 960->928 (case4 on)
+0091 | speculative dimension switch: minGalloping 8->9 at threshold928
+0092 | final S03 attempt: combine min9 with threshold 1024
+0093 | anchor 0039 sibling S02: MIN_MERGE 32->40 at threshold832+case4
+0094 | algorithm: DEFAULT_MIN_MERGE 40->36
+0095 | algorithm: restore MIN_MERGE 40 and raise MIN_GALLOPING 8->9
+0096 | implementation: BULK_COPY_THRESHOLD 832->960 on MIN_GALLOPING=9
+0097 | implementation: BULK_COPY_THRESHOLD 960->512 on MIN_GALLOPING=9
+0098 | algorithm: DEFAULT_MIN_GALLOPING 9->10 from anchor 0097
+0099 | algorithm: DEFAULT_MIN_GALLOPING 10->8 from 0098
+0100 | implementation: BULK_COPY_THRESHOLD 512->384 with MIN_GALLOPING=8
+0101 | algorithm: DEFAULT_MIN_GALLOPING 8->9 with BULK_COPY_THRESHOLD=384
+0102 | algorithm: DEFAULT_MIN_MERGE 40->32 with MIN_GALLOPING=9 threshold384
+0103 | implementation: BULK_COPY_THRESHOLD 512->640 from anchor 0097
+0104 | algorithm: DEFAULT_MIN_GALLOPING 9->8 with BULK_COPY_THRESHOLD=640
+0105 | implementation: BULK_COPY_THRESHOLD 640->512 with MIN_GALLOPING=8
+0106 | implementation: binaryInsertionSort unroll small shifts up to 8
+0107 | algorithm: DEFAULT_MIN_GALLOPING 8->9 with unroll<=8 fast path
+0108 | implementation: DEFAULT_TMP_STORAGE_LENGTH 256->512 from anchor 0097
+0109 | implementation: DEFAULT_TMP_STORAGE_LENGTH 512->384
+0110 | implementation: DEFAULT_TMP_STORAGE_LENGTH 384->192
+0111 | implementation: MAX_POOLED_TMP_LENGTH multiplier 64->128 at TMP=192
+0112 | implementation: TMP length 192->320 and pool multiplier 128->64
+0113 | implementation: case4 shift path + BULK_COPY_THRESHOLD 832->24
+0114 | implementation: BULK_COPY_THRESHOLD 24->64 (case4 path)
+0115 | implementation: BULK_COPY_THRESHOLD 64->128 (case4 path)
+0116 | implementation: BULK_COPY_THRESHOLD 128->256 (case4 path)
+0117 | implementation: BULK_COPY_THRESHOLD 256->512 (case4 path)
+0118 | algorithm: DEFAULT_MIN_GALLOPING 8->9 from anchor 0030
+0119 | algorithm: DEFAULT_MIN_MERGE 32->40 with MIN_GALLOPING=9
+0120 | algorithm: DEFAULT_MIN_GALLOPING 9->8 with MIN_MERGE=40 threshold512
+0121 | implementation: BULK_COPY_THRESHOLD 512->384 on near-win config (MIN_MERGE40, MIN_GALLOPING8)
+0122 | algorithm: MIN_GALLOPING 8->7 and BULK_COPY_THRESHOLD 384->512
+0123 | implementation: anchor 0023 sibling S03 BULK_COPY_THRESHOLD 256->640
+0124 | implementation: BULK_COPY_THRESHOLD 640->512 on anchor 0023 S03 chain
+0125 | algorithm: DEFAULT_MIN_GALLOPING 8->7 with BULK_COPY_THRESHOLD=512
+0126 | algorithm: DEFAULT_MIN_GALLOPING 7->9 with BULK_COPY_THRESHOLD=512
+0127 | implementation: anchor 0126 sibling S01 BULK_COPY_THRESHOLD 512->640
+0128 | implementation: BULK_COPY_THRESHOLD 640->384 on anchor 0126 S01 chain
+0129 | algorithm: DEFAULT_MIN_GALLOPING 9->10 with BULK_COPY_THRESHOLD=384
+0130 | algorithm: DEFAULT_MIN_GALLOPING 10->8 with BULK_COPY_THRESHOLD=384
+0131 | implementation: BULK_COPY_THRESHOLD 384->512 with MIN_GALLOPING=8
+0132 | algorithm: anchor 0131 sibling S01 MIN_GALLOPING 8->9
+0133 | algorithm: MIN_GALLOPING 9->7 from 0132
+0134 | algorithm: DEFAULT_MIN_MERGE 32->40 with MIN_GALLOPING=7 threshold512
+0135 | implementation: copyFromBuffer tiny-count fast path (<=8)
+0136 | implementation: anchor constants restore (MIN_MERGE32, MIN_GALLOPING8) + tiny copyFromBuffer path
+0137 | implementation: anchor 0131 sibling S02 DEFAULT_TMP_STORAGE_LENGTH 256->320
+0138 | implementation: near-win tune BULK_COPY_THRESHOLD 512->448 (TMP=320)
+0139 | algorithm: DEFAULT_MIN_GALLOPING 8->7 with TMP=320 threshold448
+0140 | implementation: BULK_COPY_THRESHOLD 448->512 with TMP=320 MIN_GALLOPING=7
+0141 | algorithm: MIN_MERGE 32->40 and MIN_GALLOPING 7->8 with TMP=320 threshold512
+0142 | implementation: anchor 0131 sibling S03 MAX_TIMSORT_STATE_POOL_SIZE 1->2
+0143 | implementation: revert pool size 2->1 and raise MAX_POOLED_TMP_LENGTH 64->128
+0144 | algorithm: MIN_MERGE 32->40 with pool cap 128
+0145 | implementation: anchor 0144 sibling S01 BULK_COPY_THRESHOLD 512->640
+0146 | replay: case4 insertion shift fast path (n=4) on threshold640 chain
+0147 | threshold sweep on S01 chain: BULK_COPY_THRESHOLD 640->832 with case4 n=4 path
+0148 | guardrail recovery on S01 chain: BULK_COPY_THRESHOLD 832->768 with case4 n=4 path
+0149 | final S01-chain attempt: BULK_COPY_THRESHOLD 768->512 with case4 n=4 path
+0150 | replay: disable copyWithin path on anchor 0144 (BULK_COPY_THRESHOLD 512->1000000)
+0151 | S02 moderation: BULK_COPY_THRESHOLD 1000000->2048 after copyWithin-disable replay
+0152 | S02 rebalance: BULK_COPY_THRESHOLD 2048->1024
+0153 | S02 quick-guardrail recovery: BULK_COPY_THRESHOLD 1024->768
+0154 | S02 final attempt: BULK_COPY_THRESHOLD 768->640
+0155 | S03 new direction: DEFAULT_TMP_STORAGE_LENGTH 256->320
+0156 | S03 correction: DEFAULT_TMP_STORAGE_LENGTH 320->288
+0157 | S03 continuation: DEFAULT_MIN_GALLOPING 8->7 with TMP=288
+0158 | anchor 0157 S01: BULK_COPY_THRESHOLD 512->640 (MIN_GALLOPING=7 TMP=288)
+0159 | S01 guardrail recovery: BULK_COPY_THRESHOLD 640->576
+0160 | S01 fine sweep: BULK_COPY_THRESHOLD 576->544
+0161 | S01 structural try: add case4 insertion-shift fast path
+0162 | S01 final attempt: keep case4 and set BULK_COPY_THRESHOLD 544->512
+0163 | anchor 0157 S02: case4 insertion fast path + BULK_COPY_THRESHOLD 512->480
+0164 | S02 reset threshold: BULK_COPY_THRESHOLD 480->512 with case4 path retained
+0165 | S02 alternate knob: DEFAULT_MIN_MERGE 40->36 with case4 path
+0166 | S02 cleanup: revert DEFAULT_MIN_MERGE 36->40
+0167 | S02 final attempt: DEFAULT_MIN_GALLOPING 7->6 with case4 path
+0168 | anchor 0167 S01: BULK_COPY_THRESHOLD 512->576 (MIN_GALLOPING=6, case4)
+0169 | S01 correction: BULK_COPY_THRESHOLD 576->544
+0170 | S01 stability try: DEFAULT_MIN_GALLOPING 6->7 with threshold544+case4
+0171 | S01 balanced recovery: BULK_COPY_THRESHOLD 544->512 with MIN_GALLOPING=7+case4
+0172 | S01 final attempt: DEFAULT_MIN_GALLOPING 7->6 (threshold512+case4)
+0173 | anchor 0167 S02: MAX_POOLED_TMP_LENGTH multiplier 128->96
+0174 | S02 guardrail tune: MAX_POOLED_TMP_LENGTH multiplier 96->112
+0175 | S02 cleanup: MAX_POOLED_TMP_LENGTH multiplier 112->128 (anchor value)
+0176 | S02 stability attempt: DEFAULT_MIN_GALLOPING 6->7 (threshold512, pool128, case4)
+0177 | S02 final attempt: revert DEFAULT_MIN_GALLOPING 7->6
+0178 | anchor 0167 S03: DEFAULT_TMP_STORAGE_LENGTH 288->256
+0179 | S03 midpoint sizing: DEFAULT_TMP_STORAGE_LENGTH 256->272
+0180 | S03 stability try: DEFAULT_MIN_GALLOPING 6->7 with TMP=272
+0181 | S03 medium recovery: BULK_COPY_THRESHOLD 512->576 with TMP=272 MIN_GALLOPING=7
+0182 | S03 final attempt: BULK_COPY_THRESHOLD 576->544 with TMP=272 MIN_GALLOPING=7
+0183 | anchor 0157 final child: DEFAULT_MIN_MERGE 40->48
+0184 | S03 soften min-merge step: DEFAULT_MIN_MERGE 48->44
+0185 | S03 cleanup: revert DEFAULT_MIN_MERGE 44->40
+0186 | S03 quick tune: BULK_COPY_THRESHOLD 512->480
+0187 | S03 final attempt: DEFAULT_MIN_GALLOPING 7->5 with threshold480
+0188 | anchor 0126 S02: MAX_POOLED_TMP_LENGTH multiplier 64->128
+0189 | S02 continuation: DEFAULT_MIN_MERGE 32->40 with pool128
+0190 | S02 historical signal: DEFAULT_MIN_GALLOPING 9->8 with MIN_MERGE40 pool128
+0191 | S02 quick recovery: DEFAULT_MIN_MERGE 40->32 (keep MIN_GALLOPING=8, pool128)
+0192 | S02 final attempt: MAX_POOLED_TMP_LENGTH multiplier 128->64 (MIN_MERGE32, MIN_GALLOPING8, threshold512)
+0193 | replay on anchor 0126: combine case4 insertion shift + BULK_COPY_THRESHOLD 512->24
+0194 | S03 moderation: BULK_COPY_THRESHOLD 24->128 with case4 replay retained
+0195 | S03 threshold sweep: BULK_COPY_THRESHOLD 128->256 with case4
+0196 | S03 historical direction: DEFAULT_MIN_GALLOPING 9->8 with case4+threshold256
+0197 | S03 final attempt: BULK_COPY_THRESHOLD 256->512 with MIN_GALLOPING8 + case4
+0198 | anchor 0016 S03: MAX_POOLED_TMP_LENGTH multiplier 64->128
+0199 | S03 quick-guardrail tune: MAX_POOLED_TMP_LENGTH multiplier 128->96
+0200 | S03 cleanup: MAX_POOLED_TMP_LENGTH multiplier 96->64
+0201 | S03 strong move: BULK_COPY_THRESHOLD 32->256 (pool64 baseline)
+0202 | S03 final attempt: DEFAULT_MIN_GALLOPING 8->7 with threshold256
+0203 | anchor 0202 S01: DEFAULT_MIN_MERGE 32->40
+0204 | S01 soften min-merge: DEFAULT_MIN_MERGE 40->36
+0205 | S01 preset rebalance: BULK_COPY_THRESHOLD 256->192
+0206 | S01 gallop shift: DEFAULT_MIN_GALLOPING 7->6 with threshold192
+0207 | S01 final attempt: BULK_COPY_THRESHOLD 192->256 with MIN_GALLOPING=6
+0208 | anchor 0202 S02: add case4 insertion-shift fast path
+0209 | S02 quick tune: BULK_COPY_THRESHOLD 256->192 with case4
+0210 | S02 recovery: BULK_COPY_THRESHOLD 192->256
+0211 | S02 gallop shift: DEFAULT_MIN_GALLOPING 7->6 with case4+threshold256
+0212 | S02 final attempt: remove case4 insertion path (keep MIN_GALLOPING=6, threshold256)
+0213 | anchor 0202 S03: DEFAULT_TMP_STORAGE_LENGTH 256->288
+0214 | S03 midpoint tmp sizing: DEFAULT_TMP_STORAGE_LENGTH 288->272
+0215 | S03 gallop shift: DEFAULT_MIN_GALLOPING 7->6 with TMP=272
+0216 | S03 balanced recovery: DEFAULT_TMP_STORAGE_LENGTH 272->256 with MIN_GALLOPING=6
+0217 | S03 final attempt: DEFAULT_MIN_GALLOPING 6->5 with threshold256
+0218 | B05 root: add case4 insertion-shift fast path
+0219 | B05 continuation: DEFAULT_MIN_GALLOPING 7->8 with case4
+0220 | B05 guardrail test: remove case4, keep DEFAULT_MIN_GALLOPING=8
+0221 | B05 strong shift: BULK_COPY_THRESHOLD 32->256 with MIN_GALLOPING=8
+0222 | B05 final attempt: BULK_COPY_THRESHOLD 256->192 with MIN_GALLOPING=8
+0223 | B06 root: DEFAULT_MIN_GALLOPING 7->8 + BULK_COPY_THRESHOLD 32->256
+0224 | B06 balance tune: BULK_COPY_THRESHOLD 256->192 (MIN_GALLOPING=8)
+0225 | anchor 0224 S01: DEFAULT_MIN_GALLOPING 8->7 with threshold192
+0226 | S01 correction: DEFAULT_MIN_GALLOPING 7->8
+0227 | S01 quick-focused threshold tune: BULK_COPY_THRESHOLD 192->128
+0228 | S01 near-threshold adjustment: BULK_COPY_THRESHOLD 128->160
+0229 | S01 final attempt: BULK_COPY_THRESHOLD 160->256
+0230 | anchor 0224 S02: DEFAULT_MIN_MERGE 32->40
+0231 | S02 soften min-merge: DEFAULT_MIN_MERGE 40->36
+0232 | S02 preset rebalance: BULK_COPY_THRESHOLD 192->160
+0233 | S02 quick recovery: BULK_COPY_THRESHOLD 160->256
+0234 | S02 final attempt: DEFAULT_MIN_MERGE 36->32
+0235 | anchor 0224 S03: add case4 insertion-shift fast path
+0236 | S03 balanced tune: BULK_COPY_THRESHOLD 192->160 with case4
+0237 | S03 quick push: BULK_COPY_THRESHOLD 160->128 with case4
+0238 | S03 rollback: BULK_COPY_THRESHOLD 128->160
+0239 | S03 final attempt: BULK_COPY_THRESHOLD 160->192 with case4

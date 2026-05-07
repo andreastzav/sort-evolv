@@ -1,0 +1,116 @@
+{
+  "name": "andsort-fasttable-bench",
+  "private": true,
+  "type": "module",
+  "folders": {
+    "evolution": "Per-sorting evolution artifacts under algorithms/<id>/evolution/<base-stem>/.",
+    "snapshots": "Per-sorting immutable snapshot files under algorithms/<id>/snapshots/<base-stem>/.",
+    "tables": "Per-sorting binary benchmark datasets under algorithms/<id>/tables/."
+  },
+  "files": {
+    "AGENTS.md": {
+      "description": "Working instructions/policy for autonomous sorter optimization and command canon."
+    },
+    "benchmark_search_cli.js": {
+      "description": "Parity benchmark search runner using the same shared session flow as orchestrator benchmarks; supports --from-shortlist.",
+      "algorithms/<id>/evolution/<base-stem>/benchmark_search_results.txt": "Human-readable benchmark summary (quick/medium/balanced/large/huge).",
+      "algorithms/<id>/evolution/<base-stem>/benchmark_search_results.csv": "Semicolon-delimited benchmark table with per-sorter metrics.",
+      "algorithms/<id>/evolution/<base-stem>/benchmark_search_results.json": "Machine-friendly benchmark payload with parity config and summaries."
+    },
+    "benchmarks_cli.js": {
+      "description": "CLI benchmark entry point (quick/medium/balanced/large presets, optional custom candidate file)."
+    },
+    "benchmarks_core.js": {
+      "description": "Shared benchmark engine and report formatting for CLI tools."
+    },
+    "cli_arg_utils_core.js": {
+      "description": "Shared CLI argument helpers (base-file normalization and positive-int parsing)."
+    },
+    "numeric_utils_core.js": {
+      "description": "Shared numeric helpers (positive-int normalization)."
+    },
+    "evolution_graph_cli.js": {
+      "description": "CLI renderer for evolution metadata -> SVG/HTML tree graph.",
+      "algorithms/<id>/evolution/<base-stem>/<input-base>.html": "Rendered HTML wrapper for the SVG graph (default location).",
+      "algorithms/<id>/evolution/<base-stem>/<input-base>.svg": "Rendered evolution graph SVG (default location)."
+    },
+    "evolution_graph_core.js": {
+      "description": "Core graph layout/render logic shared by evolution graph tools."
+    },
+    "generation_cli.js": {
+      "description": "CLI dataset generator for synthetic row tables.",
+      "<custom-output>.json": "Optional generated JSON dataset when --out is provided."
+    },
+    "generation_core.js": {
+      "description": "Shared row/table generation logic, schema metadata, and preset generation settings."
+    },
+    "ideas_export_cli.js": {
+      "description": "Exports idea lines from algorithms/<id>/evolution/<base-stem>/<id>_progress.jsonl into compact context files for idea review.",
+      "algorithms/<id>/evolution/<base-stem>/ideas_only.txt": "One line per snapshot in format: snapshot_id | idea.",
+      "algorithms/<id>/evolution/<base-stem>/ideas_with_context.txt": "One line per snapshot in format: snapshot=... | parent=... | branch=... | depth=... | idea=... | status=... | delta_vs_anchor_overall_score_p50=....",
+      "algorithms/<id>/evolution/<base-stem>/ideas_with_context.json": "JSON array with the same context field names as the TXT lines."
+    },
+    "native-sort.js": {
+      "description": "ESM wrapper exposing native Array.prototype.sort as a benchmark sorter module."
+    },
+    "package.json": {
+      "description": "Project manifest (ESM mode, scripts, and in-repo file/folder map metadata)."
+    },
+    "run_cli_with_sorting.js": {
+      "description": "NPM script wrapper that enforces required sorting id and forwards to CLI as --sorting <id>."
+    },
+    "simulate_evolution_cli.js": {
+      "description": "Synthetic evolution simulator for testing orchestrator behavior and graph rendering.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_iterations.fake.html": "Default synthetic graph HTML output.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_iterations.fake.json": "Default synthetic metadata output.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_iterations.fake.svg": "Default synthetic graph SVG output."
+    },
+    "shared_benchmark_session_core.js": {
+      "description": "Single source of truth for shared-session benchmark execution (warmup/order/AB/session totals)."
+    },
+    "shortlist_candidates_cli.js": {
+      "description": "Builds a noise-aware candidate shortlist from algorithms/<id>/evolution/<base-stem>/<id>_progress.jsonl.",
+      "algorithms/<id>/evolution/<base-stem>/shortlist_candidates.txt": "Human-readable shortlist with ranking rationale and key metrics.",
+      "algorithms/<id>/evolution/<base-stem>/shortlist_candidates.json": "Machine-friendly shortlist JSON with shortlist, ranked view, and decision metrics."
+    },
+    "store_table_cli.js": {
+      "description": "CLI for storing/loading binary table files used by benchmark presets.",
+      "algorithms/<id>/tables/<custom-name>.bin": "Saved binary dataset file for later reload.",
+      "algorithms/<id>/tables/table-10000.bin": "Preset binary dataset (10,000 rows).",
+      "algorithms/<id>/tables/table-100000.bin": "Preset binary dataset (100,000 rows).",
+      "algorithms/<id>/tables/table-1000000.bin": "Preset binary dataset (1,000,000 rows).",
+      "algorithms/<id>/tables/table-250000.bin": "Preset binary dataset (250,000 rows).",
+      "algorithms/<id>/tables/table-50000.bin": "Preset binary dataset (50,000 rows)."
+    },
+    "store_table_core.js": {
+      "description": "Binary .bin table format encoder/decoder with embedded schema support."
+    },
+    "sorting_experiments_cli.js": {
+      "description": "Anchored-DFS experiment orchestrator (next/prepare/auto-record/status) for sorting evolution.",
+      "algorithms/<id>/snapshots/<base-stem>/<id>_XXXX.js": "Immutable snapshot files produced per recorded iteration.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_iterations.json": "Authoritative evolution metadata/tree/state.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_progress.csv": "CSV progress log derived from each recorded snapshot entry.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_progress.jsonl": "JSONL progress log derived from each recorded snapshot entry.",
+      "algorithms/<id>/evolution/<base-stem>/<id>_progress.txt": "Human-readable append-only progress log."
+    },
+    "unit_tests_cli.js": {
+      "description": "CLI wrapper to run unit-tests-core and print pass/fail output."
+    },
+    "unit-tests-core.js": {
+      "description": "Shared unit test suite covering sorter correctness and benchmark/store invariants."
+    }
+  },
+  "scripts": {
+    "generate": "node run_cli_with_sorting.js generation_cli.js",
+    "store-table": "node run_cli_with_sorting.js store_table_cli.js",
+    "benchmark": "node run_cli_with_sorting.js benchmarks_cli.js",
+    "test": "node run_cli_with_sorting.js unit_tests_cli.js",
+    "experiment": "node run_cli_with_sorting.js sorting_experiments_cli.js",
+    "compat": "node run_cli_with_sorting.js sorting_compat_cli.js",
+    "matrix-smoke": "node sorting_matrix_smoke_cli.js",
+    "simulate-evolution": "node run_cli_with_sorting.js simulate_evolution_cli.js",
+    "graph-evolution": "node run_cli_with_sorting.js evolution_graph_cli.js",
+    "ideas-export": "node run_cli_with_sorting.js ideas_export_cli.js",
+    "shortlist-candidates": "node run_cli_with_sorting.js shortlist_candidates_cli.js"
+  }
+}

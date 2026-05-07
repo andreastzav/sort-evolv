@@ -1,0 +1,170 @@
+0001 | B01: index-projection sort path for object rows (sort indices then materialize)
+0002 | B01 depth2: gate index-projection path to very large arrays only (min length 200k)
+0003 | B01 depth3: enable index-projection from 80k rows (targets balanced tier)
+0004 | B01 depth4: raise index-projection gate to 120k to avoid balanced-path overhead
+0005 | B01 depth5: disable index-projection path after guarded threshold sweeps
+0006 | B02 depth1: increase DEFAULT_TMP_STORAGE_LENGTH 256->1024 for larger merge scratch
+0007 | B02 depth2: combine tmp1024 with DEFAULT_MIN_MERGE 40->32
+0008 | B02 depth3: with tmp1024+minMerge32, lower DEFAULT_MIN_GALLOPING 8->7
+0009 | B02 depth4: revert minGalloping 7->8 and raise BULK_COPY_THRESHOLD 512->768
+0010 | B02 depth5: keep tmp1024+threshold768 but restore DEFAULT_MIN_MERGE 32->40
+0011 | B03 depth1: unroll copyFromBuffer loop by 8 instead of 4
+0012 | B03 depth2: with unroll8, raise BULK_COPY_THRESHOLD 512->1024
+0013 | B03.S01 depth1: from winner 0012, lower BULK_COPY_THRESHOLD 1024->896
+0014 | B03.S01 depth2: threshold sweep opposite 896->1152 around winner 0012
+0015 | B03.S01 depth3: with unroll8+threshold1152, raise DEFAULT_MIN_GALLOPING 8->9
+0016 | B03.S01 depth4: tighten BULK_COPY_THRESHOLD 1152->1088 with minGalloping9
+0017 | B03.S01.S01 depth1: from anchor0016 raise DEFAULT_MIN_GALLOPING 9->10
+0018 | B03.S01.S01.S01 depth1: from anchor0017 raise DEFAULT_MIN_MERGE 40->64
+0019 | B03.S01.S01.S01.S01 depth1: from anchor0018 sweep DEFAULT_MIN_MERGE 64->72
+0020 | B03.S01.S01.S01.S01 depth2: refine DEFAULT_MIN_MERGE 72->68
+0021 | B03.S01.S01.S01.S01 depth3: lower DEFAULT_MIN_MERGE 68->60
+0022 | B03.S01.S01.S01.S01 depth4: with minMerge60, lower BULK_COPY_THRESHOLD 1088->1024
+0023 | B03.S01.S01.S01.S01 depth5: final try raise DEFAULT_MIN_GALLOPING 10->11
+0024 | B03.S01.S01.S01.S02 depth1: sibling sweep DEFAULT_MIN_MERGE 64->56
+0025 | B03.S01.S01.S01.S02 depth2: with minMerge56 lower BULK_COPY_THRESHOLD 1088->1024
+0026 | B03.S01.S01.S01.S02 depth3: raise DEFAULT_MIN_GALLOPING 10->11
+0027 | B03.S01.S01.S01.S02 depth4: lower DEFAULT_MIN_MERGE 56->52 for recovery
+0028 | B03.S01.S01.S01.S02 depth5: final try restore DEFAULT_MIN_GALLOPING 11->10
+0029 | B03.S01.S01.S01.S03 depth1: combine case4 insertion shift with BULK_COPY_THRESHOLD 1088->24
+0030 | B03.S01.S01.S01.S03 depth2: keep case4 fast path, recover BULK_COPY_THRESHOLD 24->512
+0031 | B03.S01.S01.S01.S03 depth3: keep case4, sweep BULK_COPY_THRESHOLD 512->1024
+0032 | B03.S01.S01.S01.S03 depth4: with case4+threshold1024 lower DEFAULT_MIN_MERGE 64->60
+0033 | B03.S01.S01.S01.S03 depth5: final try lower BULK_COPY_THRESHOLD 1024->896
+0034 | B03.S01.S01.S02 depth1: sibling from 0017 raise DEFAULT_MIN_MERGE 40->56
+0035 | B03.S01.S01.S02 depth2: with minMerge56 lower BULK_COPY_THRESHOLD 1088->896
+0036 | B03.S01.S01.S02 depth3: raise DEFAULT_MIN_GALLOPING 10->11
+0037 | B03.S01.S01.S02 depth4: with minGalloping11 raise DEFAULT_MIN_MERGE 56->60
+0038 | B03.S01.S01.S02 depth5: final try lower BULK_COPY_THRESHOLD 896->768
+0039 | B03.S01.S01.S03 depth1: sibling from 0017 sweep DEFAULT_MIN_MERGE 40->48
+0040 | B03.S01.S01.S03 depth2: with minMerge48 lower BULK_COPY_THRESHOLD 1088->960
+0041 | B03.S01.S01.S03 depth3: with minMerge48+threshold960 lower DEFAULT_MIN_GALLOPING 10->9
+0042 | B03.S01.S01.S03 depth4: raise DEFAULT_MIN_MERGE 48->64 to push overall gain above threshold
+0043 | B03.S01.S01.S03 depth5: final recovery BULK_COPY_THRESHOLD 960->1088
+0044 | B03.S01.S01.S03.S01 depth1: from anchor0043 raise DEFAULT_MIN_GALLOPING 9->10
+0045 | B03.S01.S01.S03.S01 depth2: lower DEFAULT_MIN_MERGE 64->56 for faster short-run handling
+0046 | B03.S01.S01.S03.S01 depth3: with minMerge56 lower BULK_COPY_THRESHOLD 1088->960
+0047 | B03.S01.S01.S03.S01 depth4: restore DEFAULT_MIN_GALLOPING 10->9
+0048 | B03.S01.S01.S03.S01 depth5: final try raise DEFAULT_MIN_MERGE 56->64 to recover balanced guardrail
+0049 | B03.S01.S01.S03.S02 depth1: sibling sweep DEFAULT_MIN_MERGE 64->72
+0050 | B03.S01.S01.S03.S02 depth2: refine DEFAULT_MIN_MERGE 72->68
+0051 | B03.S01.S01.S03.S02 depth3: with minMerge68 lower BULK_COPY_THRESHOLD 1088->960
+0052 | B03.S01.S01.S03.S02.S01 depth1: from anchor0051 lower DEFAULT_MIN_GALLOPING 9->8
+0053 | B03.S01.S01.S03.S02.S01.S01 depth1: from anchor0052 lower DEFAULT_MIN_GALLOPING 8->7
+0054 | B03.S01.S01.S03.S02.S01.S01.S01 depth1: from anchor0053 lower DEFAULT_MIN_GALLOPING 7->6
+0055 | B03.S01.S01.S03.S02.S01.S01.S01 depth2: lower DEFAULT_MIN_MERGE 68->64 to push over threshold
+0056 | B03.S01.S01.S03.S02.S01.S01.S01 depth3: revert DEFAULT_MIN_MERGE 64->68 after regression
+0057 | B03.S01.S01.S03.S02.S01.S01.S01 depth4: lower BULK_COPY_THRESHOLD 960->896
+0058 | B03.S01.S01.S03.S02.S01.S01.S01 depth5: final try restore DEFAULT_MIN_GALLOPING 6->7
+0059 | B03.S01.S01.S03.S02.S01.S01.S02 depth1: sibling lower BULK_COPY_THRESHOLD 960->896
+0060 | B03.S01.S01.S03.S02.S01.S01.S02 depth2: lower DEFAULT_MIN_MERGE 68->64 to recover medium
+0061 | B03.S01.S01.S03.S02.S01.S01.S02 depth3: rebalance guardrail with BULK_COPY_THRESHOLD 896->960
+0062 | B03.S01.S01.S03.S02.S01.S01.S02.S01 depth1: from anchor0061 raise DEFAULT_MIN_GALLOPING 7->8
+0063 | B03.S01.S01.S03.S02.S01.S01.S02.S01 depth2: lower BULK_COPY_THRESHOLD 960->896 to recover quick
+0064 | B03.S01.S01.S03.S02.S01.S01.S02.S01 depth3: restore DEFAULT_MIN_GALLOPING 8->7
+0065 | B03.S01.S01.S03.S02.S01.S01.S02.S01 depth4: raise DEFAULT_MIN_MERGE 64->72 for quick guardrail recovery
+0066 | B03.S01.S01.S03.S02.S01.S01.S02.S01 depth5: final restore BULK_COPY_THRESHOLD 896->960
+0067 | B03.S01.S01.S03.S02.S01.S01.S02.S01.S01 depth1: from anchor0066 lower DEFAULT_MIN_MERGE 72->68
+0068 | B03.S01.S01.S03.S02.S01.S01.S02.S01.S01 depth2: lower DEFAULT_MIN_GALLOPING 7->6
+0069 | B03.S01.S01.S03.S02.S01.S01.S02.S01.S01 depth3: restore DEFAULT_MIN_GALLOPING 6->7 for quick recovery
+0070 | B03... depth4: raise DEFAULT_MIN_MERGE 68->72 for quick-side recovery
+0071 | B03...S01 depth1: from anchor0070 lower DEFAULT_MIN_GALLOPING 7->6
+0072 | B03...S01 depth2: raise BULK_COPY_THRESHOLD 960->1024
+0073 | B03...S01 depth3: restore DEFAULT_MIN_GALLOPING 6->7
+0074 | B03...S01 depth4: lower DEFAULT_MIN_MERGE 72->68 to reduce preset spread
+0075 | B03... depth5: final try lower BULK_COPY_THRESHOLD 1024->960
+0076 | B03...S02 depth1: sibling sweep DEFAULT_MIN_MERGE 72->80
+0077 | B03...S02.S01 depth1: from anchor0076 lower DEFAULT_MIN_GALLOPING 7->6
+0078 | B03...S02.S01 depth2: raise BULK_COPY_THRESHOLD 960->1024 for quick guardrail
+0079 | B03...S02.S01 depth3: lower DEFAULT_MIN_MERGE 80->76 to reduce balanced regression
+0080 | B03...S02.S01 depth4: restore DEFAULT_MIN_GALLOPING 6->7 for medium recovery
+0081 | B03...S02.S01 depth5: final restore DEFAULT_MIN_MERGE 76->80
+0082 | B03...S02 depth1: sibling sweep DEFAULT_MIN_MERGE 80->88
+0083 | B03...S02 depth2: partial rollback DEFAULT_MIN_MERGE 88->84
+0084 | B03...S02 depth3: restore DEFAULT_MIN_MERGE 84->80 after medium regression
+0085 | B03...S02 depth4: raise DEFAULT_MIN_GALLOPING 7->8 to recover balanced
+0086 | B03...S02 depth5: final restore DEFAULT_MIN_GALLOPING 8->7
+0087 | B03...S03 depth1: sibling threshold sweep BULK_COPY_THRESHOLD 960->928
+0088 | B03...S03 depth2: raise DEFAULT_MIN_MERGE 80->84 with threshold928
+0089 | B03...S03.S01 depth1: from anchor0088 raise DEFAULT_MIN_MERGE 84->88
+0090 | B03...S03.S01 depth2: refine DEFAULT_MIN_MERGE 88->86 to recover quick
+0091 | B03...S03.S01 depth3: lower DEFAULT_MIN_GALLOPING 7->6 for medium recovery
+0092 | B03...S03.S01 depth4: raise DEFAULT_MIN_MERGE 86->87 for balanced guardrail
+0093 | B03...S03.S01 depth5: final restore DEFAULT_MIN_GALLOPING 6->7
+0094 | B03...S03.S02 depth1: sibling refine DEFAULT_MIN_MERGE 84->82
+0095 | B03...S03.S02 depth2: raise BULK_COPY_THRESHOLD 928->960 for balanced guardrail
+0096 | B03...S03.S02 depth3: lower DEFAULT_MIN_MERGE 82->80 for quick/medium recovery
+0097 | B03...S03.S02 depth4: raise DEFAULT_MIN_GALLOPING 7->8 to rebalance quick/medium
+0098 | B03...S03.S02 depth5: final restore DEFAULT_MIN_GALLOPING 8->7
+0099 | B03...S03.S03 depth1: sibling threshold sweep BULK_COPY_THRESHOLD 928->896
+0100 | B03...S03.S03 depth2: raise DEFAULT_MIN_MERGE 84->86 with threshold896
+0101 | B03...S03.S03 depth3: restore BULK_COPY_THRESHOLD 896->928 with minMerge86
+0102 | B03...S03.S03 depth4: raise DEFAULT_MIN_GALLOPING 7->8 for balanced guardrail
+0103 | B03...S03.S03 depth5: final lower DEFAULT_MIN_MERGE 86->84
+0104 | B03...S03 depth1: sibling sweep DEFAULT_MIN_MERGE 72->76
+0105 | implementation: threshold sweep BULK_COPY_THRESHOLD 960->1024
+0106 | implementation: add tiny copyFromBuffer fast path for count<=4
+0107 | implementation: keep tiny copyFromBuffer path and revert BULK_COPY_THRESHOLD 1024->960
+0108 | implementation: keep tiny copy path and tune DEFAULT_MIN_GALLOPING 7->6
+0109 | implementation: sibling from 0066 lower BULK_COPY_THRESHOLD 960->896
+0110 | implementation: with threshold896 tune DEFAULT_MIN_GALLOPING 7->8
+0111 | implementation: with threshold896+gallop8 tune DEFAULT_MIN_MERGE 72->68
+0112 | implementation: revert DEFAULT_MIN_MERGE 68->72 under threshold896+gallop8
+0113 | implementation: final S02 probe lower BULK_COPY_THRESHOLD 896->832
+0114 | implementation: child from 0113 lower BULK_COPY_THRESHOLD 832->768
+0115 | implementation: child from 0114 lower BULK_COPY_THRESHOLD 768->704
+0116 | implementation: with threshold704 tune DEFAULT_MIN_GALLOPING 8->9
+0117 | implementation: with threshold704+gallop9 tune DEFAULT_MIN_MERGE 72->76
+0118 | implementation: with minMerge76+gallop9 tune BULK_COPY_THRESHOLD 704->736
+0119 | implementation: final S01 probe revert DEFAULT_MIN_MERGE 76->72 with threshold736+gallop9
+0120 | implementation: sibling from 0114 raise BULK_COPY_THRESHOLD 768->800
+0121 | implementation: with threshold800 tune DEFAULT_MIN_GALLOPING 8->9
+0122 | implementation: with gallop9 tune BULK_COPY_THRESHOLD 800->784
+0123 | implementation: with threshold784 tune DEFAULT_MIN_GALLOPING 9->10
+0124 | implementation: final S02 probe with gallop10+threshold784 tune DEFAULT_MIN_MERGE 72->68
+0125 | implementation: third sibling from 0114 raise BULK_COPY_THRESHOLD 768->832
+0126 | implementation: with threshold832 tune DEFAULT_MIN_GALLOPING 8->9
+0127 | implementation: add tiny copyFromBuffer fast path for count<=4 (no ping-pong)
+0128 | implementation: copyWithin only for backward large-range moves + tiny copy path
+0129 | implementation: bitmask unroll limit in copyFromBuffer (count & ~7), no ping-pong
+0130 | implementation: sibling from 0113 increase DEFAULT_TMP_STORAGE_LENGTH 256->384 (no ping-pong)
+0131 | implementation: with tmp384 increase MAX_TIMSORT_STATE_POOL_SIZE 1->2
+0132 | implementation: with tmp384+pool2 raise MAX_POOLED_TMP_LENGTH factor 64->96
+0133 | implementation: add tiny copyFromBuffer fast path on tmp384/pool2 branch
+0134 | implementation: final S02 push with tiny path+tmp384 tune BULK_COPY_THRESHOLD 832->800
+0135 | implementation: binaryInsertionSort add case-4 direct shift fast path
+0136 | implementation: with case4 shift tune BULK_COPY_THRESHOLD 832->800 to recover quick guardrail
+0137 | implementation: with case4+threshold800 tune DEFAULT_MIN_GALLOPING 8->9
+0138 | implementation: child from 0137 add tiny copyFromBuffer fast path count<=4
+0139 | implementation: with 0138 winner restrict copyWithin to backward large copies
+0140 | implementation: with backward-copyWithin restriction tune BULK_COPY_THRESHOLD 800->768
+0141 | implementation: with backward-copyWithin+threshold768 tune DEFAULT_MIN_GALLOPING 9->10
+0142 | implementation: with backward-copyWithin+threshold768+gallop10 tune DEFAULT_MIN_MERGE 72->76
+0143 | implementation: final S01 step lower BULK_COPY_THRESHOLD 768->736 on non-ping-pong chain
+0144 | implementation: sibling from 0138 increase DEFAULT_TMP_STORAGE_LENGTH 256->320
+0145 | implementation: with tmp320 increase MAX_TIMSORT_STATE_POOL_SIZE 1->2 (no ping-pong)
+0146 | implementation: with tmp320+pool2 raise MAX_POOLED_TMP_LENGTH factor 64->96
+0147 | implementation: with tmp320+pool2+poolcap96 tune DEFAULT_MIN_GALLOPING 9->10
+0148 | implementation: final S02 step tune DEFAULT_MIN_MERGE 72->76 on no-ping-pong chain
+0149 | implementation: sibling from 0138 increase DEFAULT_TMP_STORAGE_LENGTH 256->288
+0150 | implementation: with tmp288 increase MAX_TIMSORT_STATE_POOL_SIZE 1->2
+0151 | implementation: forward-only tune MAX_POOLED_TMP_LENGTH factor 64->96 on tmp288/pool2 chain
+0152 | implementation: forward-only tune DEFAULT_MIN_GALLOPING 9->10 on tmp288/pool2 chain
+0153 | implementation: final forward step tune DEFAULT_MIN_MERGE 72->76 on tmp288/pool2 chain
+0154 | implementation: sibling from 0137 forward-only DEFAULT_TMP_STORAGE_LENGTH 256->288
+0155 | implementation: with tmp288 tune MAX_TIMSORT_STATE_POOL_SIZE 1->2 (forward-only)
+0156 | implementation: with tmp288+pool2 tune MAX_POOLED_TMP_LENGTH factor 64->96 (forward-only)
+0157 | implementation: with tmp288+pool2+poolcap96 tune DEFAULT_MIN_GALLOPING 9->10
+0158 | implementation: final forward step tune DEFAULT_MIN_MERGE 72->76 on tmp288 sibling chain
+0159 | implementation: child from 0158 add tiny copyFromBuffer fast path count<=4
+0160 | implementation: forward-only tune BULK_COPY_THRESHOLD 800->768 on 0159 chain
+0161 | implementation: forward-only tune DEFAULT_MIN_GALLOPING 10->11 on 0159 chain
+0162 | implementation: forward-only tune DEFAULT_MIN_MERGE 76->80 on 0159 chain
+0163 | implementation: final forward step tune BULK_COPY_THRESHOLD 768->736 on 0159 chain
+0164 | implementation: sibling from 0158 restrict copyWithin to backward large copies
+0165 | implementation: forward-only with backward-copyWithin tune BULK_COPY_THRESHOLD 800->768
+0166 | implementation: forward-only with backward-copyWithin+threshold768 tune DEFAULT_MIN_GALLOPING 10->11
+0167 | implementation: forward-only tune DEFAULT_MIN_MERGE 76->80 on 0166 chain
+0168 | implementation: final forward step tune BULK_COPY_THRESHOLD 768->736 on 0166 chain
+0169 | implementation: sibling 3/3 from 0158 forward-only DEFAULT_TMP_STORAGE_LENGTH 288->320
+0170 | implementation: with tmp320 forward-only tune MAX_TIMSORT_STATE_POOL_SIZE 2->3

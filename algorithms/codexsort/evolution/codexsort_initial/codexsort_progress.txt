@@ -1,0 +1,762 @@
+# codexsort experiment progress log
+# created 2026-04-21T22:26:13.573Z
+
+[2026-04-21T22:31:23.473Z] snapshot 0001 (WINNER)
+parent=0000 branch=B01 depth=1 idea=low-cardinality adaptive fallback to native stable sort
+benchmark preset=medium
+native_avg=56.152 ms native_p50=59.523 ms
+codexsort_avg=63.593 ms codexsort_p50=70.724 ms
+delta_vs_immediate_parent_overall_score_p50=n/a
+display_preset_improvement_vs_native_avg=-13.252%
+preset_score_p50=1.102603
+display_preset_improvement_vs_native_p50=-10.260%
+anchor_id=0000 anchor_score_p50=1.219256 delta_vs_anchor_score_p50=6.867%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=1.016160 anchor_preset_quick_score_p50=1.032587 delta_vs_anchor_preset_quick_score_p50=1.591%
+preset_medium_score_p50=1.102603 anchor_preset_medium_score_p50=1.244187 delta_vs_anchor_preset_medium_score_p50=11.380%
+preset_balanced_score_p50=1.306804 anchor_preset_balanced_score_p50=1.410822 delta_vs_anchor_preset_balanced_score_p50=7.373%
+tests passed=7/7 failed=0 total_ms=323.374 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=1.244187 current_preset_score_p50=1.102603 delta_vs_anchor_preset_score_p50=11.380%
+benchmark_step_total=85662.000 ms (85.662 s) iteration_total=85999.000 ms (85.999 s)
+suite_benchmark_current_total=20779.769 ms (20.780 s) suite_benchmark_parent_total=21668.915 ms (21.669 s)
+suite_benchmark_combined_total=59233.244 ms (59.233 s)
+overall_score_p50=1.135526 anchor_overall_score_p50=1.219256 delta_vs_anchor_overall_score_p50=6.867% anchor_improvement_vs_native_overall_p50=-21.926% improvement_vs_native_overall_p50=-13.553%
+
+[2026-04-21T22:33:25.510Z] snapshot 0002 (LOSER)
+parent=0001 branch=B01.S01 depth=1 idea=scale-aware hybrid: route >=50k rows to native stable sort
+benchmark preset=medium
+native_avg=53.760 ms native_p50=51.604 ms
+codexsort_avg=53.269 ms codexsort_p50=50.902 ms
+delta_vs_immediate_parent_overall_score_p50=12.102%
+display_preset_improvement_vs_native_avg=0.912%
+preset_score_p50=0.994708
+display_preset_improvement_vs_native_p50=0.529%
+anchor_id=0001 anchor_score_p50=1.117767 delta_vs_anchor_score_p50=10.705%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.999951 anchor_preset_quick_score_p50=0.975838 delta_vs_anchor_preset_quick_score_p50=-2.471%
+preset_medium_score_p50=0.994708 anchor_preset_medium_score_p50=1.100641 delta_vs_anchor_preset_medium_score_p50=9.625%
+preset_balanced_score_p50=0.999674 anchor_preset_balanced_score_p50=1.300262 delta_vs_anchor_preset_balanced_score_p50=23.118%
+tests passed=7/7 failed=0 total_ms=317.810 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=1.100641 current_preset_score_p50=0.994708 delta_vs_anchor_preset_score_p50=9.625%
+benchmark_step_total=76760.000 ms (76.760 s) iteration_total=77090.000 ms (77.090 s)
+suite_benchmark_current_total=16399.967 ms (16.400 s) suite_benchmark_parent_total=20280.708 ms (20.281 s)
+suite_benchmark_combined_total=53128.836 ms (53.129 s)
+overall_score_p50=0.998108 anchor_overall_score_p50=1.117767 delta_vs_anchor_overall_score_p50=10.705% anchor_improvement_vs_native_overall_p50=-11.777% improvement_vs_native_overall_p50=0.189%
+
+[2026-04-21T22:37:33.083Z] snapshot 0003 (LOSER)
+parent=0002 branch=B01.S01 depth=2 idea=internal hybrid only: tim-run merges + stable 3-way quick partition + bubble-preconditioned tiny ranges
+benchmark preset=medium
+native_avg=53.584 ms native_p50=50.645 ms
+codexsort_avg=87.988 ms codexsort_p50=81.244 ms
+delta_vs_immediate_parent_overall_score_p50=-54.624%
+display_preset_improvement_vs_native_avg=-64.205%
+preset_score_p50=1.806735
+display_preset_improvement_vs_native_p50=-80.673%
+anchor_id=0001 anchor_score_p50=1.130135 delta_vs_anchor_score_p50=-36.560%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=1.142713 anchor_preset_quick_score_p50=1.004717 delta_vs_anchor_preset_quick_score_p50=-13.735%
+preset_medium_score_p50=1.806735 anchor_preset_medium_score_p50=1.097160 delta_vs_anchor_preset_medium_score_p50=-64.674%
+preset_balanced_score_p50=1.780469 anchor_preset_balanced_score_p50=1.309416 delta_vs_anchor_preset_balanced_score_p50=-35.974%
+tests passed=7/7 failed=0 total_ms=349.937 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=1.097160 current_preset_score_p50=1.806735 delta_vs_anchor_preset_score_p50=-64.674%
+benchmark_step_total=90145.000 ms (90.145 s) iteration_total=90507.000 ms (90.507 s)
+suite_benchmark_current_total=26496.378 ms (26.496 s) suite_benchmark_parent_total=20190.996 ms (20.191 s)
+suite_benchmark_combined_total=63036.251 ms (63.036 s)
+overall_score_p50=1.543318 anchor_overall_score_p50=1.130135 delta_vs_anchor_overall_score_p50=-36.560% anchor_improvement_vs_native_overall_p50=-13.014% improvement_vs_native_overall_p50=-54.332%
+
+[2026-04-21T22:39:38.747Z] snapshot 0004 (LOSER)
+parent=0003 branch=B01.S01 depth=3 idea=tim-run primary path; restrict quick partition to strong low-cardinality signals
+benchmark preset=medium
+native_avg=52.241 ms native_p50=49.383 ms
+codexsort_avg=63.150 ms codexsort_p50=57.787 ms
+delta_vs_immediate_parent_overall_score_p50=22.233%
+display_preset_improvement_vs_native_avg=-20.883%
+preset_score_p50=1.229230
+display_preset_improvement_vs_native_p50=-22.923%
+anchor_id=0001 anchor_score_p50=1.136186 delta_vs_anchor_score_p50=-5.633%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=1.082423 anchor_preset_quick_score_p50=1.013439 delta_vs_anchor_preset_quick_score_p50=-6.807%
+preset_medium_score_p50=1.229230 anchor_preset_medium_score_p50=1.108319 delta_vs_anchor_preset_medium_score_p50=-10.909%
+preset_balanced_score_p50=1.299326 anchor_preset_balanced_score_p50=1.305829 delta_vs_anchor_preset_balanced_score_p50=0.498%
+tests passed=7/7 failed=0 total_ms=319.245 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=1.108319 current_preset_score_p50=1.229230 delta_vs_anchor_preset_score_p50=-10.909%
+benchmark_step_total=83479.000 ms (83.479 s) iteration_total=83809.000 ms (83.809 s)
+suite_benchmark_current_total=21078.008 ms (21.078 s) suite_benchmark_parent_total=20731.159 ms (20.731 s)
+suite_benchmark_combined_total=58413.176 ms (58.413 s)
+overall_score_p50=1.200188 anchor_overall_score_p50=1.136186 delta_vs_anchor_overall_score_p50=-5.633% anchor_improvement_vs_native_overall_p50=-13.619% improvement_vs_native_overall_p50=-20.019%
+
+[2026-05-05T18:46:08.345Z] snapshot 0005 (WINNER)
+parent=0004 branch=B01.S01 depth=4 idea=stable comparator bucket path for low-cardinality data
+benchmark preset=medium
+native_avg=51.810 ms native_p50=49.218 ms
+codexsort_avg=55.207 ms codexsort_p50=54.266 ms
+delta_vs_immediate_parent_overall_score_p50=18.282%
+display_preset_improvement_vs_native_avg=-6.555%
+preset_score_p50=0.982415
+display_preset_improvement_vs_native_p50=1.759%
+anchor_id=0001 anchor_score_p50=1.095223 delta_vs_anchor_score_p50=10.451%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.880780 anchor_preset_quick_score_p50=0.969264 delta_vs_anchor_preset_quick_score_p50=9.129%
+preset_medium_score_p50=0.982415 anchor_preset_medium_score_p50=1.067248 delta_vs_anchor_preset_medium_score_p50=7.949%
+preset_balanced_score_p50=1.090265 anchor_preset_balanced_score_p50=1.269989 delta_vs_anchor_preset_balanced_score_p50=14.152%
+tests passed=7/7 failed=0 total_ms=324.465 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=1.067248 current_preset_score_p50=0.982415 delta_vs_anchor_preset_score_p50=7.949%
+benchmark_step_total=76340.000 ms (76.340 s) iteration_total=76678.000 ms (76.678 s)
+suite_benchmark_current_total=17967.083 ms (17.967 s) suite_benchmark_parent_total=18777.352 ms (18.777 s)
+suite_benchmark_combined_total=52529.133 ms (52.529 s)
+overall_score_p50=0.980765 anchor_overall_score_p50=1.095223 delta_vs_anchor_overall_score_p50=10.451% anchor_improvement_vs_native_overall_p50=-9.522% improvement_vs_native_overall_p50=1.924%
+
+[2026-05-05T18:49:57.058Z] snapshot 0006 (WINNER)
+parent=0005 branch=B01.S01.S01 depth=1 idea=timsort-style run stack collapse over comparator-bucket hybrid
+benchmark preset=medium
+native_avg=50.819 ms native_p50=48.676 ms
+codexsort_avg=49.670 ms codexsort_p50=46.967 ms
+delta_vs_immediate_parent_overall_score_p50=5.163%
+display_preset_improvement_vs_native_avg=2.261%
+preset_score_p50=0.912321
+display_preset_improvement_vs_native_p50=8.768%
+anchor_id=0005 anchor_score_p50=1.008030 delta_vs_anchor_score_p50=7.728%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.907238 anchor_preset_quick_score_p50=0.934665 delta_vs_anchor_preset_quick_score_p50=2.934%
+preset_medium_score_p50=0.912321 anchor_preset_medium_score_p50=0.999755 delta_vs_anchor_preset_medium_score_p50=8.746%
+preset_balanced_score_p50=0.972216 anchor_preset_balanced_score_p50=1.096154 delta_vs_anchor_preset_balanced_score_p50=11.307%
+tests passed=7/7 failed=0 total_ms=318.781 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.999755 current_preset_score_p50=0.912321 delta_vs_anchor_preset_score_p50=8.746%
+benchmark_step_total=71624.000 ms (71.624 s) iteration_total=71955.000 ms (71.955 s)
+suite_benchmark_current_total=15877.839 ms (15.878 s) suite_benchmark_parent_total=17976.309 ms (17.976 s)
+suite_benchmark_combined_total=49338.080 ms (49.338 s)
+overall_score_p50=0.930131 anchor_overall_score_p50=1.008030 delta_vs_anchor_overall_score_p50=7.728% anchor_improvement_vs_native_overall_p50=-0.803% improvement_vs_native_overall_p50=6.987%
+
+[2026-05-05T18:52:11.344Z] snapshot 0007 (WINNER)
+parent=0006 branch=B01.S01.S01.S01 depth=1 idea=raise huge-array minrun to 64 for balanced-size merge geometry
+benchmark preset=medium
+native_avg=52.167 ms native_p50=48.917 ms
+codexsort_avg=50.448 ms codexsort_p50=48.471 ms
+delta_vs_immediate_parent_overall_score_p50=3.250%
+display_preset_improvement_vs_native_avg=3.296%
+preset_score_p50=0.896310
+display_preset_improvement_vs_native_p50=10.369%
+anchor_id=0006 anchor_score_p50=0.922952 delta_vs_anchor_score_p50=2.497%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.884904 anchor_preset_quick_score_p50=0.900810 delta_vs_anchor_preset_quick_score_p50=1.766%
+preset_medium_score_p50=0.896310 anchor_preset_medium_score_p50=0.902308 delta_vs_anchor_preset_medium_score_p50=0.665%
+preset_balanced_score_p50=0.918821 anchor_preset_balanced_score_p50=0.967274 delta_vs_anchor_preset_balanced_score_p50=5.009%
+tests passed=7/7 failed=0 total_ms=316.926 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.902308 current_preset_score_p50=0.896310 delta_vs_anchor_preset_score_p50=0.665%
+benchmark_step_total=68662.000 ms (68.662 s) iteration_total=68990.000 ms (68.990 s)
+suite_benchmark_current_total=15410.110 ms (15.410 s) suite_benchmark_parent_total=16215.028 ms (16.215 s)
+suite_benchmark_combined_total=47429.221 ms (47.429 s)
+overall_score_p50=0.899902 anchor_overall_score_p50=0.922952 delta_vs_anchor_overall_score_p50=2.497% anchor_improvement_vs_native_overall_p50=7.705% improvement_vs_native_overall_p50=10.010%
+
+[2026-05-05T18:54:14.728Z] snapshot 0008 (LOSER)
+parent=0007 branch=B01.S01.S01.S01.S01 depth=1 idea=raise large-array minrun to 40 for quick-medium merge geometry
+benchmark preset=medium
+native_avg=55.052 ms native_p50=53.053 ms
+codexsort_avg=53.539 ms codexsort_p50=51.883 ms
+delta_vs_immediate_parent_overall_score_p50=0.304%
+display_preset_improvement_vs_native_avg=2.748%
+preset_score_p50=0.908797
+display_preset_improvement_vs_native_p50=9.120%
+anchor_id=0007 anchor_score_p50=0.904496 delta_vs_anchor_score_p50=0.810%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.864477 anchor_preset_quick_score_p50=0.879613 delta_vs_anchor_preset_quick_score_p50=1.721%
+preset_medium_score_p50=0.908797 anchor_preset_medium_score_p50=0.910894 delta_vs_anchor_preset_medium_score_p50=0.230%
+preset_balanced_score_p50=0.919188 anchor_preset_balanced_score_p50=0.923549 delta_vs_anchor_preset_balanced_score_p50=0.472%
+tests passed=7/7 failed=0 total_ms=337.939 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.910894 current_preset_score_p50=0.908797 delta_vs_anchor_preset_score_p50=0.230%
+benchmark_step_total=68446.000 ms (68.446 s) iteration_total=68796.000 ms (68.796 s)
+suite_benchmark_current_total=15520.872 ms (15.521 s) suite_benchmark_parent_total=15516.663 ms (15.517 s)
+suite_benchmark_combined_total=46913.123 ms (46.913 s)
+overall_score_p50=0.897170 anchor_overall_score_p50=0.904496 delta_vs_anchor_overall_score_p50=0.810% anchor_improvement_vs_native_overall_p50=9.550% improvement_vs_native_overall_p50=10.283%
+
+[2026-05-05T18:56:16.867Z] snapshot 0009 (LOSER)
+parent=0008 branch=B01.S01.S01.S01.S01 depth=2 idea=raise large-array minrun to 48 after near-win minrun 40
+benchmark preset=medium
+native_avg=52.275 ms native_p50=48.777 ms
+codexsort_avg=52.596 ms codexsort_p50=49.490 ms
+delta_vs_immediate_parent_overall_score_p50=-0.664%
+display_preset_improvement_vs_native_avg=-0.615%
+preset_score_p50=0.932624
+display_preset_improvement_vs_native_p50=6.738%
+anchor_id=0007 anchor_score_p50=0.899887 delta_vs_anchor_score_p50=-0.360%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.865082 anchor_preset_quick_score_p50=0.885317 delta_vs_anchor_preset_quick_score_p50=2.286%
+preset_medium_score_p50=0.932624 anchor_preset_medium_score_p50=0.902039 delta_vs_anchor_preset_medium_score_p50=-3.391%
+preset_balanced_score_p50=0.913029 anchor_preset_balanced_score_p50=0.912513 delta_vs_anchor_preset_balanced_score_p50=-0.057%
+tests passed=7/7 failed=0 total_ms=328.037 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.902039 current_preset_score_p50=0.932624 delta_vs_anchor_preset_score_p50=-3.391%
+benchmark_step_total=67097.000 ms (67.097 s) iteration_total=67438.000 ms (67.438 s)
+suite_benchmark_current_total=15437.289 ms (15.437 s) suite_benchmark_parent_total=15262.419 ms (15.262 s)
+suite_benchmark_combined_total=46357.743 ms (46.358 s)
+overall_score_p50=0.903129 anchor_overall_score_p50=0.899887 delta_vs_anchor_overall_score_p50=-0.360% anchor_improvement_vs_native_overall_p50=10.011% improvement_vs_native_overall_p50=9.687%
+
+[2026-05-05T20:05:50.098Z] snapshot 0010 (LOSER)
+parent=0008 branch=B01.S01.S01.S01.S01 depth=2 idea=left-buffer stable merge from minrun40 local-beam parent
+benchmark preset=medium
+native_avg=50.916 ms native_p50=46.113 ms
+codexsort_avg=49.444 ms codexsort_p50=44.732 ms
+delta_vs_immediate_parent_overall_score_p50=-0.362%
+display_preset_improvement_vs_native_avg=2.891%
+preset_score_p50=0.907641
+display_preset_improvement_vs_native_p50=9.236%
+anchor_id=0007 anchor_score_p50=0.907104 delta_vs_anchor_score_p50=0.737%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.878359 anchor_preset_quick_score_p50=0.903394 delta_vs_anchor_preset_quick_score_p50=2.771%
+preset_medium_score_p50=0.907641 anchor_preset_medium_score_p50=0.899970 delta_vs_anchor_preset_medium_score_p50=-0.852%
+preset_balanced_score_p50=0.915693 anchor_preset_balanced_score_p50=0.918050 delta_vs_anchor_preset_balanced_score_p50=0.257%
+tests passed=7/7 failed=0 total_ms=312.455 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.899970 current_preset_score_p50=0.907641 delta_vs_anchor_preset_score_p50=-0.852%
+benchmark_step_total=65254.000 ms (65.254 s) iteration_total=65580.000 ms (65.580 s)
+suite_benchmark_current_total=14916.399 ms (14.916 s) suite_benchmark_parent_total=14914.392 ms (14.914 s)
+suite_benchmark_combined_total=45064.238 ms (45.064 s)
+overall_score_p50=0.900421 anchor_overall_score_p50=0.907104 delta_vs_anchor_overall_score_p50=0.737% anchor_improvement_vs_native_overall_p50=9.290% improvement_vs_native_overall_p50=9.958%
+
+[2026-05-05T20:07:36.279Z] snapshot 0011 (LOSER)
+parent=0010 branch=B01.S01.S01.S01.S01 depth=3 idea=adaptive merge copy: full-span only for 32k-65k medium band
+benchmark preset=medium
+native_avg=50.739 ms native_p50=47.186 ms
+codexsort_avg=50.465 ms codexsort_p50=47.164 ms
+delta_vs_immediate_parent_overall_score_p50=0.519%
+display_preset_improvement_vs_native_avg=0.541%
+preset_score_p50=0.913821
+display_preset_improvement_vs_native_p50=8.618%
+anchor_id=0007 anchor_score_p50=0.903954 delta_vs_anchor_score_p50=0.907%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.864834 anchor_preset_quick_score_p50=0.884505 delta_vs_anchor_preset_quick_score_p50=2.224%
+preset_medium_score_p50=0.913821 anchor_preset_medium_score_p50=0.907553 delta_vs_anchor_preset_medium_score_p50=-0.691%
+preset_balanced_score_p50=0.909429 anchor_preset_balanced_score_p50=0.920166 delta_vs_anchor_preset_balanced_score_p50=1.167%
+tests passed=7/7 failed=0 total_ms=315.973 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.907553 current_preset_score_p50=0.913821 delta_vs_anchor_preset_score_p50=-0.691%
+benchmark_step_total=66279.000 ms (66.279 s) iteration_total=66608.000 ms (66.608 s)
+suite_benchmark_current_total=15153.481 ms (15.153 s) suite_benchmark_parent_total=15139.355 ms (15.139 s)
+suite_benchmark_combined_total=45724.666 ms (45.725 s)
+overall_score_p50=0.895752 anchor_overall_score_p50=0.903954 delta_vs_anchor_overall_score_p50=0.907% anchor_improvement_vs_native_overall_p50=9.605% improvement_vs_native_overall_p50=10.425%
+
+[2026-05-05T20:09:08.419Z] snapshot 0012 (LOSER)
+parent=0011 branch=B01.S01.S01.S01.S01 depth=4 idea=medium-band minrun36 with adaptive merge copy
+benchmark preset=medium
+native_avg=50.768 ms native_p50=48.520 ms
+codexsort_avg=50.369 ms codexsort_p50=47.935 ms
+delta_vs_immediate_parent_overall_score_p50=-0.155%
+display_preset_improvement_vs_native_avg=0.786%
+preset_score_p50=0.919121
+display_preset_improvement_vs_native_p50=8.088%
+anchor_id=0007 anchor_score_p50=0.894027 delta_vs_anchor_score_p50=-0.348%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.867121 anchor_preset_quick_score_p50=0.876989 delta_vs_anchor_preset_quick_score_p50=1.125%
+preset_medium_score_p50=0.919121 anchor_preset_medium_score_p50=0.899526 delta_vs_anchor_preset_medium_score_p50=-2.178%
+preset_balanced_score_p50=0.906000 anchor_preset_balanced_score_p50=0.905823 delta_vs_anchor_preset_balanced_score_p50=-0.020%
+tests passed=7/7 failed=0 total_ms=317.585 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.899526 current_preset_score_p50=0.919121 delta_vs_anchor_preset_score_p50=-2.178%
+benchmark_step_total=65288.000 ms (65.288 s) iteration_total=65619.000 ms (65.619 s)
+suite_benchmark_current_total=14991.820 ms (14.992 s) suite_benchmark_parent_total=14914.324 ms (14.914 s)
+suite_benchmark_combined_total=45257.905 ms (45.258 s)
+overall_score_p50=0.897140 anchor_overall_score_p50=0.894027 delta_vs_anchor_overall_score_p50=-0.348% anchor_improvement_vs_native_overall_p50=10.597% improvement_vs_native_overall_p50=10.286%
+
+[2026-05-05T20:10:59.191Z] snapshot 0013 (LOSER)
+parent=0007 branch=B01.S01.S01.S01.S02 depth=1 idea=adaptive left-buffer merge excluding medium band
+benchmark preset=medium
+native_avg=49.905 ms native_p50=48.699 ms
+codexsort_avg=49.746 ms codexsort_p50=48.032 ms
+delta_vs_immediate_parent_overall_score_p50=-1.424%
+display_preset_improvement_vs_native_avg=0.319%
+preset_score_p50=0.922873
+display_preset_improvement_vs_native_p50=7.713%
+anchor_id=0007 anchor_score_p50=0.914874 delta_vs_anchor_score_p50=0.236%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.894777 anchor_preset_quick_score_p50=0.898667 delta_vs_anchor_preset_quick_score_p50=0.433%
+preset_medium_score_p50=0.922873 anchor_preset_medium_score_p50=0.911040 delta_vs_anchor_preset_medium_score_p50=-1.299%
+preset_balanced_score_p50=0.920775 anchor_preset_balanced_score_p50=0.935292 delta_vs_anchor_preset_balanced_score_p50=1.552%
+tests passed=7/7 failed=0 total_ms=308.511 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.911040 current_preset_score_p50=0.922873 delta_vs_anchor_preset_score_p50=-1.299%
+benchmark_step_total=66135.000 ms (66.135 s) iteration_total=66456.000 ms (66.456 s)
+suite_benchmark_current_total=15094.846 ms (15.095 s) suite_benchmark_parent_total=15173.100 ms (15.173 s)
+suite_benchmark_combined_total=45528.738 ms (45.529 s)
+overall_score_p50=0.912719 anchor_overall_score_p50=0.914874 delta_vs_anchor_overall_score_p50=0.236% anchor_improvement_vs_native_overall_p50=8.513% improvement_vs_native_overall_p50=8.728%
+
+[2026-05-05T20:12:49.735Z] snapshot 0014 (LOSER)
+parent=0013 branch=B01.S01.S01.S01.S02 depth=2 idea=inline medium full-span merge in adaptive copy variant
+benchmark preset=medium
+native_avg=51.307 ms native_p50=47.254 ms
+codexsort_avg=49.904 ms codexsort_p50=46.472 ms
+delta_vs_immediate_parent_overall_score_p50=0.319%
+display_preset_improvement_vs_native_avg=2.734%
+preset_score_p50=0.900078
+display_preset_improvement_vs_native_p50=9.992%
+anchor_id=0007 anchor_score_p50=0.907989 delta_vs_anchor_score_p50=-0.200%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.906411 anchor_preset_quick_score_p50=0.906936 delta_vs_anchor_preset_quick_score_p50=0.058%
+preset_medium_score_p50=0.900078 anchor_preset_medium_score_p50=0.903024 delta_vs_anchor_preset_medium_score_p50=0.326%
+preset_balanced_score_p50=0.923084 anchor_preset_balanced_score_p50=0.914041 delta_vs_anchor_preset_balanced_score_p50=-0.989%
+tests passed=7/7 failed=0 total_ms=318.876 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.903024 current_preset_score_p50=0.900078 delta_vs_anchor_preset_score_p50=0.326%
+benchmark_step_total=65534.000 ms (65.534 s) iteration_total=65865.000 ms (65.865 s)
+suite_benchmark_current_total=15055.254 ms (15.055 s) suite_benchmark_parent_total=14928.230 ms (14.928 s)
+suite_benchmark_combined_total=45278.581 ms (45.279 s)
+overall_score_p50=0.909806 anchor_overall_score_p50=0.907989 delta_vs_anchor_overall_score_p50=-0.200% anchor_improvement_vs_native_overall_p50=9.201% improvement_vs_native_overall_p50=9.019%
+
+[2026-05-05T20:19:56.484Z] snapshot 0015 (LOSER)
+parent=0014 branch=B01.S01.S01.S01.S02 depth=3 idea=extend full-span merge guard through balanced band
+benchmark preset=medium
+native_avg=50.314 ms native_p50=45.460 ms
+codexsort_avg=49.687 ms codexsort_p50=45.653 ms
+delta_vs_immediate_parent_overall_score_p50=-0.374%
+display_preset_improvement_vs_native_avg=1.247%
+preset_score_p50=0.914244
+display_preset_improvement_vs_native_p50=8.576%
+anchor_id=0007 anchor_score_p50=0.914999 delta_vs_anchor_score_p50=0.196%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.888653 anchor_preset_quick_score_p50=0.896503 delta_vs_anchor_preset_quick_score_p50=0.876%
+preset_medium_score_p50=0.914244 anchor_preset_medium_score_p50=0.914562 delta_vs_anchor_preset_medium_score_p50=0.035%
+preset_balanced_score_p50=0.937378 anchor_preset_balanced_score_p50=0.934321 delta_vs_anchor_preset_balanced_score_p50=-0.327%
+tests passed=7/7 failed=0 total_ms=355.923 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.914562 current_preset_score_p50=0.914244 delta_vs_anchor_preset_score_p50=0.035%
+benchmark_step_total=66250.000 ms (66.250 s) iteration_total=66618.000 ms (66.618 s)
+suite_benchmark_current_total=15206.074 ms (15.206 s) suite_benchmark_parent_total=15110.536 ms (15.111 s)
+suite_benchmark_combined_total=45631.522 ms (45.632 s)
+overall_score_p50=0.913208 anchor_overall_score_p50=0.914999 delta_vs_anchor_overall_score_p50=0.196% anchor_improvement_vs_native_overall_p50=8.500% improvement_vs_native_overall_p50=8.679%
+
+[2026-05-05T20:21:34.202Z] snapshot 0016 (LOSER)
+parent=0015 branch=B01.S01.S01.S01.S02 depth=4 idea=minrun36 with balanced-band full-span merge guard
+benchmark preset=medium
+native_avg=50.645 ms native_p50=47.426 ms
+codexsort_avg=48.696 ms codexsort_p50=44.804 ms
+delta_vs_immediate_parent_overall_score_p50=0.860%
+display_preset_improvement_vs_native_avg=3.847%
+preset_score_p50=0.894912
+display_preset_improvement_vs_native_p50=10.509%
+anchor_id=0007 anchor_score_p50=0.912078 delta_vs_anchor_score_p50=0.737%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.905716 anchor_preset_quick_score_p50=0.903077 delta_vs_anchor_preset_quick_score_p50=-0.292%
+preset_medium_score_p50=0.894912 anchor_preset_medium_score_p50=0.914276 delta_vs_anchor_preset_medium_score_p50=2.118%
+preset_balanced_score_p50=0.915556 anchor_preset_balanced_score_p50=0.918953 delta_vs_anchor_preset_balanced_score_p50=0.370%
+tests passed=7/7 failed=0 total_ms=319.709 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.914276 current_preset_score_p50=0.894912 delta_vs_anchor_preset_score_p50=2.118%
+benchmark_step_total=65274.000 ms (65.274 s) iteration_total=65608.000 ms (65.608 s)
+suite_benchmark_current_total=14866.033 ms (14.866 s) suite_benchmark_parent_total=14982.268 ms (14.982 s)
+suite_benchmark_combined_total=45053.189 ms (45.053 s)
+overall_score_p50=0.905356 anchor_overall_score_p50=0.912078 delta_vs_anchor_overall_score_p50=0.737% anchor_improvement_vs_native_overall_p50=8.792% improvement_vs_native_overall_p50=9.464%
+
+[2026-05-05T20:23:06.889Z] snapshot 0017 (LOSER)
+parent=0016 branch=B01.S01.S01.S01.S02 depth=5 idea=medium-band-only minrun36 with quick minrun32 restored
+benchmark preset=medium
+native_avg=51.061 ms native_p50=46.900 ms
+codexsort_avg=49.165 ms codexsort_p50=45.697 ms
+delta_vs_immediate_parent_overall_score_p50=1.183%
+display_preset_improvement_vs_native_avg=3.714%
+preset_score_p50=0.895475
+display_preset_improvement_vs_native_p50=10.453%
+anchor_id=0007 anchor_score_p50=0.899909 delta_vs_anchor_score_p50=0.585%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.883822 anchor_preset_quick_score_p50=0.882121 delta_vs_anchor_preset_quick_score_p50=-0.193%
+preset_medium_score_p50=0.895475 anchor_preset_medium_score_p50=0.905603 delta_vs_anchor_preset_medium_score_p50=1.118%
+preset_balanced_score_p50=0.904752 anchor_preset_balanced_score_p50=0.912285 delta_vs_anchor_preset_balanced_score_p50=0.826%
+tests passed=7/7 failed=0 total_ms=318.729 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.905603 current_preset_score_p50=0.895475 delta_vs_anchor_preset_score_p50=1.118%
+benchmark_step_total=65716.000 ms (65.716 s) iteration_total=66048.000 ms (66.048 s)
+suite_benchmark_current_total=14958.547 ms (14.959 s) suite_benchmark_parent_total=15018.950 ms (15.019 s)
+suite_benchmark_combined_total=45387.290 ms (45.387 s)
+overall_score_p50=0.894642 anchor_overall_score_p50=0.899909 delta_vs_anchor_overall_score_p50=0.585% anchor_improvement_vs_native_overall_p50=10.009% improvement_vs_native_overall_p50=10.536%
+
+[2026-05-05T20:30:25.906Z] snapshot 0018 (LOSER)
+parent=0007 branch=B01.S01.S01.S01.S03 depth=1 idea=tighter low-cardinality bucket gate and lower bucket cap
+benchmark preset=medium
+native_avg=54.255 ms native_p50=51.976 ms
+codexsort_avg=53.627 ms codexsort_p50=52.565 ms
+delta_vs_immediate_parent_overall_score_p50=-2.015%
+display_preset_improvement_vs_native_avg=1.159%
+preset_score_p50=0.912159
+display_preset_improvement_vs_native_p50=8.784%
+anchor_id=0007 anchor_score_p50=0.917971 delta_vs_anchor_score_p50=-0.007%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.908931 anchor_preset_quick_score_p50=0.910841 delta_vs_anchor_preset_quick_score_p50=0.210%
+preset_medium_score_p50=0.912159 anchor_preset_medium_score_p50=0.909824 delta_vs_anchor_preset_medium_score_p50=-0.257%
+preset_balanced_score_p50=0.933196 anchor_preset_balanced_score_p50=0.933442 delta_vs_anchor_preset_balanced_score_p50=0.026%
+tests passed=7/7 failed=0 total_ms=333.772 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.909824 current_preset_score_p50=0.912159 delta_vs_anchor_preset_score_p50=-0.257%
+benchmark_step_total=71730.000 ms (71.730 s) iteration_total=72077.000 ms (72.077 s)
+suite_benchmark_current_total=16362.448 ms (16.362 s) suite_benchmark_parent_total=16415.862 ms (16.416 s)
+suite_benchmark_combined_total=49249.122 ms (49.249 s)
+overall_score_p50=0.918032 anchor_overall_score_p50=0.917971 delta_vs_anchor_overall_score_p50=-0.007% anchor_improvement_vs_native_overall_p50=8.203% improvement_vs_native_overall_p50=8.197%
+
+[2026-05-05T20:32:08.817Z] snapshot 0019 (LOSER)
+parent=0018 branch=B01.S01.S01.S01.S03 depth=2 idea=tighter low-cardinality sample gate with original bucket cap
+benchmark preset=medium
+native_avg=54.589 ms native_p50=55.797 ms
+codexsort_avg=52.921 ms codexsort_p50=54.087 ms
+delta_vs_immediate_parent_overall_score_p50=1.636%
+display_preset_improvement_vs_native_avg=3.055%
+preset_score_p50=0.905818
+display_preset_improvement_vs_native_p50=9.418%
+anchor_id=0007 anchor_score_p50=0.906257 delta_vs_anchor_score_p50=0.358%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.896569 anchor_preset_quick_score_p50=0.889963 delta_vs_anchor_preset_quick_score_p50=-0.742%
+preset_medium_score_p50=0.905818 anchor_preset_medium_score_p50=0.916506 delta_vs_anchor_preset_medium_score_p50=1.166%
+preset_balanced_score_p50=0.906690 anchor_preset_balanced_score_p50=0.912530 delta_vs_anchor_preset_balanced_score_p50=0.640%
+tests passed=7/7 failed=0 total_ms=330.370 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.916506 current_preset_score_p50=0.905818 delta_vs_anchor_preset_score_p50=1.166%
+benchmark_step_total=72440.000 ms (72.440 s) iteration_total=72789.000 ms (72.789 s)
+suite_benchmark_current_total=16427.201 ms (16.427 s) suite_benchmark_parent_total=16677.219 ms (16.677 s)
+suite_benchmark_combined_total=49973.878 ms (49.974 s)
+overall_score_p50=0.903014 anchor_overall_score_p50=0.906257 delta_vs_anchor_overall_score_p50=0.358% anchor_improvement_vs_native_overall_p50=9.374% improvement_vs_native_overall_p50=9.699%
+
+[2026-05-05T20:33:39.296Z] snapshot 0020 (WINNER)
+parent=0018 branch=B01.S01.S01.S01.S03 depth=2 idea=low-cardinality sample32 ratio55 cap64
+benchmark preset=medium
+native_avg=57.138 ms native_p50=60.442 ms
+codexsort_avg=55.829 ms codexsort_p50=61.149 ms
+delta_vs_immediate_parent_overall_score_p50=2.979%
+display_preset_improvement_vs_native_avg=2.291%
+preset_score_p50=0.897538
+display_preset_improvement_vs_native_p50=10.246%
+anchor_id=0007 anchor_score_p50=0.905381 delta_vs_anchor_score_p50=1.623%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.873107 anchor_preset_quick_score_p50=0.891210 delta_vs_anchor_preset_quick_score_p50=2.031%
+preset_medium_score_p50=0.897538 anchor_preset_medium_score_p50=0.905734 delta_vs_anchor_preset_medium_score_p50=0.905%
+preset_balanced_score_p50=0.901683 anchor_preset_balanced_score_p50=0.919419 delta_vs_anchor_preset_balanced_score_p50=1.929%
+tests passed=7/7 failed=0 total_ms=325.471 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.905734 current_preset_score_p50=0.897538 delta_vs_anchor_preset_score_p50=0.905%
+benchmark_step_total=69231.000 ms (69.231 s) iteration_total=69571.000 ms (69.571 s)
+suite_benchmark_current_total=15622.929 ms (15.623 s) suite_benchmark_parent_total=15880.527 ms (15.881 s)
+suite_benchmark_combined_total=47636.570 ms (47.637 s)
+overall_score_p50=0.890686 anchor_overall_score_p50=0.905381 delta_vs_anchor_overall_score_p50=1.623% anchor_improvement_vs_native_overall_p50=9.462% improvement_vs_native_overall_p50=10.931%
+
+[2026-05-05T20:39:53.300Z] snapshot 0021 (LOSER)
+parent=0020 branch=B01.S01.S01.S01.S03.S01 depth=1 idea=half-size merge scratch with offset copyback
+benchmark preset=medium
+native_avg=51.320 ms native_p50=48.445 ms
+codexsort_avg=50.762 ms codexsort_p50=48.053 ms
+delta_vs_immediate_parent_overall_score_p50=-2.743%
+display_preset_improvement_vs_native_avg=1.087%
+preset_score_p50=0.929539
+display_preset_improvement_vs_native_p50=7.046%
+anchor_id=0020 anchor_score_p50=0.906467 delta_vs_anchor_score_p50=-0.955%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.879465 anchor_preset_quick_score_p50=0.883923 delta_vs_anchor_preset_quick_score_p50=0.504%
+preset_medium_score_p50=0.929539 anchor_preset_medium_score_p50=0.910754 delta_vs_anchor_preset_medium_score_p50=-2.063%
+preset_balanced_score_p50=0.937450 anchor_preset_balanced_score_p50=0.925210 delta_vs_anchor_preset_balanced_score_p50=-1.323%
+tests passed=7/7 failed=0 total_ms=314.137 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.910754 current_preset_score_p50=0.929539 delta_vs_anchor_preset_score_p50=-2.063%
+benchmark_step_total=66547.000 ms (66.547 s) iteration_total=66874.000 ms (66.874 s)
+suite_benchmark_current_total=15289.523 ms (15.290 s) suite_benchmark_parent_total=15098.120 ms (15.098 s)
+suite_benchmark_combined_total=45804.048 ms (45.804 s)
+overall_score_p50=0.915120 anchor_overall_score_p50=0.906467 delta_vs_anchor_overall_score_p50=-0.955% anchor_improvement_vs_native_overall_p50=9.353% improvement_vs_native_overall_p50=8.488%
+
+[2026-05-05T20:44:10.047Z] snapshot 0022 (LOSER)
+parent=0021 branch=B01.S01.S01.S01.S03.S01 depth=2 idea=restore full scratch and lower tiny partition cutoff to 40
+benchmark preset=medium
+native_avg=50.770 ms native_p50=47.337 ms
+codexsort_avg=49.593 ms codexsort_p50=45.144 ms
+delta_vs_immediate_parent_overall_score_p50=0.988%
+display_preset_improvement_vs_native_avg=2.318%
+preset_score_p50=0.908700
+display_preset_improvement_vs_native_p50=9.130%
+anchor_id=0020 anchor_score_p50=0.908501 delta_vs_anchor_score_p50=0.267%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.894301 anchor_preset_quick_score_p50=0.894510 delta_vs_anchor_preset_quick_score_p50=0.023%
+preset_medium_score_p50=0.908700 anchor_preset_medium_score_p50=0.910060 delta_vs_anchor_preset_medium_score_p50=0.149%
+preset_balanced_score_p50=0.915360 anchor_preset_balanced_score_p50=0.921130 delta_vs_anchor_preset_balanced_score_p50=0.626%
+tests passed=7/7 failed=0 total_ms=316.316 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.910060 current_preset_score_p50=0.908700 delta_vs_anchor_preset_score_p50=0.149%
+benchmark_step_total=65436.000 ms (65.436 s) iteration_total=65765.000 ms (65.765 s)
+suite_benchmark_current_total=15015.802 ms (15.016 s) suite_benchmark_parent_total=14954.112 ms (14.954 s)
+suite_benchmark_combined_total=45199.904 ms (45.200 s)
+overall_score_p50=0.906078 anchor_overall_score_p50=0.908501 delta_vs_anchor_overall_score_p50=0.267% anchor_improvement_vs_native_overall_p50=9.150% improvement_vs_native_overall_p50=9.392%
+
+[2026-05-05T20:45:54.518Z] snapshot 0023 (LOSER)
+parent=0022 branch=B01.S01.S01.S01.S03.S01 depth=3 idea=raise tiny partition cutoff to 56 after full scratch repair
+benchmark preset=medium
+native_avg=50.629 ms native_p50=46.620 ms
+codexsort_avg=49.141 ms codexsort_p50=45.127 ms
+delta_vs_immediate_parent_overall_score_p50=1.046%
+display_preset_improvement_vs_native_avg=2.938%
+preset_score_p50=0.901846
+display_preset_improvement_vs_native_p50=9.815%
+anchor_id=0020 anchor_score_p50=0.892468 delta_vs_anchor_score_p50=-0.463%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.885894 anchor_preset_quick_score_p50=0.884916 delta_vs_anchor_preset_quick_score_p50=-0.110%
+preset_medium_score_p50=0.901846 anchor_preset_medium_score_p50=0.894075 delta_vs_anchor_preset_medium_score_p50=-0.869%
+preset_balanced_score_p50=0.902164 anchor_preset_balanced_score_p50=0.898465 delta_vs_anchor_preset_balanced_score_p50=-0.412%
+tests passed=7/7 failed=0 total_ms=330.268 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.894075 current_preset_score_p50=0.901846 delta_vs_anchor_preset_score_p50=-0.869%
+benchmark_step_total=64857.000 ms (64.857 s) iteration_total=65200.000 ms (65.200 s)
+suite_benchmark_current_total=14813.341 ms (14.813 s) suite_benchmark_parent_total=14725.396 ms (14.725 s)
+suite_benchmark_combined_total=44765.030 ms (44.765 s)
+overall_score_p50=0.896602 anchor_overall_score_p50=0.892468 delta_vs_anchor_overall_score_p50=-0.463% anchor_improvement_vs_native_overall_p50=10.753% improvement_vs_native_overall_p50=10.340%
+
+[2026-05-05T20:47:24.288Z] snapshot 0024 (LOSER)
+parent=0022 branch=B01.S01.S01.S01.S03.S01 depth=3 idea=tiny partition cutoff 44 from repaired full-scratch branch
+benchmark preset=medium
+native_avg=49.386 ms native_p50=46.799 ms
+codexsort_avg=48.632 ms codexsort_p50=45.494 ms
+delta_vs_immediate_parent_overall_score_p50=-0.458%
+display_preset_improvement_vs_native_avg=1.527%
+preset_score_p50=0.913468
+display_preset_improvement_vs_native_p50=8.653%
+anchor_id=0020 anchor_score_p50=0.905119 delta_vs_anchor_score_p50=-0.564%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.894459 anchor_preset_quick_score_p50=0.893107 delta_vs_anchor_preset_quick_score_p50=-0.151%
+preset_medium_score_p50=0.913468 anchor_preset_medium_score_p50=0.906459 delta_vs_anchor_preset_medium_score_p50=-0.773%
+preset_balanced_score_p50=0.922979 anchor_preset_balanced_score_p50=0.915936 delta_vs_anchor_preset_balanced_score_p50=-0.769%
+tests passed=7/7 failed=0 total_ms=311.046 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.906459 current_preset_score_p50=0.913468 delta_vs_anchor_preset_score_p50=-0.773%
+benchmark_step_total=64713.000 ms (64.713 s) iteration_total=65036.000 ms (65.036 s)
+suite_benchmark_current_total=14893.937 ms (14.894 s) suite_benchmark_parent_total=14764.060 ms (14.764 s)
+suite_benchmark_combined_total=44648.933 ms (44.649 s)
+overall_score_p50=0.910224 anchor_overall_score_p50=0.905119 delta_vs_anchor_overall_score_p50=-0.564% anchor_improvement_vs_native_overall_p50=9.488% improvement_vs_native_overall_p50=8.978%
+
+[2026-05-05T20:48:55.361Z] snapshot 0025 (LOSER)
+parent=0024 branch=B01.S01.S01.S01.S03.S01 depth=4 idea=merge block 48 with repaired cutoff 40
+benchmark preset=medium
+native_avg=50.241 ms native_p50=46.176 ms
+codexsort_avg=48.779 ms codexsort_p50=44.740 ms
+delta_vs_immediate_parent_overall_score_p50=0.420%
+display_preset_improvement_vs_native_avg=2.910%
+preset_score_p50=0.906805
+display_preset_improvement_vs_native_p50=9.319%
+anchor_id=0020 anchor_score_p50=0.902779 delta_vs_anchor_score_p50=-0.401%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.900507 anchor_preset_quick_score_p50=0.892251 delta_vs_anchor_preset_quick_score_p50=-0.925%
+preset_medium_score_p50=0.906805 anchor_preset_medium_score_p50=0.909020 delta_vs_anchor_preset_medium_score_p50=0.244%
+preset_balanced_score_p50=0.911929 anchor_preset_balanced_score_p50=0.907160 delta_vs_anchor_preset_balanced_score_p50=-0.526%
+tests passed=7/7 failed=0 total_ms=315.931 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.909020 current_preset_score_p50=0.906805 delta_vs_anchor_preset_score_p50=0.244%
+benchmark_step_total=64988.000 ms (64.988 s) iteration_total=65318.000 ms (65.318 s)
+suite_benchmark_current_total=14852.929 ms (14.853 s) suite_benchmark_parent_total=14839.121 ms (14.839 s)
+suite_benchmark_combined_total=44898.861 ms (44.899 s)
+overall_score_p50=0.906402 anchor_overall_score_p50=0.902779 delta_vs_anchor_overall_score_p50=-0.401% anchor_improvement_vs_native_overall_p50=9.722% improvement_vs_native_overall_p50=9.360%
+
+[2026-05-05T20:50:26.996Z] snapshot 0026 (LOSER)
+parent=0020 branch=B01.S01.S01.S01.S03.S02 depth=1 idea=single-pass ordered representative scan in bucket path
+benchmark preset=medium
+native_avg=49.916 ms native_p50=46.498 ms
+codexsort_avg=48.643 ms codexsort_p50=44.822 ms
+delta_vs_immediate_parent_overall_score_p50=-1.929%
+display_preset_improvement_vs_native_avg=2.551%
+preset_score_p50=0.910632
+display_preset_improvement_vs_native_p50=8.937%
+anchor_id=0020 anchor_score_p50=0.907747 delta_vs_anchor_score_p50=-0.013%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.901510 anchor_preset_quick_score_p50=0.900866 delta_vs_anchor_preset_quick_score_p50=-0.072%
+preset_medium_score_p50=0.910632 anchor_preset_medium_score_p50=0.911424 delta_vs_anchor_preset_medium_score_p50=0.087%
+preset_balanced_score_p50=0.911480 anchor_preset_balanced_score_p50=0.910991 delta_vs_anchor_preset_balanced_score_p50=-0.054%
+tests passed=7/7 failed=0 total_ms=320.821 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.911424 current_preset_score_p50=0.910632 delta_vs_anchor_preset_score_p50=0.087%
+benchmark_step_total=65085.000 ms (65.085 s) iteration_total=65419.000 ms (65.419 s)
+suite_benchmark_current_total=14864.837 ms (14.865 s) suite_benchmark_parent_total=14849.436 ms (14.849 s)
+suite_benchmark_combined_total=44911.483 ms (44.911 s)
+overall_score_p50=0.907863 anchor_overall_score_p50=0.907747 delta_vs_anchor_overall_score_p50=-0.013% anchor_improvement_vs_native_overall_p50=9.225% improvement_vs_native_overall_p50=9.214%
+
+[2026-05-05T20:51:51.639Z] snapshot 0027 (LOSER)
+parent=0026 branch=B01.S01.S01.S01.S03.S02 depth=2 idea=manual representative bucket insertion without splice
+benchmark preset=medium
+native_avg=50.576 ms native_p50=47.697 ms
+codexsort_avg=49.272 ms codexsort_p50=45.387 ms
+delta_vs_immediate_parent_overall_score_p50=0.012%
+display_preset_improvement_vs_native_avg=2.578%
+preset_score_p50=0.910763
+display_preset_improvement_vs_native_p50=8.924%
+anchor_id=0020 anchor_score_p50=0.896684 delta_vs_anchor_score_p50=-1.235%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.904027 anchor_preset_quick_score_p50=0.882677 delta_vs_anchor_preset_quick_score_p50=-2.419%
+preset_medium_score_p50=0.910763 anchor_preset_medium_score_p50=0.899721 delta_vs_anchor_preset_medium_score_p50=-1.227%
+preset_balanced_score_p50=0.908491 anchor_preset_balanced_score_p50=0.907838 delta_vs_anchor_preset_balanced_score_p50=-0.072%
+tests passed=7/7 failed=0 total_ms=319.919 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.899721 current_preset_score_p50=0.910763 delta_vs_anchor_preset_score_p50=-1.227%
+benchmark_step_total=64996.000 ms (64.996 s) iteration_total=65330.000 ms (65.330 s)
+suite_benchmark_current_total=14811.636 ms (14.812 s) suite_benchmark_parent_total=14837.616 ms (14.838 s)
+suite_benchmark_combined_total=44931.936 ms (44.932 s)
+overall_score_p50=0.907756 anchor_overall_score_p50=0.896684 delta_vs_anchor_overall_score_p50=-1.235% anchor_improvement_vs_native_overall_p50=10.332% improvement_vs_native_overall_p50=9.224%
+
+[2026-05-05T20:53:16.040Z] snapshot 0028 (LOSER)
+parent=0026 branch=B01.S01.S01.S01.S03.S02 depth=2 idea=bucket path starts at 4096 with single-pass rep scan
+benchmark preset=medium
+native_avg=49.919 ms native_p50=46.982 ms
+codexsort_avg=49.335 ms codexsort_p50=46.532 ms
+delta_vs_immediate_parent_overall_score_p50=-1.139%
+display_preset_improvement_vs_native_avg=1.170%
+preset_score_p50=0.919068
+display_preset_improvement_vs_native_p50=8.093%
+anchor_id=0020 anchor_score_p50=0.910208 delta_vs_anchor_score_p50=-0.878%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.908509 anchor_preset_quick_score_p50=0.894299 delta_vs_anchor_preset_quick_score_p50=-1.589%
+preset_medium_score_p50=0.919068 anchor_preset_medium_score_p50=0.916718 delta_vs_anchor_preset_medium_score_p50=-0.256%
+preset_balanced_score_p50=0.927128 anchor_preset_balanced_score_p50=0.919820 delta_vs_anchor_preset_balanced_score_p50=-0.795%
+tests passed=7/7 failed=0 total_ms=313.604 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.916718 current_preset_score_p50=0.919068 delta_vs_anchor_preset_score_p50=-0.256%
+benchmark_step_total=65106.000 ms (65.106 s) iteration_total=65434.000 ms (65.434 s)
+suite_benchmark_current_total=14931.520 ms (14.932 s) suite_benchmark_parent_total=14902.982 ms (14.903 s)
+suite_benchmark_combined_total=44893.498 ms (44.893 s)
+overall_score_p50=0.918204 anchor_overall_score_p50=0.910208 delta_vs_anchor_overall_score_p50=-0.878% anchor_improvement_vs_native_overall_p50=8.979% improvement_vs_native_overall_p50=8.180%
+
+[2026-05-05T20:54:42.335Z] snapshot 0029 (LOSER)
+parent=0028 branch=B01.S01.S01.S01.S03.S02 depth=3 idea=sample40 low-cardinality gate with restored 2048 threshold
+benchmark preset=medium
+native_avg=50.344 ms native_p50=46.040 ms
+codexsort_avg=49.197 ms codexsort_p50=45.118 ms
+delta_vs_immediate_parent_overall_score_p50=0.758%
+display_preset_improvement_vs_native_avg=2.278%
+preset_score_p50=0.912730
+display_preset_improvement_vs_native_p50=8.727%
+anchor_id=0020 anchor_score_p50=0.913673 delta_vs_anchor_score_p50=0.266%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.896588 anchor_preset_quick_score_p50=0.911268 delta_vs_anchor_preset_quick_score_p50=1.611%
+preset_medium_score_p50=0.912730 anchor_preset_medium_score_p50=0.912283 delta_vs_anchor_preset_medium_score_p50=-0.049%
+preset_balanced_score_p50=0.924622 anchor_preset_balanced_score_p50=0.917480 delta_vs_anchor_preset_balanced_score_p50=-0.778%
+tests passed=7/7 failed=0 total_ms=311.228 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.912283 current_preset_score_p50=0.912730 delta_vs_anchor_preset_score_p50=-0.049%
+benchmark_step_total=64659.000 ms (64.659 s) iteration_total=64984.000 ms (64.984 s)
+suite_benchmark_current_total=14813.777 ms (14.814 s) suite_benchmark_parent_total=14848.385 ms (14.848 s)
+suite_benchmark_combined_total=44747.793 ms (44.748 s)
+overall_score_p50=0.911240 anchor_overall_score_p50=0.913673 delta_vs_anchor_overall_score_p50=0.266% anchor_improvement_vs_native_overall_p50=8.633% improvement_vs_native_overall_p50=8.876%
+
+[2026-05-05T20:56:08.788Z] snapshot 0030 (LOSER)
+parent=0029 branch=B01.S01.S01.S01.S03.S02 depth=4 idea=restore sample32 with single-pass representative scan
+benchmark preset=medium
+native_avg=50.351 ms native_p50=46.164 ms
+codexsort_avg=49.035 ms codexsort_p50=45.279 ms
+delta_vs_immediate_parent_overall_score_p50=0.414%
+display_preset_improvement_vs_native_avg=2.614%
+preset_score_p50=0.910577
+display_preset_improvement_vs_native_p50=8.942%
+anchor_id=0020 anchor_score_p50=0.906848 delta_vs_anchor_score_p50=-0.068%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.890203 anchor_preset_quick_score_p50=0.900147 delta_vs_anchor_preset_quick_score_p50=1.105%
+preset_medium_score_p50=0.910577 anchor_preset_medium_score_p50=0.901611 delta_vs_anchor_preset_medium_score_p50=-0.995%
+preset_balanced_score_p50=0.921906 anchor_preset_balanced_score_p50=0.918906 delta_vs_anchor_preset_balanced_score_p50=-0.326%
+tests passed=7/7 failed=0 total_ms=316.199 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.901611 current_preset_score_p50=0.910577 delta_vs_anchor_preset_score_p50=-0.995%
+benchmark_step_total=64813.000 ms (64.813 s) iteration_total=65151.000 ms (65.151 s)
+suite_benchmark_current_total=14839.170 ms (14.839 s) suite_benchmark_parent_total=14820.374 ms (14.820 s)
+suite_benchmark_combined_total=44736.792 ms (44.737 s)
+overall_score_p50=0.907467 anchor_overall_score_p50=0.906848 delta_vs_anchor_overall_score_p50=-0.068% anchor_improvement_vs_native_overall_p50=9.315% improvement_vs_native_overall_p50=9.253%
+
+[2026-05-07T18:03:42.470Z] snapshot 0031 (LOSER)
+parent=0020 branch=B01.S01.S01.S01.S03.S03 depth=1 idea=conservative galloping inside stable merge
+benchmark preset=medium
+native_avg=51.948 ms native_p50=48.850 ms
+codexsort_avg=52.855 ms codexsort_p50=49.883 ms
+delta_vs_immediate_parent_overall_score_p50=-3.209%
+display_preset_improvement_vs_native_avg=-1.747%
+preset_score_p50=0.921096
+display_preset_improvement_vs_native_p50=7.890%
+anchor_id=0020 anchor_score_p50=0.910216 delta_vs_anchor_score_p50=-0.995%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.928183 anchor_preset_quick_score_p50=0.894696 delta_vs_anchor_preset_quick_score_p50=-3.743%
+preset_medium_score_p50=0.921096 anchor_preset_medium_score_p50=0.921146 delta_vs_anchor_preset_medium_score_p50=0.005%
+preset_balanced_score_p50=0.908635 anchor_preset_balanced_score_p50=0.915018 delta_vs_anchor_preset_balanced_score_p50=0.698%
+tests passed=7/7 failed=0 total_ms=330.707 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.921146 current_preset_score_p50=0.921096 delta_vs_anchor_preset_score_p50=0.005%
+benchmark_step_total=68471.000 ms (68.471 s) iteration_total=68818.000 ms (68.818 s)
+suite_benchmark_current_total=15742.961 ms (15.743 s) suite_benchmark_parent_total=15518.829 ms (15.519 s)
+suite_benchmark_combined_total=46996.462 ms (46.996 s)
+overall_score_p50=0.919269 anchor_overall_score_p50=0.910216 delta_vs_anchor_overall_score_p50=-0.995% anchor_improvement_vs_native_overall_p50=8.978% improvement_vs_native_overall_p50=8.073%
+
+[2026-05-07T18:05:45.848Z] snapshot 0032 (LOSER)
+parent=0031 branch=B01.S01.S01.S01.S03.S03 depth=2 idea=repeat conservative galloping merge measurement
+benchmark preset=medium
+native_avg=53.698 ms native_p50=49.713 ms
+codexsort_avg=53.115 ms codexsort_p50=50.406 ms
+delta_vs_immediate_parent_overall_score_p50=0.080%
+display_preset_improvement_vs_native_avg=1.085%
+preset_score_p50=0.917823
+display_preset_improvement_vs_native_p50=8.218%
+anchor_id=0020 anchor_score_p50=0.903988 delta_vs_anchor_score_p50=-1.609%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.925609 anchor_preset_quick_score_p50=0.891811 delta_vs_anchor_preset_quick_score_p50=-3.790%
+preset_medium_score_p50=0.917823 anchor_preset_medium_score_p50=0.901755 delta_vs_anchor_preset_medium_score_p50=-1.782%
+preset_balanced_score_p50=0.912221 anchor_preset_balanced_score_p50=0.918599 delta_vs_anchor_preset_balanced_score_p50=0.694%
+tests passed=7/7 failed=0 total_ms=329.706 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.901755 current_preset_score_p50=0.917823 delta_vs_anchor_preset_score_p50=-1.782%
+benchmark_step_total=70193.000 ms (70.193 s) iteration_total=70537.000 ms (70.537 s)
+suite_benchmark_current_total=16085.888 ms (16.086 s) suite_benchmark_parent_total=15871.677 ms (15.872 s)
+suite_benchmark_combined_total=48180.750 ms (48.181 s)
+overall_score_p50=0.918534 anchor_overall_score_p50=0.903988 delta_vs_anchor_overall_score_p50=-1.609% anchor_improvement_vs_native_overall_p50=9.601% improvement_vs_native_overall_p50=8.147%
+
+[2026-05-07T19:03:51.979Z] snapshot 0033 (LOSER)
+parent=0032 branch=B01.S01.S01.S01.S03.S03 depth=3 idea=gate galloping to balanced-size arrays
+benchmark preset=medium
+native_avg=51.838 ms native_p50=48.768 ms
+codexsort_avg=51.815 ms codexsort_p50=47.815 ms
+delta_vs_immediate_parent_overall_score_p50=1.098%
+display_preset_improvement_vs_native_avg=0.045%
+preset_score_p50=0.927291
+display_preset_improvement_vs_native_p50=7.271%
+anchor_id=0020 anchor_score_p50=0.911213 delta_vs_anchor_score_p50=0.303%
+suite_presets=quick,medium,balanced primary_metric=overall_geomean_score_p50
+benchmark_flow=shared_preset_session_native_anchor_candidate order_mode=alternate ab_testing=off warmup_enabled=on warmup_runs_per_combination=1
+preset_quick_score_p50=0.895543 anchor_preset_quick_score_p50=0.901770 delta_vs_anchor_preset_quick_score_p50=0.691%
+preset_medium_score_p50=0.927291 anchor_preset_medium_score_p50=0.918560 delta_vs_anchor_preset_medium_score_p50=-0.950%
+preset_balanced_score_p50=0.902813 anchor_preset_balanced_score_p50=0.913391 delta_vs_anchor_preset_balanced_score_p50=1.158%
+tests passed=7/7 failed=0 total_ms=321.263 ms
+decision auto threshold=1.00% tests_failed=0
+anchor_preset_score_p50=0.918560 current_preset_score_p50=0.927291 delta_vs_anchor_preset_score_p50=-0.950%
+benchmark_step_total=69439.000 ms (69.439 s) iteration_total=69774.000 ms (69.774 s)
+suite_benchmark_current_total=15801.236 ms (15.801 s) suite_benchmark_parent_total=15675.417 ms (15.675 s)
+suite_benchmark_combined_total=47524.966 ms (47.525 s)
+overall_score_p50=0.908448 anchor_overall_score_p50=0.911213 delta_vs_anchor_overall_score_p50=0.303% anchor_improvement_vs_native_overall_p50=8.879% improvement_vs_native_overall_p50=9.155%
+

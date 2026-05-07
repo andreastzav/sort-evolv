@@ -1,0 +1,1532 @@
+[
+  {
+    "snapshot": "0001",
+    "parent": "0000",
+    "branch": "B01",
+    "depth": "1",
+    "idea": "B01: index-projection sort path for object rows (sort indices then materialize)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-11.758%"
+  },
+  {
+    "snapshot": "0002",
+    "parent": "0001",
+    "branch": "B01",
+    "depth": "2",
+    "idea": "B01 depth2: gate index-projection path to very large arrays only (min length 200k)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.918%"
+  },
+  {
+    "snapshot": "0003",
+    "parent": "0002",
+    "branch": "B01",
+    "depth": "3",
+    "idea": "B01 depth3: enable index-projection from 80k rows (targets balanced tier)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-5.045%"
+  },
+  {
+    "snapshot": "0004",
+    "parent": "0003",
+    "branch": "B01",
+    "depth": "4",
+    "idea": "B01 depth4: raise index-projection gate to 120k to avoid balanced-path overhead",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.230%"
+  },
+  {
+    "snapshot": "0005",
+    "parent": "0004",
+    "branch": "B01",
+    "depth": "5",
+    "idea": "B01 depth5: disable index-projection path after guarded threshold sweeps",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.479%"
+  },
+  {
+    "snapshot": "0006",
+    "parent": "0000",
+    "branch": "B02",
+    "depth": "1",
+    "idea": "B02 depth1: increase DEFAULT_TMP_STORAGE_LENGTH 256->1024 for larger merge scratch",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.022%"
+  },
+  {
+    "snapshot": "0007",
+    "parent": "0006",
+    "branch": "B02",
+    "depth": "2",
+    "idea": "B02 depth2: combine tmp1024 with DEFAULT_MIN_MERGE 40->32",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.856%"
+  },
+  {
+    "snapshot": "0008",
+    "parent": "0007",
+    "branch": "B02",
+    "depth": "3",
+    "idea": "B02 depth3: with tmp1024+minMerge32, lower DEFAULT_MIN_GALLOPING 8->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.174%"
+  },
+  {
+    "snapshot": "0009",
+    "parent": "0008",
+    "branch": "B02",
+    "depth": "4",
+    "idea": "B02 depth4: revert minGalloping 7->8 and raise BULK_COPY_THRESHOLD 512->768",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.435%"
+  },
+  {
+    "snapshot": "0010",
+    "parent": "0009",
+    "branch": "B02",
+    "depth": "5",
+    "idea": "B02 depth5: keep tmp1024+threshold768 but restore DEFAULT_MIN_MERGE 32->40",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.884%"
+  },
+  {
+    "snapshot": "0011",
+    "parent": "0000",
+    "branch": "B03",
+    "depth": "1",
+    "idea": "B03 depth1: unroll copyFromBuffer loop by 8 instead of 4",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.886%"
+  },
+  {
+    "snapshot": "0012",
+    "parent": "0011",
+    "branch": "B03",
+    "depth": "2",
+    "idea": "B03 depth2: with unroll8, raise BULK_COPY_THRESHOLD 512->1024",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.836%"
+  },
+  {
+    "snapshot": "0013",
+    "parent": "0012",
+    "branch": "B03.S01",
+    "depth": "1",
+    "idea": "B03.S01 depth1: from winner 0012, lower BULK_COPY_THRESHOLD 1024->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.072%"
+  },
+  {
+    "snapshot": "0014",
+    "parent": "0013",
+    "branch": "B03.S01",
+    "depth": "2",
+    "idea": "B03.S01 depth2: threshold sweep opposite 896->1152 around winner 0012",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.140%"
+  },
+  {
+    "snapshot": "0015",
+    "parent": "0014",
+    "branch": "B03.S01",
+    "depth": "3",
+    "idea": "B03.S01 depth3: with unroll8+threshold1152, raise DEFAULT_MIN_GALLOPING 8->9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.177%"
+  },
+  {
+    "snapshot": "0016",
+    "parent": "0015",
+    "branch": "B03.S01",
+    "depth": "4",
+    "idea": "B03.S01 depth4: tighten BULK_COPY_THRESHOLD 1152->1088 with minGalloping9",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.202%"
+  },
+  {
+    "snapshot": "0017",
+    "parent": "0016",
+    "branch": "B03.S01.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01 depth1: from anchor0016 raise DEFAULT_MIN_GALLOPING 9->10",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.286%"
+  },
+  {
+    "snapshot": "0018",
+    "parent": "0017",
+    "branch": "B03.S01.S01.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S01 depth1: from anchor0017 raise DEFAULT_MIN_MERGE 40->64",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "3.064%"
+  },
+  {
+    "snapshot": "0019",
+    "parent": "0018",
+    "branch": "B03.S01.S01.S01.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S01.S01 depth1: from anchor0018 sweep DEFAULT_MIN_MERGE 64->72",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.878%"
+  },
+  {
+    "snapshot": "0020",
+    "parent": "0019",
+    "branch": "B03.S01.S01.S01.S01",
+    "depth": "2",
+    "idea": "B03.S01.S01.S01.S01 depth2: refine DEFAULT_MIN_MERGE 72->68",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.909%"
+  },
+  {
+    "snapshot": "0021",
+    "parent": "0020",
+    "branch": "B03.S01.S01.S01.S01",
+    "depth": "3",
+    "idea": "B03.S01.S01.S01.S01 depth3: lower DEFAULT_MIN_MERGE 68->60",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.077%"
+  },
+  {
+    "snapshot": "0022",
+    "parent": "0021",
+    "branch": "B03.S01.S01.S01.S01",
+    "depth": "4",
+    "idea": "B03.S01.S01.S01.S01 depth4: with minMerge60, lower BULK_COPY_THRESHOLD 1088->1024",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.649%"
+  },
+  {
+    "snapshot": "0023",
+    "parent": "0022",
+    "branch": "B03.S01.S01.S01.S01",
+    "depth": "5",
+    "idea": "B03.S01.S01.S01.S01 depth5: final try raise DEFAULT_MIN_GALLOPING 10->11",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.692%"
+  },
+  {
+    "snapshot": "0024",
+    "parent": "0018",
+    "branch": "B03.S01.S01.S01.S02",
+    "depth": "1",
+    "idea": "B03.S01.S01.S01.S02 depth1: sibling sweep DEFAULT_MIN_MERGE 64->56",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.083%"
+  },
+  {
+    "snapshot": "0025",
+    "parent": "0024",
+    "branch": "B03.S01.S01.S01.S02",
+    "depth": "2",
+    "idea": "B03.S01.S01.S01.S02 depth2: with minMerge56 lower BULK_COPY_THRESHOLD 1088->1024",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.179%"
+  },
+  {
+    "snapshot": "0026",
+    "parent": "0025",
+    "branch": "B03.S01.S01.S01.S02",
+    "depth": "3",
+    "idea": "B03.S01.S01.S01.S02 depth3: raise DEFAULT_MIN_GALLOPING 10->11",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.111%"
+  },
+  {
+    "snapshot": "0027",
+    "parent": "0026",
+    "branch": "B03.S01.S01.S01.S02",
+    "depth": "4",
+    "idea": "B03.S01.S01.S01.S02 depth4: lower DEFAULT_MIN_MERGE 56->52 for recovery",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.586%"
+  },
+  {
+    "snapshot": "0028",
+    "parent": "0027",
+    "branch": "B03.S01.S01.S01.S02",
+    "depth": "5",
+    "idea": "B03.S01.S01.S01.S02 depth5: final try restore DEFAULT_MIN_GALLOPING 11->10",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.492%"
+  },
+  {
+    "snapshot": "0029",
+    "parent": "0018",
+    "branch": "B03.S01.S01.S01.S03",
+    "depth": "1",
+    "idea": "B03.S01.S01.S01.S03 depth1: combine case4 insertion shift with BULK_COPY_THRESHOLD 1088->24",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-30.860%"
+  },
+  {
+    "snapshot": "0030",
+    "parent": "0029",
+    "branch": "B03.S01.S01.S01.S03",
+    "depth": "2",
+    "idea": "B03.S01.S01.S01.S03 depth2: keep case4 fast path, recover BULK_COPY_THRESHOLD 24->512",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.966%"
+  },
+  {
+    "snapshot": "0031",
+    "parent": "0030",
+    "branch": "B03.S01.S01.S01.S03",
+    "depth": "3",
+    "idea": "B03.S01.S01.S01.S03 depth3: keep case4, sweep BULK_COPY_THRESHOLD 512->1024",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.040%"
+  },
+  {
+    "snapshot": "0032",
+    "parent": "0031",
+    "branch": "B03.S01.S01.S01.S03",
+    "depth": "4",
+    "idea": "B03.S01.S01.S01.S03 depth4: with case4+threshold1024 lower DEFAULT_MIN_MERGE 64->60",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.995%"
+  },
+  {
+    "snapshot": "0033",
+    "parent": "0032",
+    "branch": "B03.S01.S01.S01.S03",
+    "depth": "5",
+    "idea": "B03.S01.S01.S01.S03 depth5: final try lower BULK_COPY_THRESHOLD 1024->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.302%"
+  },
+  {
+    "snapshot": "0034",
+    "parent": "0017",
+    "branch": "B03.S01.S01.S02",
+    "depth": "1",
+    "idea": "B03.S01.S01.S02 depth1: sibling from 0017 raise DEFAULT_MIN_MERGE 40->56",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.688%"
+  },
+  {
+    "snapshot": "0035",
+    "parent": "0034",
+    "branch": "B03.S01.S01.S02",
+    "depth": "2",
+    "idea": "B03.S01.S01.S02 depth2: with minMerge56 lower BULK_COPY_THRESHOLD 1088->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.160%"
+  },
+  {
+    "snapshot": "0036",
+    "parent": "0035",
+    "branch": "B03.S01.S01.S02",
+    "depth": "3",
+    "idea": "B03.S01.S01.S02 depth3: raise DEFAULT_MIN_GALLOPING 10->11",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.996%"
+  },
+  {
+    "snapshot": "0037",
+    "parent": "0036",
+    "branch": "B03.S01.S01.S02",
+    "depth": "4",
+    "idea": "B03.S01.S01.S02 depth4: with minGalloping11 raise DEFAULT_MIN_MERGE 56->60",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.308%"
+  },
+  {
+    "snapshot": "0038",
+    "parent": "0037",
+    "branch": "B03.S01.S01.S02",
+    "depth": "5",
+    "idea": "B03.S01.S01.S02 depth5: final try lower BULK_COPY_THRESHOLD 896->768",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.729%"
+  },
+  {
+    "snapshot": "0039",
+    "parent": "0017",
+    "branch": "B03.S01.S01.S03",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03 depth1: sibling from 0017 sweep DEFAULT_MIN_MERGE 40->48",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.177%"
+  },
+  {
+    "snapshot": "0040",
+    "parent": "0039",
+    "branch": "B03.S01.S01.S03",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03 depth2: with minMerge48 lower BULK_COPY_THRESHOLD 1088->960",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.407%"
+  },
+  {
+    "snapshot": "0041",
+    "parent": "0040",
+    "branch": "B03.S01.S01.S03",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03 depth3: with minMerge48+threshold960 lower DEFAULT_MIN_GALLOPING 10->9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.533%"
+  },
+  {
+    "snapshot": "0042",
+    "parent": "0041",
+    "branch": "B03.S01.S01.S03",
+    "depth": "4",
+    "idea": "B03.S01.S01.S03 depth4: raise DEFAULT_MIN_MERGE 48->64 to push overall gain above threshold",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.928%"
+  },
+  {
+    "snapshot": "0043",
+    "parent": "0042",
+    "branch": "B03.S01.S01.S03",
+    "depth": "5",
+    "idea": "B03.S01.S01.S03 depth5: final recovery BULK_COPY_THRESHOLD 960->1088",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.862%"
+  },
+  {
+    "snapshot": "0044",
+    "parent": "0043",
+    "branch": "B03.S01.S01.S03.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S01 depth1: from anchor0043 raise DEFAULT_MIN_GALLOPING 9->10",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.372%"
+  },
+  {
+    "snapshot": "0045",
+    "parent": "0044",
+    "branch": "B03.S01.S01.S03.S01",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03.S01 depth2: lower DEFAULT_MIN_MERGE 64->56 for faster short-run handling",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.400%"
+  },
+  {
+    "snapshot": "0046",
+    "parent": "0045",
+    "branch": "B03.S01.S01.S03.S01",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03.S01 depth3: with minMerge56 lower BULK_COPY_THRESHOLD 1088->960",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.478%"
+  },
+  {
+    "snapshot": "0047",
+    "parent": "0046",
+    "branch": "B03.S01.S01.S03.S01",
+    "depth": "4",
+    "idea": "B03.S01.S01.S03.S01 depth4: restore DEFAULT_MIN_GALLOPING 10->9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "2.446%"
+  },
+  {
+    "snapshot": "0048",
+    "parent": "0047",
+    "branch": "B03.S01.S01.S03.S01",
+    "depth": "5",
+    "idea": "B03.S01.S01.S03.S01 depth5: final try raise DEFAULT_MIN_MERGE 56->64 to recover balanced guardrail",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.933%"
+  },
+  {
+    "snapshot": "0049",
+    "parent": "0043",
+    "branch": "B03.S01.S01.S03.S02",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02 depth1: sibling sweep DEFAULT_MIN_MERGE 64->72",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.544%"
+  },
+  {
+    "snapshot": "0050",
+    "parent": "0049",
+    "branch": "B03.S01.S01.S03.S02",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03.S02 depth2: refine DEFAULT_MIN_MERGE 72->68",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.400%"
+  },
+  {
+    "snapshot": "0051",
+    "parent": "0050",
+    "branch": "B03.S01.S01.S03.S02",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03.S02 depth3: with minMerge68 lower BULK_COPY_THRESHOLD 1088->960",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "2.719%"
+  },
+  {
+    "snapshot": "0052",
+    "parent": "0051",
+    "branch": "B03.S01.S01.S03.S02.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02.S01 depth1: from anchor0051 lower DEFAULT_MIN_GALLOPING 9->8",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.631%"
+  },
+  {
+    "snapshot": "0053",
+    "parent": "0052",
+    "branch": "B03.S01.S01.S03.S02.S01.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02.S01.S01 depth1: from anchor0052 lower DEFAULT_MIN_GALLOPING 8->7",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.184%"
+  },
+  {
+    "snapshot": "0054",
+    "parent": "0053",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S01 depth1: from anchor0053 lower DEFAULT_MIN_GALLOPING 7->6",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.996%"
+  },
+  {
+    "snapshot": "0055",
+    "parent": "0054",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S01",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S01 depth2: lower DEFAULT_MIN_MERGE 68->64 to push over threshold",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.692%"
+  },
+  {
+    "snapshot": "0056",
+    "parent": "0055",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S01",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S01 depth3: revert DEFAULT_MIN_MERGE 64->68 after regression",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.915%"
+  },
+  {
+    "snapshot": "0057",
+    "parent": "0056",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S01",
+    "depth": "4",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S01 depth4: lower BULK_COPY_THRESHOLD 960->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.935%"
+  },
+  {
+    "snapshot": "0058",
+    "parent": "0057",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S01",
+    "depth": "5",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S01 depth5: final try restore DEFAULT_MIN_GALLOPING 6->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "2.677%"
+  },
+  {
+    "snapshot": "0059",
+    "parent": "0053",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02 depth1: sibling lower BULK_COPY_THRESHOLD 960->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.467%"
+  },
+  {
+    "snapshot": "0060",
+    "parent": "0059",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02 depth2: lower DEFAULT_MIN_MERGE 68->64 to recover medium",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.211%"
+  },
+  {
+    "snapshot": "0061",
+    "parent": "0060",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02 depth3: rebalance guardrail with BULK_COPY_THRESHOLD 896->960",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "3.195%"
+  },
+  {
+    "snapshot": "0062",
+    "parent": "0061",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01 depth1: from anchor0061 raise DEFAULT_MIN_GALLOPING 7->8",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.475%"
+  },
+  {
+    "snapshot": "0063",
+    "parent": "0062",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01 depth2: lower BULK_COPY_THRESHOLD 960->896 to recover quick",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.935%"
+  },
+  {
+    "snapshot": "0064",
+    "parent": "0063",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01 depth3: restore DEFAULT_MIN_GALLOPING 8->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.019%"
+  },
+  {
+    "snapshot": "0065",
+    "parent": "0064",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01",
+    "depth": "4",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01 depth4: raise DEFAULT_MIN_MERGE 64->72 for quick guardrail recovery",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.838%"
+  },
+  {
+    "snapshot": "0066",
+    "parent": "0065",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01",
+    "depth": "5",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01 depth5: final restore BULK_COPY_THRESHOLD 896->960",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "3.874%"
+  },
+  {
+    "snapshot": "0067",
+    "parent": "0066",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01",
+    "depth": "1",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01 depth1: from anchor0066 lower DEFAULT_MIN_MERGE 72->68",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.847%"
+  },
+  {
+    "snapshot": "0068",
+    "parent": "0067",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01",
+    "depth": "2",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01 depth2: lower DEFAULT_MIN_GALLOPING 7->6",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.081%"
+  },
+  {
+    "snapshot": "0069",
+    "parent": "0068",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01",
+    "depth": "3",
+    "idea": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01 depth3: restore DEFAULT_MIN_GALLOPING 6->7 for quick recovery",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.251%"
+  },
+  {
+    "snapshot": "0070",
+    "parent": "0069",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01",
+    "depth": "4",
+    "idea": "B03... depth4: raise DEFAULT_MIN_MERGE 68->72 for quick-side recovery",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "2.097%"
+  },
+  {
+    "snapshot": "0071",
+    "parent": "0070",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S01",
+    "depth": "1",
+    "idea": "B03...S01 depth1: from anchor0070 lower DEFAULT_MIN_GALLOPING 7->6",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.246%"
+  },
+  {
+    "snapshot": "0072",
+    "parent": "0071",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S01",
+    "depth": "2",
+    "idea": "B03...S01 depth2: raise BULK_COPY_THRESHOLD 960->1024",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.543%"
+  },
+  {
+    "snapshot": "0073",
+    "parent": "0072",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S01",
+    "depth": "3",
+    "idea": "B03...S01 depth3: restore DEFAULT_MIN_GALLOPING 6->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.116%"
+  },
+  {
+    "snapshot": "0074",
+    "parent": "0073",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S01",
+    "depth": "4",
+    "idea": "B03...S01 depth4: lower DEFAULT_MIN_MERGE 72->68 to reduce preset spread",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.459%"
+  },
+  {
+    "snapshot": "0075",
+    "parent": "0074",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S01",
+    "depth": "5",
+    "idea": "B03... depth5: final try lower BULK_COPY_THRESHOLD 1024->960",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.351%"
+  },
+  {
+    "snapshot": "0076",
+    "parent": "0070",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02",
+    "depth": "1",
+    "idea": "B03...S02 depth1: sibling sweep DEFAULT_MIN_MERGE 72->80",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.748%"
+  },
+  {
+    "snapshot": "0077",
+    "parent": "0076",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S01",
+    "depth": "1",
+    "idea": "B03...S02.S01 depth1: from anchor0076 lower DEFAULT_MIN_GALLOPING 7->6",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.524%"
+  },
+  {
+    "snapshot": "0078",
+    "parent": "0077",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S01",
+    "depth": "2",
+    "idea": "B03...S02.S01 depth2: raise BULK_COPY_THRESHOLD 960->1024 for quick guardrail",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.228%"
+  },
+  {
+    "snapshot": "0079",
+    "parent": "0078",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S01",
+    "depth": "3",
+    "idea": "B03...S02.S01 depth3: lower DEFAULT_MIN_MERGE 80->76 to reduce balanced regression",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.747%"
+  },
+  {
+    "snapshot": "0080",
+    "parent": "0079",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S01",
+    "depth": "4",
+    "idea": "B03...S02.S01 depth4: restore DEFAULT_MIN_GALLOPING 6->7 for medium recovery",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.630%"
+  },
+  {
+    "snapshot": "0081",
+    "parent": "0080",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S01",
+    "depth": "5",
+    "idea": "B03...S02.S01 depth5: final restore DEFAULT_MIN_MERGE 76->80",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.482%"
+  },
+  {
+    "snapshot": "0082",
+    "parent": "0076",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S02",
+    "depth": "1",
+    "idea": "B03...S02 depth1: sibling sweep DEFAULT_MIN_MERGE 80->88",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.151%"
+  },
+  {
+    "snapshot": "0083",
+    "parent": "0082",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S02",
+    "depth": "2",
+    "idea": "B03...S02 depth2: partial rollback DEFAULT_MIN_MERGE 88->84",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.274%"
+  },
+  {
+    "snapshot": "0084",
+    "parent": "0083",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S02",
+    "depth": "3",
+    "idea": "B03...S02 depth3: restore DEFAULT_MIN_MERGE 84->80 after medium regression",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.562%"
+  },
+  {
+    "snapshot": "0085",
+    "parent": "0084",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S02",
+    "depth": "4",
+    "idea": "B03...S02 depth4: raise DEFAULT_MIN_GALLOPING 7->8 to recover balanced",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.426%"
+  },
+  {
+    "snapshot": "0086",
+    "parent": "0085",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S02",
+    "depth": "5",
+    "idea": "B03...S02 depth5: final restore DEFAULT_MIN_GALLOPING 8->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.786%"
+  },
+  {
+    "snapshot": "0087",
+    "parent": "0076",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03",
+    "depth": "1",
+    "idea": "B03...S03 depth1: sibling threshold sweep BULK_COPY_THRESHOLD 960->928",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.089%"
+  },
+  {
+    "snapshot": "0088",
+    "parent": "0087",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03",
+    "depth": "2",
+    "idea": "B03...S03 depth2: raise DEFAULT_MIN_MERGE 80->84 with threshold928",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.091%"
+  },
+  {
+    "snapshot": "0089",
+    "parent": "0088",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01",
+    "depth": "1",
+    "idea": "B03...S03.S01 depth1: from anchor0088 raise DEFAULT_MIN_MERGE 84->88",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.084%"
+  },
+  {
+    "snapshot": "0090",
+    "parent": "0089",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01",
+    "depth": "2",
+    "idea": "B03...S03.S01 depth2: refine DEFAULT_MIN_MERGE 88->86 to recover quick",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.700%"
+  },
+  {
+    "snapshot": "0091",
+    "parent": "0090",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01",
+    "depth": "3",
+    "idea": "B03...S03.S01 depth3: lower DEFAULT_MIN_GALLOPING 7->6 for medium recovery",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.424%"
+  },
+  {
+    "snapshot": "0092",
+    "parent": "0091",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01",
+    "depth": "4",
+    "idea": "B03...S03.S01 depth4: raise DEFAULT_MIN_MERGE 86->87 for balanced guardrail",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.335%"
+  },
+  {
+    "snapshot": "0093",
+    "parent": "0092",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01",
+    "depth": "5",
+    "idea": "B03...S03.S01 depth5: final restore DEFAULT_MIN_GALLOPING 6->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.165%"
+  },
+  {
+    "snapshot": "0094",
+    "parent": "0088",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S02",
+    "depth": "1",
+    "idea": "B03...S03.S02 depth1: sibling refine DEFAULT_MIN_MERGE 84->82",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.492%"
+  },
+  {
+    "snapshot": "0095",
+    "parent": "0094",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S02",
+    "depth": "2",
+    "idea": "B03...S03.S02 depth2: raise BULK_COPY_THRESHOLD 928->960 for balanced guardrail",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.386%"
+  },
+  {
+    "snapshot": "0096",
+    "parent": "0095",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S02",
+    "depth": "3",
+    "idea": "B03...S03.S02 depth3: lower DEFAULT_MIN_MERGE 82->80 for quick/medium recovery",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.678%"
+  },
+  {
+    "snapshot": "0097",
+    "parent": "0096",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S02",
+    "depth": "4",
+    "idea": "B03...S03.S02 depth4: raise DEFAULT_MIN_GALLOPING 7->8 to rebalance quick/medium",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.388%"
+  },
+  {
+    "snapshot": "0098",
+    "parent": "0097",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S02",
+    "depth": "5",
+    "idea": "B03...S03.S02 depth5: final restore DEFAULT_MIN_GALLOPING 8->7",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.094%"
+  },
+  {
+    "snapshot": "0099",
+    "parent": "0088",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S03",
+    "depth": "1",
+    "idea": "B03...S03.S03 depth1: sibling threshold sweep BULK_COPY_THRESHOLD 928->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.526%"
+  },
+  {
+    "snapshot": "0100",
+    "parent": "0099",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S03",
+    "depth": "2",
+    "idea": "B03...S03.S03 depth2: raise DEFAULT_MIN_MERGE 84->86 with threshold896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.727%"
+  },
+  {
+    "snapshot": "0101",
+    "parent": "0100",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S03",
+    "depth": "3",
+    "idea": "B03...S03.S03 depth3: restore BULK_COPY_THRESHOLD 896->928 with minMerge86",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.829%"
+  },
+  {
+    "snapshot": "0102",
+    "parent": "0101",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S03",
+    "depth": "4",
+    "idea": "B03...S03.S03 depth4: raise DEFAULT_MIN_GALLOPING 7->8 for balanced guardrail",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.001%"
+  },
+  {
+    "snapshot": "0103",
+    "parent": "0102",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S03",
+    "depth": "5",
+    "idea": "B03...S03.S03 depth5: final lower DEFAULT_MIN_MERGE 86->84",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.371%"
+  },
+  {
+    "snapshot": "0104",
+    "parent": "0070",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S03",
+    "depth": "1",
+    "idea": "B03...S03 depth1: sibling sweep DEFAULT_MIN_MERGE 72->76",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.418%"
+  },
+  {
+    "snapshot": "0105",
+    "parent": "0104",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S03",
+    "depth": "2",
+    "idea": "implementation: threshold sweep BULK_COPY_THRESHOLD 960->1024",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.260%"
+  },
+  {
+    "snapshot": "0106",
+    "parent": "0105",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S03",
+    "depth": "3",
+    "idea": "implementation: add tiny copyFromBuffer fast path for count<=4",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.025%"
+  },
+  {
+    "snapshot": "0107",
+    "parent": "0106",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S03",
+    "depth": "4",
+    "idea": "implementation: keep tiny copyFromBuffer path and revert BULK_COPY_THRESHOLD 1024->960",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.073%"
+  },
+  {
+    "snapshot": "0108",
+    "parent": "0107",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S03",
+    "depth": "5",
+    "idea": "implementation: keep tiny copy path and tune DEFAULT_MIN_GALLOPING 7->6",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.352%"
+  },
+  {
+    "snapshot": "0109",
+    "parent": "0066",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02",
+    "depth": "1",
+    "idea": "implementation: sibling from 0066 lower BULK_COPY_THRESHOLD 960->896",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.749%"
+  },
+  {
+    "snapshot": "0110",
+    "parent": "0109",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02",
+    "depth": "2",
+    "idea": "implementation: with threshold896 tune DEFAULT_MIN_GALLOPING 7->8",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.126%"
+  },
+  {
+    "snapshot": "0111",
+    "parent": "0110",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02",
+    "depth": "3",
+    "idea": "implementation: with threshold896+gallop8 tune DEFAULT_MIN_MERGE 72->68",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.138%"
+  },
+  {
+    "snapshot": "0112",
+    "parent": "0111",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02",
+    "depth": "4",
+    "idea": "implementation: revert DEFAULT_MIN_MERGE 68->72 under threshold896+gallop8",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.658%"
+  },
+  {
+    "snapshot": "0113",
+    "parent": "0112",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02",
+    "depth": "5",
+    "idea": "implementation: final S02 probe lower BULK_COPY_THRESHOLD 896->832",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.867%"
+  },
+  {
+    "snapshot": "0114",
+    "parent": "0113",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01",
+    "depth": "1",
+    "idea": "implementation: child from 0113 lower BULK_COPY_THRESHOLD 832->768",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.229%"
+  },
+  {
+    "snapshot": "0115",
+    "parent": "0114",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S01",
+    "depth": "1",
+    "idea": "implementation: child from 0114 lower BULK_COPY_THRESHOLD 768->704",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.208%"
+  },
+  {
+    "snapshot": "0116",
+    "parent": "0115",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S01",
+    "depth": "2",
+    "idea": "implementation: with threshold704 tune DEFAULT_MIN_GALLOPING 8->9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.313%"
+  },
+  {
+    "snapshot": "0117",
+    "parent": "0116",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S01",
+    "depth": "3",
+    "idea": "implementation: with threshold704+gallop9 tune DEFAULT_MIN_MERGE 72->76",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.101%"
+  },
+  {
+    "snapshot": "0118",
+    "parent": "0117",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S01",
+    "depth": "4",
+    "idea": "implementation: with minMerge76+gallop9 tune BULK_COPY_THRESHOLD 704->736",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.705%"
+  },
+  {
+    "snapshot": "0119",
+    "parent": "0118",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S01",
+    "depth": "5",
+    "idea": "implementation: final S01 probe revert DEFAULT_MIN_MERGE 76->72 with threshold736+gallop9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.338%"
+  },
+  {
+    "snapshot": "0120",
+    "parent": "0114",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S02",
+    "depth": "1",
+    "idea": "implementation: sibling from 0114 raise BULK_COPY_THRESHOLD 768->800",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.735%"
+  },
+  {
+    "snapshot": "0121",
+    "parent": "0120",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S02",
+    "depth": "2",
+    "idea": "implementation: with threshold800 tune DEFAULT_MIN_GALLOPING 8->9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.915%"
+  },
+  {
+    "snapshot": "0122",
+    "parent": "0121",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S02",
+    "depth": "3",
+    "idea": "implementation: with gallop9 tune BULK_COPY_THRESHOLD 800->784",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.140%"
+  },
+  {
+    "snapshot": "0123",
+    "parent": "0122",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S02",
+    "depth": "4",
+    "idea": "implementation: with threshold784 tune DEFAULT_MIN_GALLOPING 9->10",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.072%"
+  },
+  {
+    "snapshot": "0124",
+    "parent": "0123",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S02",
+    "depth": "5",
+    "idea": "implementation: final S02 probe with gallop10+threshold784 tune DEFAULT_MIN_MERGE 72->68",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.901%"
+  },
+  {
+    "snapshot": "0125",
+    "parent": "0114",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S03",
+    "depth": "1",
+    "idea": "implementation: third sibling from 0114 raise BULK_COPY_THRESHOLD 768->832",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.085%"
+  },
+  {
+    "snapshot": "0126",
+    "parent": "0125",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S03",
+    "depth": "2",
+    "idea": "implementation: with threshold832 tune DEFAULT_MIN_GALLOPING 8->9",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.961%"
+  },
+  {
+    "snapshot": "0127",
+    "parent": "0126",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S03",
+    "depth": "3",
+    "idea": "implementation: add tiny copyFromBuffer fast path for count<=4 (no ping-pong)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.760%"
+  },
+  {
+    "snapshot": "0128",
+    "parent": "0127",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S03",
+    "depth": "4",
+    "idea": "implementation: copyWithin only for backward large-range moves + tiny copy path",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.841%"
+  },
+  {
+    "snapshot": "0129",
+    "parent": "0128",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S03",
+    "depth": "5",
+    "idea": "implementation: bitmask unroll limit in copyFromBuffer (count & ~7), no ping-pong",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.047%"
+  },
+  {
+    "snapshot": "0130",
+    "parent": "0113",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S02",
+    "depth": "1",
+    "idea": "implementation: sibling from 0113 increase DEFAULT_TMP_STORAGE_LENGTH 256->384 (no ping-pong)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.948%"
+  },
+  {
+    "snapshot": "0131",
+    "parent": "0130",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S02",
+    "depth": "2",
+    "idea": "implementation: with tmp384 increase MAX_TIMSORT_STATE_POOL_SIZE 1->2",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.019%"
+  },
+  {
+    "snapshot": "0132",
+    "parent": "0131",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S02",
+    "depth": "3",
+    "idea": "implementation: with tmp384+pool2 raise MAX_POOLED_TMP_LENGTH factor 64->96",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.512%"
+  },
+  {
+    "snapshot": "0133",
+    "parent": "0132",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S02",
+    "depth": "4",
+    "idea": "implementation: add tiny copyFromBuffer fast path on tmp384/pool2 branch",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.993%"
+  },
+  {
+    "snapshot": "0134",
+    "parent": "0133",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S02",
+    "depth": "5",
+    "idea": "implementation: final S02 push with tiny path+tmp384 tune BULK_COPY_THRESHOLD 832->800",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.845%"
+  },
+  {
+    "snapshot": "0135",
+    "parent": "0113",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03",
+    "depth": "1",
+    "idea": "implementation: binaryInsertionSort add case-4 direct shift fast path",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.392%"
+  },
+  {
+    "snapshot": "0136",
+    "parent": "0135",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03",
+    "depth": "2",
+    "idea": "implementation: with case4 shift tune BULK_COPY_THRESHOLD 832->800 to recover quick guardrail",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.615%"
+  },
+  {
+    "snapshot": "0137",
+    "parent": "0136",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03",
+    "depth": "3",
+    "idea": "implementation: with case4+threshold800 tune DEFAULT_MIN_GALLOPING 8->9",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "2.494%"
+  },
+  {
+    "snapshot": "0138",
+    "parent": "0137",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01",
+    "depth": "1",
+    "idea": "implementation: child from 0137 add tiny copyFromBuffer fast path count<=4",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.190%"
+  },
+  {
+    "snapshot": "0139",
+    "parent": "0138",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S01",
+    "depth": "1",
+    "idea": "implementation: with 0138 winner restrict copyWithin to backward large copies",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.532%"
+  },
+  {
+    "snapshot": "0140",
+    "parent": "0139",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S01",
+    "depth": "2",
+    "idea": "implementation: with backward-copyWithin restriction tune BULK_COPY_THRESHOLD 800->768",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.110%"
+  },
+  {
+    "snapshot": "0141",
+    "parent": "0140",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S01",
+    "depth": "3",
+    "idea": "implementation: with backward-copyWithin+threshold768 tune DEFAULT_MIN_GALLOPING 9->10",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.146%"
+  },
+  {
+    "snapshot": "0142",
+    "parent": "0141",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S01",
+    "depth": "4",
+    "idea": "implementation: with backward-copyWithin+threshold768+gallop10 tune DEFAULT_MIN_MERGE 72->76",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.152%"
+  },
+  {
+    "snapshot": "0143",
+    "parent": "0142",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S01",
+    "depth": "5",
+    "idea": "implementation: final S01 step lower BULK_COPY_THRESHOLD 768->736 on non-ping-pong chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.928%"
+  },
+  {
+    "snapshot": "0144",
+    "parent": "0138",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S02",
+    "depth": "1",
+    "idea": "implementation: sibling from 0138 increase DEFAULT_TMP_STORAGE_LENGTH 256->320",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.825%"
+  },
+  {
+    "snapshot": "0145",
+    "parent": "0144",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S02",
+    "depth": "2",
+    "idea": "implementation: with tmp320 increase MAX_TIMSORT_STATE_POOL_SIZE 1->2 (no ping-pong)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.394%"
+  },
+  {
+    "snapshot": "0146",
+    "parent": "0145",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S02",
+    "depth": "3",
+    "idea": "implementation: with tmp320+pool2 raise MAX_POOLED_TMP_LENGTH factor 64->96",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.918%"
+  },
+  {
+    "snapshot": "0147",
+    "parent": "0146",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S02",
+    "depth": "4",
+    "idea": "implementation: with tmp320+pool2+poolcap96 tune DEFAULT_MIN_GALLOPING 9->10",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.786%"
+  },
+  {
+    "snapshot": "0148",
+    "parent": "0147",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S02",
+    "depth": "5",
+    "idea": "implementation: final S02 step tune DEFAULT_MIN_MERGE 72->76 on no-ping-pong chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.074%"
+  },
+  {
+    "snapshot": "0149",
+    "parent": "0138",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S03",
+    "depth": "1",
+    "idea": "implementation: sibling from 0138 increase DEFAULT_TMP_STORAGE_LENGTH 256->288",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.858%"
+  },
+  {
+    "snapshot": "0150",
+    "parent": "0149",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S03",
+    "depth": "2",
+    "idea": "implementation: with tmp288 increase MAX_TIMSORT_STATE_POOL_SIZE 1->2",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.341%"
+  },
+  {
+    "snapshot": "0151",
+    "parent": "0150",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S03",
+    "depth": "3",
+    "idea": "implementation: forward-only tune MAX_POOLED_TMP_LENGTH factor 64->96 on tmp288/pool2 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.657%"
+  },
+  {
+    "snapshot": "0152",
+    "parent": "0151",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S03",
+    "depth": "4",
+    "idea": "implementation: forward-only tune DEFAULT_MIN_GALLOPING 9->10 on tmp288/pool2 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.186%"
+  },
+  {
+    "snapshot": "0153",
+    "parent": "0152",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S01.S03",
+    "depth": "5",
+    "idea": "implementation: final forward step tune DEFAULT_MIN_MERGE 72->76 on tmp288/pool2 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.335%"
+  },
+  {
+    "snapshot": "0154",
+    "parent": "0137",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02",
+    "depth": "1",
+    "idea": "implementation: sibling from 0137 forward-only DEFAULT_TMP_STORAGE_LENGTH 256->288",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.194%"
+  },
+  {
+    "snapshot": "0155",
+    "parent": "0154",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02",
+    "depth": "2",
+    "idea": "implementation: with tmp288 tune MAX_TIMSORT_STATE_POOL_SIZE 1->2 (forward-only)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.262%"
+  },
+  {
+    "snapshot": "0156",
+    "parent": "0155",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02",
+    "depth": "3",
+    "idea": "implementation: with tmp288+pool2 tune MAX_POOLED_TMP_LENGTH factor 64->96 (forward-only)",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.025%"
+  },
+  {
+    "snapshot": "0157",
+    "parent": "0156",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02",
+    "depth": "4",
+    "idea": "implementation: with tmp288+pool2+poolcap96 tune DEFAULT_MIN_GALLOPING 9->10",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.721%"
+  },
+  {
+    "snapshot": "0158",
+    "parent": "0157",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02",
+    "depth": "5",
+    "idea": "implementation: final forward step tune DEFAULT_MIN_MERGE 72->76 on tmp288 sibling chain",
+    "status": "winner",
+    "delta_vs_anchor_overall_score_p50": "1.967%"
+  },
+  {
+    "snapshot": "0159",
+    "parent": "0158",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S01",
+    "depth": "1",
+    "idea": "implementation: child from 0158 add tiny copyFromBuffer fast path count<=4",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.219%"
+  },
+  {
+    "snapshot": "0160",
+    "parent": "0159",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S01",
+    "depth": "2",
+    "idea": "implementation: forward-only tune BULK_COPY_THRESHOLD 800->768 on 0159 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-1.349%"
+  },
+  {
+    "snapshot": "0161",
+    "parent": "0160",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S01",
+    "depth": "3",
+    "idea": "implementation: forward-only tune DEFAULT_MIN_GALLOPING 10->11 on 0159 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.510%"
+  },
+  {
+    "snapshot": "0162",
+    "parent": "0161",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S01",
+    "depth": "4",
+    "idea": "implementation: forward-only tune DEFAULT_MIN_MERGE 76->80 on 0159 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.016%"
+  },
+  {
+    "snapshot": "0163",
+    "parent": "0162",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S01",
+    "depth": "5",
+    "idea": "implementation: final forward step tune BULK_COPY_THRESHOLD 768->736 on 0159 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.729%"
+  },
+  {
+    "snapshot": "0164",
+    "parent": "0158",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S02",
+    "depth": "1",
+    "idea": "implementation: sibling from 0158 restrict copyWithin to backward large copies",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-2.019%"
+  },
+  {
+    "snapshot": "0165",
+    "parent": "0164",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S02",
+    "depth": "2",
+    "idea": "implementation: forward-only with backward-copyWithin tune BULK_COPY_THRESHOLD 800->768",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.823%"
+  },
+  {
+    "snapshot": "0166",
+    "parent": "0165",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S02",
+    "depth": "3",
+    "idea": "implementation: forward-only with backward-copyWithin+threshold768 tune DEFAULT_MIN_GALLOPING 10->11",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.478%"
+  },
+  {
+    "snapshot": "0167",
+    "parent": "0166",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S02",
+    "depth": "4",
+    "idea": "implementation: forward-only tune DEFAULT_MIN_MERGE 76->80 on 0166 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "0.994%"
+  },
+  {
+    "snapshot": "0168",
+    "parent": "0167",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S02",
+    "depth": "5",
+    "idea": "implementation: final forward step tune BULK_COPY_THRESHOLD 768->736 on 0166 chain",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "1.196%"
+  },
+  {
+    "snapshot": "0169",
+    "parent": "0158",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S03",
+    "depth": "1",
+    "idea": "implementation: sibling 3/3 from 0158 forward-only DEFAULT_TMP_STORAGE_LENGTH 288->320",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.575%"
+  },
+  {
+    "snapshot": "0170",
+    "parent": "0169",
+    "branch": "B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S03",
+    "depth": "2",
+    "idea": "implementation: with tmp320 forward-only tune MAX_TIMSORT_STATE_POOL_SIZE 2->3",
+    "status": "loser",
+    "delta_vs_anchor_overall_score_p50": "-0.658%"
+  }
+]

@@ -1,0 +1,239 @@
+snapshot=0001 | parent=0000 | branch=B01 | depth=1 | idea=implementation: pointer-loop copyFromBuffer with switch tail | status=loser | delta_vs_anchor_overall_score_p50=-1,014%
+snapshot=0002 | parent=0001 | branch=B01 | depth=2 | idea=implementation: revert copyFromBuffer loop; lower copyWithin threshold 32->16 | status=loser | delta_vs_anchor_overall_score_p50=-9,685%
+snapshot=0003 | parent=0002 | branch=B01 | depth=3 | idea=implementation: restore threshold32; lower minGalloping 7->6 | status=loser | delta_vs_anchor_overall_score_p50=-5,818%
+snapshot=0004 | parent=0003 | branch=B01 | depth=4 | idea=implementation: raise minGalloping 6->8 to stabilize presets | status=loser | delta_vs_anchor_overall_score_p50=-1,238%
+snapshot=0005 | parent=0004 | branch=B01 | depth=5 | idea=implementation: combine case4 shift + threshold24 | status=loser | delta_vs_anchor_overall_score_p50=1,084%
+snapshot=0006 | parent=0000 | branch=B02 | depth=1 | idea=implementation: root branch test case4 shift + threshold24 | status=loser | delta_vs_anchor_overall_score_p50=-3,414%
+snapshot=0007 | parent=0006 | branch=B02 | depth=2 | idea=implementation: raise initial tmp storage 256->1024 | status=loser | delta_vs_anchor_overall_score_p50=-4,506%
+snapshot=0008 | parent=0007 | branch=B02 | depth=3 | idea=implementation: keep tmp1024 + case4, revert threshold24->32 | status=loser | delta_vs_anchor_overall_score_p50=-2,669%
+snapshot=0009 | parent=0008 | branch=B02 | depth=4 | idea=implementation: revert tmp storage 1024->256 (keep case4 + threshold32) | status=loser | delta_vs_anchor_overall_score_p50=-1,212%
+snapshot=0010 | parent=0009 | branch=B02 | depth=5 | idea=implementation: raise minGalloping 7->9 with case4+threshold32 | status=loser | delta_vs_anchor_overall_score_p50=-2,349%
+snapshot=0011 | parent=0000 | branch=B03 | depth=1 | idea=implementation: disable copyWithin path (very high bulk threshold) | status=loser | delta_vs_anchor_overall_score_p50=2,277%
+snapshot=0012 | parent=0011 | branch=B03 | depth=2 | idea=implementation: partial copyWithin restore with threshold96 | status=loser | delta_vs_anchor_overall_score_p50=0,291%
+snapshot=0013 | parent=0012 | branch=B03 | depth=3 | idea=implementation: push copyWithin threshold96->256 | status=loser | delta_vs_anchor_overall_score_p50=0,469%
+snapshot=0014 | parent=0013 | branch=B03 | depth=4 | idea=implementation: tune copyWithin threshold256->128 | status=loser | delta_vs_anchor_overall_score_p50=-2,550%
+snapshot=0015 | parent=0014 | branch=B03 | depth=5 | idea=implementation: final B03 shot case4 shift + threshold256 | status=loser | delta_vs_anchor_overall_score_p50=6,622%
+snapshot=0016 | parent=0000 | branch=B04 | depth=1 | idea=implementation: root branch pure minGalloping 7->8 | status=winner | delta_vs_anchor_overall_score_p50=3,161%
+snapshot=0017 | parent=0016 | branch=B04.S01 | depth=1 | idea=implementation: child of 0016 raise minGalloping 8->9 | status=loser | delta_vs_anchor_overall_score_p50=0,516%
+snapshot=0018 | parent=0017 | branch=B04.S01 | depth=2 | idea=implementation: child of 0016 lower minGalloping 8->7 | status=loser | delta_vs_anchor_overall_score_p50=-0,752%
+snapshot=0019 | parent=0018 | branch=B04.S01 | depth=3 | idea=implementation: return to minGalloping8 + add case4 insertion shift | status=loser | delta_vs_anchor_overall_score_p50=-0,069%
+snapshot=0020 | parent=0019 | branch=B04.S01 | depth=4 | idea=implementation: min8 + threshold24 (remove case4 shift) | status=loser | delta_vs_anchor_overall_score_p50=-0,697%
+snapshot=0021 | parent=0020 | branch=B04.S01 | depth=5 | idea=implementation: min8 + lower bulk copy threshold 24->16 | status=loser | delta_vs_anchor_overall_score_p50=-7,709%
+snapshot=0022 | parent=0016 | branch=B04.S02 | depth=1 | idea=adaptive candidate: disable copyWithin path (very high bulk threshold) from minGalloping=8 anchor | status=loser | delta_vs_anchor_overall_score_p50=5,167%
+snapshot=0023 | parent=0022 | branch=B04.S02 | depth=2 | idea=adaptive tuning: reduce bulk threshold 1000000->256 to recover quick while keeping medium/balanced gains | status=winner | delta_vs_anchor_overall_score_p50=1,198%
+snapshot=0024 | parent=0023 | branch=B04.S02.S01 | depth=1 | idea=threshold sweep from winner: bulk copy threshold 256->192 | status=loser | delta_vs_anchor_overall_score_p50=3,626%
+snapshot=0025 | parent=0024 | branch=B04.S02.S01 | depth=2 | idea=speculative opposite sweep: bulk copy threshold 192->320 | status=loser | delta_vs_anchor_overall_score_p50=-0,450%
+snapshot=0026 | parent=0025 | branch=B04.S02.S01 | depth=3 | idea=speculative midpoint sweep: bulk copy threshold 320->288 | status=loser | delta_vs_anchor_overall_score_p50=-2,296%
+snapshot=0027 | parent=0026 | branch=B04.S02.S01 | depth=4 | idea=combine case4 insertion shift + BULK_COPY_THRESHOLD 24 | status=loser | delta_vs_anchor_overall_score_p50=-1,466%
+snapshot=0028 | parent=0027 | branch=B04.S02.S01 | depth=5 | idea=case4 fast path with threshold reset 24->256 | status=loser | delta_vs_anchor_overall_score_p50=-0,359%
+snapshot=0029 | parent=0023 | branch=B04.S02.S02 | depth=1 | idea=adaptive sibling: bulk copy threshold 256->384 | status=loser | delta_vs_anchor_overall_score_p50=0,604%
+snapshot=0030 | parent=0029 | branch=B04.S02.S02 | depth=2 | idea=adaptive continuation: bulk copy threshold 384->512 | status=winner | delta_vs_anchor_overall_score_p50=7,193%
+snapshot=0031 | parent=0030 | branch=B04.S02.S02.S01 | depth=1 | idea=anchor 0030 sibling: bulk copy threshold 512->640 | status=loser | delta_vs_anchor_overall_score_p50=-0,450%
+snapshot=0032 | parent=0031 | branch=B04.S02.S02.S01 | depth=2 | idea=speculative continuation: bulk copy threshold 640->448 | status=loser | delta_vs_anchor_overall_score_p50=1,199%
+snapshot=0033 | parent=0032 | branch=B04.S02.S02.S01 | depth=3 | idea=guardrail recovery attempt: bulk copy threshold 448->496 | status=loser | delta_vs_anchor_overall_score_p50=-0,721%
+snapshot=0034 | parent=0033 | branch=B04.S02.S02.S01 | depth=4 | idea=speculative non-threshold tweak: minGalloping 8->9 with threshold496 | status=loser | delta_vs_anchor_overall_score_p50=-1,115%
+snapshot=0035 | parent=0034 | branch=B04.S02.S02.S01 | depth=5 | idea=final speculative opposite gallop bias: minGalloping 9->7 with threshold496 | status=loser | delta_vs_anchor_overall_score_p50=-0,418%
+snapshot=0036 | parent=0030 | branch=B04.S02.S02.S02 | depth=1 | idea=anchor 0030 sibling: add case4 insertion-shift fast path with threshold512 | status=loser | delta_vs_anchor_overall_score_p50=-1,621%
+snapshot=0037 | parent=0036 | branch=B04.S02.S02.S02 | depth=2 | idea=speculative continuation: keep case4 and raise bulk threshold 512->1024 | status=loser | delta_vs_anchor_overall_score_p50=1,004%
+snapshot=0038 | parent=0037 | branch=B04.S02.S02.S02 | depth=3 | idea=guardrail tuning: lower bulk threshold 1024->768 with case4 | status=loser | delta_vs_anchor_overall_score_p50=0,982%
+snapshot=0039 | parent=0038 | branch=B04.S02.S02.S02 | depth=4 | idea=fine sweep near threshold: bulk copy threshold 768->832 with case4 | status=winner | delta_vs_anchor_overall_score_p50=2,211%
+snapshot=0040 | parent=0039 | branch=B04.S02.S02.S02.S01 | depth=1 | idea=anchor 0039 sibling: bulk copy threshold 832->896 with case4 | status=winner | delta_vs_anchor_overall_score_p50=1,138%
+snapshot=0041 | parent=0040 | branch=B04.S02.S02.S02.S01.S01 | depth=1 | idea=anchor 0040 sibling: bulk copy threshold 896->960 with case4 | status=loser | delta_vs_anchor_overall_score_p50=0,649%
+snapshot=0042 | parent=0041 | branch=B04.S02.S02.S02.S01.S01 | depth=2 | idea=guardrail recovery: bulk copy threshold 960->928 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-0,594%
+snapshot=0043 | parent=0042 | branch=B04.S02.S02.S02.S01.S01 | depth=3 | idea=speculative continuation: bulk copy threshold 928->880 with case4 | status=loser | delta_vs_anchor_overall_score_p50=0,582%
+snapshot=0044 | parent=0043 | branch=B04.S02.S02.S02.S01.S01 | depth=4 | idea=speculative gallop tuning: minGalloping 8->9 with threshold880+case4 | status=loser | delta_vs_anchor_overall_score_p50=0,219%
+snapshot=0045 | parent=0044 | branch=B04.S02.S02.S02.S01.S01 | depth=5 | idea=final speculative nudge: threshold 880->896 with min9+case4 | status=winner | delta_vs_anchor_overall_score_p50=3,733%
+snapshot=0046 | parent=0045 | branch=B04.S02.S02.S02.S01.S01.S01 | depth=1 | idea=anchor 0045 sibling: fine threshold sweep 896->864 (min9+case4) | status=winner | delta_vs_anchor_overall_score_p50=3,136%
+snapshot=0047 | parent=0046 | branch=B04.S02.S02.S02.S01.S01.S01.S01 | depth=1 | idea=anchor 0046 sibling: threshold sweep 864->832 (min9+case4) | status=loser | delta_vs_anchor_overall_score_p50=-2,053%
+snapshot=0048 | parent=0047 | branch=B04.S02.S02.S02.S01.S01.S01.S01 | depth=2 | idea=speculative recovery: threshold 832->880 (min9+case4) | status=loser | delta_vs_anchor_overall_score_p50=-4,287%
+snapshot=0049 | parent=0048 | branch=B04.S02.S02.S02.S01.S01.S01.S01 | depth=3 | idea=speculative dimension switch: minGalloping 9->8 at threshold880+case4 | status=loser | delta_vs_anchor_overall_score_p50=-2,292%
+snapshot=0050 | parent=0049 | branch=B04.S02.S02.S02.S01.S01.S01.S01 | depth=4 | idea=speculative gallop probe: minGalloping 8->10 at threshold880+case4 | status=loser | delta_vs_anchor_overall_score_p50=-3,585%
+snapshot=0051 | parent=0050 | branch=B04.S02.S02.S02.S01.S01.S01.S01 | depth=5 | idea=final speculative combo: minGalloping 10->9 and threshold 880->848 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-3,619%
+snapshot=0052 | parent=0046 | branch=B04.S02.S02.S02.S01.S01.S01.S02 | depth=1 | idea=anchor 0046 sibling: remove case4 insertion fast path (keep min9, threshold864) | status=loser | delta_vs_anchor_overall_score_p50=-4,322%
+snapshot=0053 | parent=0052 | branch=B04.S02.S02.S02.S01.S01.S01.S02 | depth=2 | idea=speculative without case4: raise threshold 864->1024 | status=loser | delta_vs_anchor_overall_score_p50=-1,146%
+snapshot=0054 | parent=0053 | branch=B04.S02.S02.S02.S01.S01.S01.S02 | depth=3 | idea=speculative without case4: minGalloping 9->8 at threshold1024 | status=loser | delta_vs_anchor_overall_score_p50=-1,315%
+snapshot=0055 | parent=0054 | branch=B04.S02.S02.S02.S01.S01.S01.S02 | depth=4 | idea=speculative structural reset: re-enable case4 at min8 threshold1024 | status=loser | delta_vs_anchor_overall_score_p50=-3,107%
+snapshot=0056 | parent=0055 | branch=B04.S02.S02.S02.S01.S01.S01.S02 | depth=5 | idea=final speculative combo: minGalloping 8->9 and threshold 1024->840 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-6,952%
+snapshot=0057 | parent=0046 | branch=B04.S02.S02.S02.S01.S01.S01.S03 | depth=1 | idea=anchor 0046 final sibling: increase state/tmp pooling (pool 1->2, tmp cap x64->x128) | status=loser | delta_vs_anchor_overall_score_p50=-6,821%
+snapshot=0058 | parent=0057 | branch=B04.S02.S02.S02.S01.S01.S01.S03 | depth=2 | idea=speculative pooling opposite: pool 2->1 and tmp cap x128->x32 | status=loser | delta_vs_anchor_overall_score_p50=-3,793%
+snapshot=0059 | parent=0058 | branch=B04.S02.S02.S02.S01.S01.S01.S03 | depth=3 | idea=speculative algorithmic tweak: DEFAULT_MIN_MERGE 32->64 | status=loser | delta_vs_anchor_overall_score_p50=-3,206%
+snapshot=0060 | parent=0059 | branch=B04.S02.S02.S02.S01.S01.S01.S03 | depth=4 | idea=speculative opposite algorithmic tweak: DEFAULT_MIN_MERGE 64->16 | status=loser | delta_vs_anchor_overall_score_p50=-5,609%
+snapshot=0061 | parent=0060 | branch=B04.S02.S02.S02.S01.S01.S01.S03 | depth=5 | idea=final speculative blend: MIN_MERGE 48 with tmp cap restored x64 | status=loser | delta_vs_anchor_overall_score_p50=-1,656%
+snapshot=0062 | parent=0045 | branch=B04.S02.S02.S02.S01.S01.S02 | depth=1 | idea=anchor 0045 sibling: fine threshold probe 896->912 (min9+case4) | status=loser | delta_vs_anchor_overall_score_p50=0,622%
+snapshot=0063 | parent=0062 | branch=B04.S02.S02.S02.S01.S01.S02 | depth=2 | idea=speculative guardrail tune: threshold 912->904 (min9+case4) | status=loser | delta_vs_anchor_overall_score_p50=-5,534%
+snapshot=0064 | parent=0063 | branch=B04.S02.S02.S02.S01.S01.S02 | depth=3 | idea=speculative gallop tune: minGalloping 9->8 at threshold904+case4 | status=loser | delta_vs_anchor_overall_score_p50=-5,856%
+snapshot=0065 | parent=0064 | branch=B04.S02.S02.S02.S01.S01.S02 | depth=4 | idea=speculative opposite gallop tune: minGalloping 8->10 at threshold904+case4 | status=loser | delta_vs_anchor_overall_score_p50=-4,438%
+snapshot=0066 | parent=0065 | branch=B04.S02.S02.S02.S01.S01.S02 | depth=5 | idea=final speculative blend: minGalloping 10->9 and threshold 904->888 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-3,497%
+snapshot=0067 | parent=0045 | branch=B04.S02.S02.S02.S01.S01.S03 | depth=1 | idea=anchor 0045 final sibling: algorithmic tweak DEFAULT_MIN_MERGE 32->40 | status=loser | delta_vs_anchor_overall_score_p50=-1,185%
+snapshot=0068 | parent=0067 | branch=B04.S02.S02.S02.S01.S01.S03 | depth=2 | idea=speculative MIN_MERGE correction: 40->36 | status=loser | delta_vs_anchor_overall_score_p50=-1,138%
+snapshot=0069 | parent=0068 | branch=B04.S02.S02.S02.S01.S01.S03 | depth=3 | idea=speculative MIN_MERGE fine step: 36->34 | status=loser | delta_vs_anchor_overall_score_p50=-7,593%
+snapshot=0070 | parent=0069 | branch=B04.S02.S02.S02.S01.S01.S03 | depth=4 | idea=recover from MIN_MERGE branch: restore MIN_MERGE 32 and lower threshold 896->872 (min9+case4) | status=loser | delta_vs_anchor_overall_score_p50=2,591%
+snapshot=0071 | parent=0070 | branch=B04.S02.S02.S02.S01.S01.S03 | depth=5 | idea=final attempt in S03: threshold 872->864 (MIN_MERGE32, min9, case4) | status=loser | delta_vs_anchor_overall_score_p50=-6,242%
+snapshot=0072 | parent=0040 | branch=B04.S02.S02.S02.S01.S02 | depth=1 | idea=anchor 0040 sibling S02: minGalloping 8->7 (threshold896+case4) | status=loser | delta_vs_anchor_overall_score_p50=-3,201%
+snapshot=0073 | parent=0072 | branch=B04.S02.S02.S02.S01.S02 | depth=2 | idea=speculative correction from min7: minGalloping 7->9 (threshold896+case4) | status=loser | delta_vs_anchor_overall_score_p50=-2,958%
+snapshot=0074 | parent=0073 | branch=B04.S02.S02.S02.S01.S02 | depth=3 | idea=speculative threshold shift: 896->864 at min9+case4 | status=loser | delta_vs_anchor_overall_score_p50=-4,466%
+snapshot=0075 | parent=0074 | branch=B04.S02.S02.S02.S01.S02 | depth=4 | idea=speculative gallop fallback: minGalloping 9->8 at threshold864+case4 | status=loser | delta_vs_anchor_overall_score_p50=-3,369%
+snapshot=0076 | parent=0075 | branch=B04.S02.S02.S02.S01.S02 | depth=5 | idea=final attempt S02: reset threshold 864->896 at min8+case4 | status=loser | delta_vs_anchor_overall_score_p50=-0,908%
+snapshot=0077 | parent=0040 | branch=B04.S02.S02.S02.S01.S03 | depth=1 | idea=anchor 0040 final sibling S03: algorithmic MIN_MERGE 32->40 | status=winner | delta_vs_anchor_overall_score_p50=23,922%
+snapshot=0078 | parent=0077 | branch=B04.S02.S02.S02.S01.S03.S01 | depth=1 | idea=anchor 0077 sibling: MIN_MERGE sweep 40->48 | status=loser | delta_vs_anchor_overall_score_p50=-3,814%
+snapshot=0079 | parent=0078 | branch=B04.S02.S02.S02.S01.S03.S01 | depth=2 | idea=speculative midpoint: MIN_MERGE 48->44 | status=loser | delta_vs_anchor_overall_score_p50=-3,721%
+snapshot=0080 | parent=0079 | branch=B04.S02.S02.S02.S01.S03.S01 | depth=3 | idea=speculative combo around anchor: MIN_MERGE 44->40 and threshold 896->864 | status=loser | delta_vs_anchor_overall_score_p50=-2,479%
+snapshot=0081 | parent=0080 | branch=B04.S02.S02.S02.S01.S03.S01 | depth=4 | idea=speculative threshold direction check: 864->928 with MIN_MERGE40 | status=loser | delta_vs_anchor_overall_score_p50=-1,653%
+snapshot=0082 | parent=0081 | branch=B04.S02.S02.S02.S01.S03.S01 | depth=5 | idea=final S01 attempt: minGalloping 8->9 and threshold 928->896 with MIN_MERGE40 | status=loser | delta_vs_anchor_overall_score_p50=-8,991%
+snapshot=0083 | parent=0077 | branch=B04.S02.S02.S02.S01.S03.S02 | depth=1 | idea=anchor 0077 sibling S02: remove case4 fast path (MIN_MERGE40, min8, threshold896) | status=loser | delta_vs_anchor_overall_score_p50=-0,811%
+snapshot=0084 | parent=0083 | branch=B04.S02.S02.S02.S01.S03.S02 | depth=2 | idea=speculative no-case4 tune: minGalloping 8->9 (MIN_MERGE40, threshold896) | status=loser | delta_vs_anchor_overall_score_p50=-3,264%
+snapshot=0085 | parent=0084 | branch=B04.S02.S02.S02.S01.S03.S02 | depth=3 | idea=speculative no-case4 threshold sweep: 896->864 with min9 | status=loser | delta_vs_anchor_overall_score_p50=-0,590%
+snapshot=0086 | parent=0085 | branch=B04.S02.S02.S02.S01.S03.S02 | depth=4 | idea=fine tune near close miss: threshold 864->872 (no-case4, min9) | status=loser | delta_vs_anchor_overall_score_p50=-3,123%
+snapshot=0087 | parent=0086 | branch=B04.S02.S02.S02.S01.S03.S02 | depth=5 | idea=final no-case4 attempt: threshold 872->860 with min9 | status=loser | delta_vs_anchor_overall_score_p50=-2,263%
+snapshot=0088 | parent=0077 | branch=B04.S02.S02.S02.S01.S03.S03 | depth=1 | idea=anchor 0077 final sibling S03: high threshold 896->1024 (case4 on) | status=loser | delta_vs_anchor_overall_score_p50=0,057%
+snapshot=0089 | parent=0088 | branch=B04.S02.S02.S02.S01.S03.S03 | depth=2 | idea=speculative guardrail recovery: threshold 1024->960 (case4 on) | status=loser | delta_vs_anchor_overall_score_p50=-3,995%
+snapshot=0090 | parent=0089 | branch=B04.S02.S02.S02.S01.S03.S03 | depth=3 | idea=speculative continuation: threshold 960->928 (case4 on) | status=loser | delta_vs_anchor_overall_score_p50=-3,553%
+snapshot=0091 | parent=0090 | branch=B04.S02.S02.S02.S01.S03.S03 | depth=4 | idea=speculative dimension switch: minGalloping 8->9 at threshold928 | status=loser | delta_vs_anchor_overall_score_p50=-2,041%
+snapshot=0092 | parent=0091 | branch=B04.S02.S02.S02.S01.S03.S03 | depth=5 | idea=final S03 attempt: combine min9 with threshold 1024 | status=loser | delta_vs_anchor_overall_score_p50=-0,733%
+snapshot=0093 | parent=0039 | branch=B04.S02.S02.S02.S02 | depth=1 | idea=anchor 0039 sibling S02: MIN_MERGE 32->40 at threshold832+case4 | status=loser | delta_vs_anchor_overall_score_p50=-1,048%
+snapshot=0094 | parent=0093 | branch=B04.S02.S02.S02.S02 | depth=2 | idea=algorithm: DEFAULT_MIN_MERGE 40->36 | status=loser | delta_vs_anchor_overall_score_p50=-1,425%
+snapshot=0095 | parent=0094 | branch=B04.S02.S02.S02.S02 | depth=3 | idea=algorithm: restore MIN_MERGE 40 and raise MIN_GALLOPING 8->9 | status=loser | delta_vs_anchor_overall_score_p50=0,802%
+snapshot=0096 | parent=0095 | branch=B04.S02.S02.S02.S02 | depth=4 | idea=implementation: BULK_COPY_THRESHOLD 832->960 on MIN_GALLOPING=9 | status=loser | delta_vs_anchor_overall_score_p50=0,665%
+snapshot=0097 | parent=0096 | branch=B04.S02.S02.S02.S02 | depth=5 | idea=implementation: BULK_COPY_THRESHOLD 960->512 on MIN_GALLOPING=9 | status=winner | delta_vs_anchor_overall_score_p50=3,463%
+snapshot=0098 | parent=0097 | branch=B04.S02.S02.S02.S02.S01 | depth=1 | idea=algorithm: DEFAULT_MIN_GALLOPING 9->10 from anchor 0097 | status=loser | delta_vs_anchor_overall_score_p50=-5,006%
+snapshot=0099 | parent=0098 | branch=B04.S02.S02.S02.S02.S01 | depth=2 | idea=algorithm: DEFAULT_MIN_GALLOPING 10->8 from 0098 | status=loser | delta_vs_anchor_overall_score_p50=-3,699%
+snapshot=0100 | parent=0099 | branch=B04.S02.S02.S02.S02.S01 | depth=3 | idea=implementation: BULK_COPY_THRESHOLD 512->384 with MIN_GALLOPING=8 | status=loser | delta_vs_anchor_overall_score_p50=-2,085%
+snapshot=0101 | parent=0100 | branch=B04.S02.S02.S02.S02.S01 | depth=4 | idea=algorithm: DEFAULT_MIN_GALLOPING 8->9 with BULK_COPY_THRESHOLD=384 | status=loser | delta_vs_anchor_overall_score_p50=0,873%
+snapshot=0102 | parent=0101 | branch=B04.S02.S02.S02.S02.S01 | depth=5 | idea=algorithm: DEFAULT_MIN_MERGE 40->32 with MIN_GALLOPING=9 threshold384 | status=loser | delta_vs_anchor_overall_score_p50=-6,164%
+snapshot=0103 | parent=0097 | branch=B04.S02.S02.S02.S02.S02 | depth=1 | idea=implementation: BULK_COPY_THRESHOLD 512->640 from anchor 0097 | status=loser | delta_vs_anchor_overall_score_p50=-0,455%
+snapshot=0104 | parent=0103 | branch=B04.S02.S02.S02.S02.S02 | depth=2 | idea=algorithm: DEFAULT_MIN_GALLOPING 9->8 with BULK_COPY_THRESHOLD=640 | status=loser | delta_vs_anchor_overall_score_p50=-2,965%
+snapshot=0105 | parent=0104 | branch=B04.S02.S02.S02.S02.S02 | depth=3 | idea=implementation: BULK_COPY_THRESHOLD 640->512 with MIN_GALLOPING=8 | status=loser | delta_vs_anchor_overall_score_p50=-0,363%
+snapshot=0106 | parent=0105 | branch=B04.S02.S02.S02.S02.S02 | depth=4 | idea=implementation: binaryInsertionSort unroll small shifts up to 8 | status=loser | delta_vs_anchor_overall_score_p50=-2,966%
+snapshot=0107 | parent=0106 | branch=B04.S02.S02.S02.S02.S02 | depth=5 | idea=algorithm: DEFAULT_MIN_GALLOPING 8->9 with unroll<=8 fast path | status=loser | delta_vs_anchor_overall_score_p50=-1,694%
+snapshot=0108 | parent=0097 | branch=B04.S02.S02.S02.S02.S03 | depth=1 | idea=implementation: DEFAULT_TMP_STORAGE_LENGTH 256->512 from anchor 0097 | status=loser | delta_vs_anchor_overall_score_p50=0,859%
+snapshot=0109 | parent=0108 | branch=B04.S02.S02.S02.S02.S03 | depth=2 | idea=implementation: DEFAULT_TMP_STORAGE_LENGTH 512->384 | status=loser | delta_vs_anchor_overall_score_p50=-0,506%
+snapshot=0110 | parent=0109 | branch=B04.S02.S02.S02.S02.S03 | depth=3 | idea=implementation: DEFAULT_TMP_STORAGE_LENGTH 384->192 | status=loser | delta_vs_anchor_overall_score_p50=-3,899%
+snapshot=0111 | parent=0110 | branch=B04.S02.S02.S02.S02.S03 | depth=4 | idea=implementation: MAX_POOLED_TMP_LENGTH multiplier 64->128 at TMP=192 | status=loser | delta_vs_anchor_overall_score_p50=-2,695%
+snapshot=0112 | parent=0111 | branch=B04.S02.S02.S02.S02.S03 | depth=5 | idea=implementation: TMP length 192->320 and pool multiplier 128->64 | status=loser | delta_vs_anchor_overall_score_p50=-6,836%
+snapshot=0113 | parent=0039 | branch=B04.S02.S02.S02.S03 | depth=1 | idea=implementation: case4 shift path + BULK_COPY_THRESHOLD 832->24 | status=loser | delta_vs_anchor_overall_score_p50=-1,782%
+snapshot=0114 | parent=0113 | branch=B04.S02.S02.S02.S03 | depth=2 | idea=implementation: BULK_COPY_THRESHOLD 24->64 (case4 path) | status=loser | delta_vs_anchor_overall_score_p50=-2,990%
+snapshot=0115 | parent=0114 | branch=B04.S02.S02.S02.S03 | depth=3 | idea=implementation: BULK_COPY_THRESHOLD 64->128 (case4 path) | status=loser | delta_vs_anchor_overall_score_p50=-2,998%
+snapshot=0116 | parent=0115 | branch=B04.S02.S02.S02.S03 | depth=4 | idea=implementation: BULK_COPY_THRESHOLD 128->256 (case4 path) | status=loser | delta_vs_anchor_overall_score_p50=-4,526%
+snapshot=0117 | parent=0116 | branch=B04.S02.S02.S02.S03 | depth=5 | idea=implementation: BULK_COPY_THRESHOLD 256->512 (case4 path) | status=loser | delta_vs_anchor_overall_score_p50=-0,401%
+snapshot=0118 | parent=0030 | branch=B04.S02.S02.S03 | depth=1 | idea=algorithm: DEFAULT_MIN_GALLOPING 8->9 from anchor 0030 | status=loser | delta_vs_anchor_overall_score_p50=0,368%
+snapshot=0119 | parent=0118 | branch=B04.S02.S02.S03 | depth=2 | idea=algorithm: DEFAULT_MIN_MERGE 32->40 with MIN_GALLOPING=9 | status=loser | delta_vs_anchor_overall_score_p50=-2,332%
+snapshot=0120 | parent=0119 | branch=B04.S02.S02.S03 | depth=3 | idea=algorithm: DEFAULT_MIN_GALLOPING 9->8 with MIN_MERGE=40 threshold512 | status=loser | delta_vs_anchor_overall_score_p50=0,664%
+snapshot=0121 | parent=0120 | branch=B04.S02.S02.S03 | depth=4 | idea=implementation: BULK_COPY_THRESHOLD 512->384 on near-win config (MIN_MERGE40, MIN_GALLOPING8) | status=loser | delta_vs_anchor_overall_score_p50=-0,673%
+snapshot=0122 | parent=0121 | branch=B04.S02.S02.S03 | depth=5 | idea=algorithm: MIN_GALLOPING 8->7 and BULK_COPY_THRESHOLD 384->512 | status=loser | delta_vs_anchor_overall_score_p50=-0,624%
+snapshot=0123 | parent=0023 | branch=B04.S02.S03 | depth=1 | idea=implementation: anchor 0023 sibling S03 BULK_COPY_THRESHOLD 256->640 | status=loser | delta_vs_anchor_overall_score_p50=0,214%
+snapshot=0124 | parent=0123 | branch=B04.S02.S03 | depth=2 | idea=implementation: BULK_COPY_THRESHOLD 640->512 on anchor 0023 S03 chain | status=loser | delta_vs_anchor_overall_score_p50=1,404%
+snapshot=0125 | parent=0124 | branch=B04.S02.S03 | depth=3 | idea=algorithm: DEFAULT_MIN_GALLOPING 8->7 with BULK_COPY_THRESHOLD=512 | status=loser | delta_vs_anchor_overall_score_p50=-0,461%
+snapshot=0126 | parent=0125 | branch=B04.S02.S03 | depth=4 | idea=algorithm: DEFAULT_MIN_GALLOPING 7->9 with BULK_COPY_THRESHOLD=512 | status=winner | delta_vs_anchor_overall_score_p50=1,884%
+snapshot=0127 | parent=0126 | branch=B04.S02.S03.S01 | depth=1 | idea=implementation: anchor 0126 sibling S01 BULK_COPY_THRESHOLD 512->640 | status=loser | delta_vs_anchor_overall_score_p50=-4,159%
+snapshot=0128 | parent=0127 | branch=B04.S02.S03.S01 | depth=2 | idea=implementation: BULK_COPY_THRESHOLD 640->384 on anchor 0126 S01 chain | status=loser | delta_vs_anchor_overall_score_p50=-0,832%
+snapshot=0129 | parent=0128 | branch=B04.S02.S03.S01 | depth=3 | idea=algorithm: DEFAULT_MIN_GALLOPING 9->10 with BULK_COPY_THRESHOLD=384 | status=loser | delta_vs_anchor_overall_score_p50=-9,446%
+snapshot=0130 | parent=0129 | branch=B04.S02.S03.S01 | depth=4 | idea=algorithm: DEFAULT_MIN_GALLOPING 10->8 with BULK_COPY_THRESHOLD=384 | status=loser | delta_vs_anchor_overall_score_p50=-5,781%
+snapshot=0131 | parent=0130 | branch=B04.S02.S03.S01 | depth=5 | idea=implementation: BULK_COPY_THRESHOLD 384->512 with MIN_GALLOPING=8 | status=winner | delta_vs_anchor_overall_score_p50=2,124%
+snapshot=0132 | parent=0131 | branch=B04.S02.S03.S01.S01 | depth=1 | idea=algorithm: anchor 0131 sibling S01 MIN_GALLOPING 8->9 | status=loser | delta_vs_anchor_overall_score_p50=-1,855%
+snapshot=0133 | parent=0132 | branch=B04.S02.S03.S01.S01 | depth=2 | idea=algorithm: MIN_GALLOPING 9->7 from 0132 | status=loser | delta_vs_anchor_overall_score_p50=-0,637%
+snapshot=0134 | parent=0133 | branch=B04.S02.S03.S01.S01 | depth=3 | idea=algorithm: DEFAULT_MIN_MERGE 32->40 with MIN_GALLOPING=7 threshold512 | status=loser | delta_vs_anchor_overall_score_p50=-2,488%
+snapshot=0135 | parent=0134 | branch=B04.S02.S03.S01.S01 | depth=4 | idea=implementation: copyFromBuffer tiny-count fast path (<=8) | status=loser | delta_vs_anchor_overall_score_p50=-1,073%
+snapshot=0136 | parent=0135 | branch=B04.S02.S03.S01.S01 | depth=5 | idea=implementation: anchor constants restore (MIN_MERGE32, MIN_GALLOPING8) + tiny copyFromBuffer path | status=loser | delta_vs_anchor_overall_score_p50=-0,615%
+snapshot=0137 | parent=0131 | branch=B04.S02.S03.S01.S02 | depth=1 | idea=implementation: anchor 0131 sibling S02 DEFAULT_TMP_STORAGE_LENGTH 256->320 | status=loser | delta_vs_anchor_overall_score_p50=0,899%
+snapshot=0138 | parent=0137 | branch=B04.S02.S03.S01.S02 | depth=2 | idea=implementation: near-win tune BULK_COPY_THRESHOLD 512->448 (TMP=320) | status=loser | delta_vs_anchor_overall_score_p50=-0,675%
+snapshot=0139 | parent=0138 | branch=B04.S02.S03.S01.S02 | depth=3 | idea=algorithm: DEFAULT_MIN_GALLOPING 8->7 with TMP=320 threshold448 | status=loser | delta_vs_anchor_overall_score_p50=-1,338%
+snapshot=0140 | parent=0139 | branch=B04.S02.S03.S01.S02 | depth=4 | idea=implementation: BULK_COPY_THRESHOLD 448->512 with TMP=320 MIN_GALLOPING=7 | status=loser | delta_vs_anchor_overall_score_p50=-1,098%
+snapshot=0141 | parent=0140 | branch=B04.S02.S03.S01.S02 | depth=5 | idea=algorithm: MIN_MERGE 32->40 and MIN_GALLOPING 7->8 with TMP=320 threshold512 | status=loser | delta_vs_anchor_overall_score_p50=1,133%
+snapshot=0142 | parent=0131 | branch=B04.S02.S03.S01.S03 | depth=1 | idea=implementation: anchor 0131 sibling S03 MAX_TIMSORT_STATE_POOL_SIZE 1->2 | status=loser | delta_vs_anchor_overall_score_p50=-5,388%
+snapshot=0143 | parent=0142 | branch=B04.S02.S03.S01.S03 | depth=2 | idea=implementation: revert pool size 2->1 and raise MAX_POOLED_TMP_LENGTH 64->128 | status=loser | delta_vs_anchor_overall_score_p50=0,079%
+snapshot=0144 | parent=0143 | branch=B04.S02.S03.S01.S03 | depth=3 | idea=algorithm: MIN_MERGE 32->40 with pool cap 128 | status=winner | delta_vs_anchor_overall_score_p50=2,548%
+snapshot=0145 | parent=0144 | branch=B04.S02.S03.S01.S03.S01 | depth=1 | idea=implementation: anchor 0144 sibling S01 BULK_COPY_THRESHOLD 512->640 | status=loser | delta_vs_anchor_overall_score_p50=-1,852%
+snapshot=0146 | parent=0145 | branch=B04.S02.S03.S01.S03.S01 | depth=2 | idea=replay: case4 insertion shift fast path (n=4) on threshold640 chain | status=loser | delta_vs_anchor_overall_score_p50=-3,934%
+snapshot=0147 | parent=0146 | branch=B04.S02.S03.S01.S03.S01 | depth=3 | idea=threshold sweep on S01 chain: BULK_COPY_THRESHOLD 640->832 with case4 n=4 path | status=loser | delta_vs_anchor_overall_score_p50=0,616%
+snapshot=0148 | parent=0147 | branch=B04.S02.S03.S01.S03.S01 | depth=4 | idea=guardrail recovery on S01 chain: BULK_COPY_THRESHOLD 832->768 with case4 n=4 path | status=loser | delta_vs_anchor_overall_score_p50=-2,770%
+snapshot=0149 | parent=0148 | branch=B04.S02.S03.S01.S03.S01 | depth=5 | idea=final S01-chain attempt: BULK_COPY_THRESHOLD 768->512 with case4 n=4 path | status=loser | delta_vs_anchor_overall_score_p50=-0,852%
+snapshot=0150 | parent=0144 | branch=B04.S02.S03.S01.S03.S02 | depth=1 | idea=replay: disable copyWithin path on anchor 0144 (BULK_COPY_THRESHOLD 512->1000000) | status=loser | delta_vs_anchor_overall_score_p50=-2,286%
+snapshot=0151 | parent=0150 | branch=B04.S02.S03.S01.S03.S02 | depth=2 | idea=S02 moderation: BULK_COPY_THRESHOLD 1000000->2048 after copyWithin-disable replay | status=loser | delta_vs_anchor_overall_score_p50=0,172%
+snapshot=0152 | parent=0151 | branch=B04.S02.S03.S01.S03.S02 | depth=3 | idea=S02 rebalance: BULK_COPY_THRESHOLD 2048->1024 | status=loser | delta_vs_anchor_overall_score_p50=0,049%
+snapshot=0153 | parent=0152 | branch=B04.S02.S03.S01.S03.S02 | depth=4 | idea=S02 quick-guardrail recovery: BULK_COPY_THRESHOLD 1024->768 | status=loser | delta_vs_anchor_overall_score_p50=0,618%
+snapshot=0154 | parent=0153 | branch=B04.S02.S03.S01.S03.S02 | depth=5 | idea=S02 final attempt: BULK_COPY_THRESHOLD 768->640 | status=loser | delta_vs_anchor_overall_score_p50=-1,863%
+snapshot=0155 | parent=0144 | branch=B04.S02.S03.S01.S03.S03 | depth=1 | idea=S03 new direction: DEFAULT_TMP_STORAGE_LENGTH 256->320 | status=loser | delta_vs_anchor_overall_score_p50=-6,862%
+snapshot=0156 | parent=0155 | branch=B04.S02.S03.S01.S03.S03 | depth=2 | idea=S03 correction: DEFAULT_TMP_STORAGE_LENGTH 320->288 | status=loser | delta_vs_anchor_overall_score_p50=-1,079%
+snapshot=0157 | parent=0156 | branch=B04.S02.S03.S01.S03.S03 | depth=3 | idea=S03 continuation: DEFAULT_MIN_GALLOPING 8->7 with TMP=288 | status=winner | delta_vs_anchor_overall_score_p50=1,311%
+snapshot=0158 | parent=0157 | branch=B04.S02.S03.S01.S03.S03.S01 | depth=1 | idea=anchor 0157 S01: BULK_COPY_THRESHOLD 512->640 (MIN_GALLOPING=7 TMP=288) | status=loser | delta_vs_anchor_overall_score_p50=-0,105%
+snapshot=0159 | parent=0158 | branch=B04.S02.S03.S01.S03.S03.S01 | depth=2 | idea=S01 guardrail recovery: BULK_COPY_THRESHOLD 640->576 | status=loser | delta_vs_anchor_overall_score_p50=-0,661%
+snapshot=0160 | parent=0159 | branch=B04.S02.S03.S01.S03.S03.S01 | depth=3 | idea=S01 fine sweep: BULK_COPY_THRESHOLD 576->544 | status=loser | delta_vs_anchor_overall_score_p50=-1,859%
+snapshot=0161 | parent=0160 | branch=B04.S02.S03.S01.S03.S03.S01 | depth=4 | idea=S01 structural try: add case4 insertion-shift fast path | status=loser | delta_vs_anchor_overall_score_p50=0,813%
+snapshot=0162 | parent=0161 | branch=B04.S02.S03.S01.S03.S03.S01 | depth=5 | idea=S01 final attempt: keep case4 and set BULK_COPY_THRESHOLD 544->512 | status=loser | delta_vs_anchor_overall_score_p50=2,798%
+snapshot=0163 | parent=0157 | branch=B04.S02.S03.S01.S03.S03.S02 | depth=1 | idea=anchor 0157 S02: case4 insertion fast path + BULK_COPY_THRESHOLD 512->480 | status=loser | delta_vs_anchor_overall_score_p50=-1,729%
+snapshot=0164 | parent=0163 | branch=B04.S02.S03.S01.S03.S03.S02 | depth=2 | idea=S02 reset threshold: BULK_COPY_THRESHOLD 480->512 with case4 path retained | status=loser | delta_vs_anchor_overall_score_p50=-4,764%
+snapshot=0165 | parent=0164 | branch=B04.S02.S03.S01.S03.S03.S02 | depth=3 | idea=S02 alternate knob: DEFAULT_MIN_MERGE 40->36 with case4 path | status=loser | delta_vs_anchor_overall_score_p50=-7,109%
+snapshot=0166 | parent=0165 | branch=B04.S02.S03.S01.S03.S03.S02 | depth=4 | idea=S02 cleanup: revert DEFAULT_MIN_MERGE 36->40 | status=loser | delta_vs_anchor_overall_score_p50=-1,417%
+snapshot=0167 | parent=0166 | branch=B04.S02.S03.S01.S03.S03.S02 | depth=5 | idea=S02 final attempt: DEFAULT_MIN_GALLOPING 7->6 with case4 path | status=winner | delta_vs_anchor_overall_score_p50=1,847%
+snapshot=0168 | parent=0167 | branch=B04.S02.S03.S01.S03.S03.S02.S01 | depth=1 | idea=anchor 0167 S01: BULK_COPY_THRESHOLD 512->576 (MIN_GALLOPING=6, case4) | status=loser | delta_vs_anchor_overall_score_p50=-2,562%
+snapshot=0169 | parent=0168 | branch=B04.S02.S03.S01.S03.S03.S02.S01 | depth=2 | idea=S01 correction: BULK_COPY_THRESHOLD 576->544 | status=loser | delta_vs_anchor_overall_score_p50=-0,995%
+snapshot=0170 | parent=0169 | branch=B04.S02.S03.S01.S03.S03.S02.S01 | depth=3 | idea=S01 stability try: DEFAULT_MIN_GALLOPING 6->7 with threshold544+case4 | status=loser | delta_vs_anchor_overall_score_p50=0,917%
+snapshot=0171 | parent=0170 | branch=B04.S02.S03.S01.S03.S03.S02.S01 | depth=4 | idea=S01 balanced recovery: BULK_COPY_THRESHOLD 544->512 with MIN_GALLOPING=7+case4 | status=loser | delta_vs_anchor_overall_score_p50=-6,711%
+snapshot=0172 | parent=0171 | branch=B04.S02.S03.S01.S03.S03.S02.S01 | depth=5 | idea=S01 final attempt: DEFAULT_MIN_GALLOPING 7->6 (threshold512+case4) | status=loser | delta_vs_anchor_overall_score_p50=-1,959%
+snapshot=0173 | parent=0167 | branch=B04.S02.S03.S01.S03.S03.S02.S02 | depth=1 | idea=anchor 0167 S02: MAX_POOLED_TMP_LENGTH multiplier 128->96 | status=loser | delta_vs_anchor_overall_score_p50=0,290%
+snapshot=0174 | parent=0173 | branch=B04.S02.S03.S01.S03.S03.S02.S02 | depth=2 | idea=S02 guardrail tune: MAX_POOLED_TMP_LENGTH multiplier 96->112 | status=loser | delta_vs_anchor_overall_score_p50=-4,186%
+snapshot=0175 | parent=0174 | branch=B04.S02.S03.S01.S03.S03.S02.S02 | depth=3 | idea=S02 cleanup: MAX_POOLED_TMP_LENGTH multiplier 112->128 (anchor value) | status=loser | delta_vs_anchor_overall_score_p50=-0,399%
+snapshot=0176 | parent=0175 | branch=B04.S02.S03.S01.S03.S03.S02.S02 | depth=4 | idea=S02 stability attempt: DEFAULT_MIN_GALLOPING 6->7 (threshold512, pool128, case4) | status=loser | delta_vs_anchor_overall_score_p50=-5,714%
+snapshot=0177 | parent=0176 | branch=B04.S02.S03.S01.S03.S03.S02.S02 | depth=5 | idea=S02 final attempt: revert DEFAULT_MIN_GALLOPING 7->6 | status=loser | delta_vs_anchor_overall_score_p50=-2,365%
+snapshot=0178 | parent=0167 | branch=B04.S02.S03.S01.S03.S03.S02.S03 | depth=1 | idea=anchor 0167 S03: DEFAULT_TMP_STORAGE_LENGTH 288->256 | status=loser | delta_vs_anchor_overall_score_p50=-3,503%
+snapshot=0179 | parent=0178 | branch=B04.S02.S03.S01.S03.S03.S02.S03 | depth=2 | idea=S03 midpoint sizing: DEFAULT_TMP_STORAGE_LENGTH 256->272 | status=loser | delta_vs_anchor_overall_score_p50=-1,205%
+snapshot=0180 | parent=0179 | branch=B04.S02.S03.S01.S03.S03.S02.S03 | depth=3 | idea=S03 stability try: DEFAULT_MIN_GALLOPING 6->7 with TMP=272 | status=loser | delta_vs_anchor_overall_score_p50=-1,146%
+snapshot=0181 | parent=0180 | branch=B04.S02.S03.S01.S03.S03.S02.S03 | depth=4 | idea=S03 medium recovery: BULK_COPY_THRESHOLD 512->576 with TMP=272 MIN_GALLOPING=7 | status=loser | delta_vs_anchor_overall_score_p50=-6,472%
+snapshot=0182 | parent=0181 | branch=B04.S02.S03.S01.S03.S03.S02.S03 | depth=5 | idea=S03 final attempt: BULK_COPY_THRESHOLD 576->544 with TMP=272 MIN_GALLOPING=7 | status=loser | delta_vs_anchor_overall_score_p50=-7,272%
+snapshot=0183 | parent=0157 | branch=B04.S02.S03.S01.S03.S03.S03 | depth=1 | idea=anchor 0157 final child: DEFAULT_MIN_MERGE 40->48 | status=loser | delta_vs_anchor_overall_score_p50=-5,909%
+snapshot=0184 | parent=0183 | branch=B04.S02.S03.S01.S03.S03.S03 | depth=2 | idea=S03 soften min-merge step: DEFAULT_MIN_MERGE 48->44 | status=loser | delta_vs_anchor_overall_score_p50=-3,431%
+snapshot=0185 | parent=0184 | branch=B04.S02.S03.S01.S03.S03.S03 | depth=3 | idea=S03 cleanup: revert DEFAULT_MIN_MERGE 44->40 | status=loser | delta_vs_anchor_overall_score_p50=0,320%
+snapshot=0186 | parent=0185 | branch=B04.S02.S03.S01.S03.S03.S03 | depth=4 | idea=S03 quick tune: BULK_COPY_THRESHOLD 512->480 | status=loser | delta_vs_anchor_overall_score_p50=-0,221%
+snapshot=0187 | parent=0186 | branch=B04.S02.S03.S01.S03.S03.S03 | depth=5 | idea=S03 final attempt: DEFAULT_MIN_GALLOPING 7->5 with threshold480 | status=loser | delta_vs_anchor_overall_score_p50=1,799%
+snapshot=0188 | parent=0126 | branch=B04.S02.S03.S02 | depth=1 | idea=anchor 0126 S02: MAX_POOLED_TMP_LENGTH multiplier 64->128 | status=loser | delta_vs_anchor_overall_score_p50=-4,936%
+snapshot=0189 | parent=0188 | branch=B04.S02.S03.S02 | depth=2 | idea=S02 continuation: DEFAULT_MIN_MERGE 32->40 with pool128 | status=loser | delta_vs_anchor_overall_score_p50=-5,242%
+snapshot=0190 | parent=0189 | branch=B04.S02.S03.S02 | depth=3 | idea=S02 historical signal: DEFAULT_MIN_GALLOPING 9->8 with MIN_MERGE40 pool128 | status=loser | delta_vs_anchor_overall_score_p50=-3,091%
+snapshot=0191 | parent=0190 | branch=B04.S02.S03.S02 | depth=4 | idea=S02 quick recovery: DEFAULT_MIN_MERGE 40->32 (keep MIN_GALLOPING=8, pool128) | status=loser | delta_vs_anchor_overall_score_p50=-4,749%
+snapshot=0192 | parent=0191 | branch=B04.S02.S03.S02 | depth=5 | idea=S02 final attempt: MAX_POOLED_TMP_LENGTH multiplier 128->64 (MIN_MERGE32, MIN_GALLOPING8, threshold512) | status=loser | delta_vs_anchor_overall_score_p50=-1,298%
+snapshot=0193 | parent=0126 | branch=B04.S02.S03.S03 | depth=1 | idea=replay on anchor 0126: combine case4 insertion shift + BULK_COPY_THRESHOLD 512->24 | status=loser | delta_vs_anchor_overall_score_p50=-6,296%
+snapshot=0194 | parent=0193 | branch=B04.S02.S03.S03 | depth=2 | idea=S03 moderation: BULK_COPY_THRESHOLD 24->128 with case4 replay retained | status=loser | delta_vs_anchor_overall_score_p50=-1,646%
+snapshot=0195 | parent=0194 | branch=B04.S02.S03.S03 | depth=3 | idea=S03 threshold sweep: BULK_COPY_THRESHOLD 128->256 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-1,274%
+snapshot=0196 | parent=0195 | branch=B04.S02.S03.S03 | depth=4 | idea=S03 historical direction: DEFAULT_MIN_GALLOPING 9->8 with case4+threshold256 | status=loser | delta_vs_anchor_overall_score_p50=-2,985%
+snapshot=0197 | parent=0196 | branch=B04.S02.S03.S03 | depth=5 | idea=S03 final attempt: BULK_COPY_THRESHOLD 256->512 with MIN_GALLOPING8 + case4 | status=loser | delta_vs_anchor_overall_score_p50=-3,978%
+snapshot=0198 | parent=0016 | branch=B04.S03 | depth=1 | idea=anchor 0016 S03: MAX_POOLED_TMP_LENGTH multiplier 64->128 | status=loser | delta_vs_anchor_overall_score_p50=-3,453%
+snapshot=0199 | parent=0198 | branch=B04.S03 | depth=2 | idea=S03 quick-guardrail tune: MAX_POOLED_TMP_LENGTH multiplier 128->96 | status=loser | delta_vs_anchor_overall_score_p50=-0,730%
+snapshot=0200 | parent=0199 | branch=B04.S03 | depth=3 | idea=S03 cleanup: MAX_POOLED_TMP_LENGTH multiplier 96->64 | status=loser | delta_vs_anchor_overall_score_p50=-2,117%
+snapshot=0201 | parent=0200 | branch=B04.S03 | depth=4 | idea=S03 strong move: BULK_COPY_THRESHOLD 32->256 (pool64 baseline) | status=loser | delta_vs_anchor_overall_score_p50=-3,154%
+snapshot=0202 | parent=0201 | branch=B04.S03 | depth=5 | idea=S03 final attempt: DEFAULT_MIN_GALLOPING 8->7 with threshold256 | status=winner | delta_vs_anchor_overall_score_p50=1,621%
+snapshot=0203 | parent=0202 | branch=B04.S03.S01 | depth=1 | idea=anchor 0202 S01: DEFAULT_MIN_MERGE 32->40 | status=loser | delta_vs_anchor_overall_score_p50=-3,250%
+snapshot=0204 | parent=0203 | branch=B04.S03.S01 | depth=2 | idea=S01 soften min-merge: DEFAULT_MIN_MERGE 40->36 | status=loser | delta_vs_anchor_overall_score_p50=-0,938%
+snapshot=0205 | parent=0204 | branch=B04.S03.S01 | depth=3 | idea=S01 preset rebalance: BULK_COPY_THRESHOLD 256->192 | status=loser | delta_vs_anchor_overall_score_p50=-3,448%
+snapshot=0206 | parent=0205 | branch=B04.S03.S01 | depth=4 | idea=S01 gallop shift: DEFAULT_MIN_GALLOPING 7->6 with threshold192 | status=loser | delta_vs_anchor_overall_score_p50=-2,661%
+snapshot=0207 | parent=0206 | branch=B04.S03.S01 | depth=5 | idea=S01 final attempt: BULK_COPY_THRESHOLD 192->256 with MIN_GALLOPING=6 | status=loser | delta_vs_anchor_overall_score_p50=-3,551%
+snapshot=0208 | parent=0202 | branch=B04.S03.S02 | depth=1 | idea=anchor 0202 S02: add case4 insertion-shift fast path | status=loser | delta_vs_anchor_overall_score_p50=-1,222%
+snapshot=0209 | parent=0208 | branch=B04.S03.S02 | depth=2 | idea=S02 quick tune: BULK_COPY_THRESHOLD 256->192 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-6,630%
+snapshot=0210 | parent=0209 | branch=B04.S03.S02 | depth=3 | idea=S02 recovery: BULK_COPY_THRESHOLD 192->256 | status=loser | delta_vs_anchor_overall_score_p50=-3,967%
+snapshot=0211 | parent=0210 | branch=B04.S03.S02 | depth=4 | idea=S02 gallop shift: DEFAULT_MIN_GALLOPING 7->6 with case4+threshold256 | status=loser | delta_vs_anchor_overall_score_p50=-0,400%
+snapshot=0212 | parent=0211 | branch=B04.S03.S02 | depth=5 | idea=S02 final attempt: remove case4 insertion path (keep MIN_GALLOPING=6, threshold256) | status=loser | delta_vs_anchor_overall_score_p50=-1,962%
+snapshot=0213 | parent=0202 | branch=B04.S03.S03 | depth=1 | idea=anchor 0202 S03: DEFAULT_TMP_STORAGE_LENGTH 256->288 | status=loser | delta_vs_anchor_overall_score_p50=-6,339%
+snapshot=0214 | parent=0213 | branch=B04.S03.S03 | depth=2 | idea=S03 midpoint tmp sizing: DEFAULT_TMP_STORAGE_LENGTH 288->272 | status=loser | delta_vs_anchor_overall_score_p50=-1,480%
+snapshot=0215 | parent=0214 | branch=B04.S03.S03 | depth=3 | idea=S03 gallop shift: DEFAULT_MIN_GALLOPING 7->6 with TMP=272 | status=loser | delta_vs_anchor_overall_score_p50=0,809%
+snapshot=0216 | parent=0215 | branch=B04.S03.S03 | depth=4 | idea=S03 balanced recovery: DEFAULT_TMP_STORAGE_LENGTH 272->256 with MIN_GALLOPING=6 | status=loser | delta_vs_anchor_overall_score_p50=-1,666%
+snapshot=0217 | parent=0216 | branch=B04.S03.S03 | depth=5 | idea=S03 final attempt: DEFAULT_MIN_GALLOPING 6->5 with threshold256 | status=loser | delta_vs_anchor_overall_score_p50=-2,223%
+snapshot=0218 | parent=0000 | branch=B05 | depth=1 | idea=B05 root: add case4 insertion-shift fast path | status=loser | delta_vs_anchor_overall_score_p50=-0,869%
+snapshot=0219 | parent=0218 | branch=B05 | depth=2 | idea=B05 continuation: DEFAULT_MIN_GALLOPING 7->8 with case4 | status=loser | delta_vs_anchor_overall_score_p50=1,232%
+snapshot=0220 | parent=0219 | branch=B05 | depth=3 | idea=B05 guardrail test: remove case4, keep DEFAULT_MIN_GALLOPING=8 | status=loser | delta_vs_anchor_overall_score_p50=-5,020%
+snapshot=0221 | parent=0220 | branch=B05 | depth=4 | idea=B05 strong shift: BULK_COPY_THRESHOLD 32->256 with MIN_GALLOPING=8 | status=loser | delta_vs_anchor_overall_score_p50=1,396%
+snapshot=0222 | parent=0221 | branch=B05 | depth=5 | idea=B05 final attempt: BULK_COPY_THRESHOLD 256->192 with MIN_GALLOPING=8 | status=loser | delta_vs_anchor_overall_score_p50=0,027%
+snapshot=0223 | parent=0000 | branch=B06 | depth=1 | idea=B06 root: DEFAULT_MIN_GALLOPING 7->8 + BULK_COPY_THRESHOLD 32->256 | status=loser | delta_vs_anchor_overall_score_p50=1,511%
+snapshot=0224 | parent=0223 | branch=B06 | depth=2 | idea=B06 balance tune: BULK_COPY_THRESHOLD 256->192 (MIN_GALLOPING=8) | status=winner | delta_vs_anchor_overall_score_p50=1,288%
+snapshot=0225 | parent=0224 | branch=B06.S01 | depth=1 | idea=anchor 0224 S01: DEFAULT_MIN_GALLOPING 8->7 with threshold192 | status=loser | delta_vs_anchor_overall_score_p50=-4,628%
+snapshot=0226 | parent=0225 | branch=B06.S01 | depth=2 | idea=S01 correction: DEFAULT_MIN_GALLOPING 7->8 | status=loser | delta_vs_anchor_overall_score_p50=-3,257%
+snapshot=0227 | parent=0226 | branch=B06.S01 | depth=3 | idea=S01 quick-focused threshold tune: BULK_COPY_THRESHOLD 192->128 | status=loser | delta_vs_anchor_overall_score_p50=-0,990%
+snapshot=0228 | parent=0227 | branch=B06.S01 | depth=4 | idea=S01 near-threshold adjustment: BULK_COPY_THRESHOLD 128->160 | status=loser | delta_vs_anchor_overall_score_p50=-3,951%
+snapshot=0229 | parent=0228 | branch=B06.S01 | depth=5 | idea=S01 final attempt: BULK_COPY_THRESHOLD 160->256 | status=loser | delta_vs_anchor_overall_score_p50=-5,060%
+snapshot=0230 | parent=0224 | branch=B06.S02 | depth=1 | idea=anchor 0224 S02: DEFAULT_MIN_MERGE 32->40 | status=loser | delta_vs_anchor_overall_score_p50=-1,494%
+snapshot=0231 | parent=0230 | branch=B06.S02 | depth=2 | idea=S02 soften min-merge: DEFAULT_MIN_MERGE 40->36 | status=loser | delta_vs_anchor_overall_score_p50=-2,202%
+snapshot=0232 | parent=0231 | branch=B06.S02 | depth=3 | idea=S02 preset rebalance: BULK_COPY_THRESHOLD 192->160 | status=loser | delta_vs_anchor_overall_score_p50=-3,262%
+snapshot=0233 | parent=0232 | branch=B06.S02 | depth=4 | idea=S02 quick recovery: BULK_COPY_THRESHOLD 160->256 | status=loser | delta_vs_anchor_overall_score_p50=-5,152%
+snapshot=0234 | parent=0233 | branch=B06.S02 | depth=5 | idea=S02 final attempt: DEFAULT_MIN_MERGE 36->32 | status=loser | delta_vs_anchor_overall_score_p50=-5,401%
+snapshot=0235 | parent=0224 | branch=B06.S03 | depth=1 | idea=anchor 0224 S03: add case4 insertion-shift fast path | status=loser | delta_vs_anchor_overall_score_p50=-0,803%
+snapshot=0236 | parent=0235 | branch=B06.S03 | depth=2 | idea=S03 balanced tune: BULK_COPY_THRESHOLD 192->160 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-0,606%
+snapshot=0237 | parent=0236 | branch=B06.S03 | depth=3 | idea=S03 quick push: BULK_COPY_THRESHOLD 160->128 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-1,158%
+snapshot=0238 | parent=0237 | branch=B06.S03 | depth=4 | idea=S03 rollback: BULK_COPY_THRESHOLD 128->160 | status=loser | delta_vs_anchor_overall_score_p50=-1,761%
+snapshot=0239 | parent=0238 | branch=B06.S03 | depth=5 | idea=S03 final attempt: BULK_COPY_THRESHOLD 160->192 with case4 | status=loser | delta_vs_anchor_overall_score_p50=-0,758%
