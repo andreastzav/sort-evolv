@@ -15,6 +15,7 @@
 - Workload-adaptive branch splitting is allowed: if different ideas win for different preset groups or data patterns, keep separate specialized paths alive instead of forcing one universal winner too early.
 - Mixing other strategies like e.g. count sorting for low cardinality and other ideas and combinations, or using ideas from quicksort, radix sort, bubble sort, bucket sort are allowed as well.
 - Mixing with other strategies must preserve stable comparator semantics
+- Never use native `Array.prototype.sort` as an actual internal sorting path inside an evolved sorter.
 - Cross-anchor replay is allowed: you can periodically retry previously losing ideas (from any branch/root) as fresh variants on the current winner anchor, because anchor context can change outcomes; label such attempts as replay:<source_snapshot> for traceability.
 - Do not use replays too often: max one replay every 4 iterations. In a single chain, do not use the same replay idea more than 3 times
 - Multi-change iterations are allowed only as explicitly labeled combo trials on a separate branch, and no more than one combo trial every 6 iterations.
@@ -46,6 +47,12 @@ Rules:
 - Dead loser: correctness fail, strong guardrail fail, broad regression, no useful niche/novelty signal, or exhausted loser child limit.
 - Next parent: continue latest if it is still promising; otherwise branch from the best alive promising loser; otherwise allow one ugly continuation or strict fallback until the family budget is exhausted.
 - If speculative loser budget is exhausted with no winner, backtrack to nearest prior winner with free child slots.
+
+Numeric Local Beam defaults mirrored in code:
+- close to anchor = overall regression no worse than `0.75%`
+- niche improvement = at least one preset improves by `2.00%`
+- catastrophic overall regression = `-1.00%` or worse
+- catastrophic preset regression = `-2.00%` or worse
 
 ### Branch Limits (authoritative defaults mirrored in code)
 
@@ -123,6 +130,7 @@ Rules:
 - Never run more than one benchmark process at the same time in any mode (including ad-hoc checks, comparisons, and evolution-related runs). Benchmark commands must run strictly serially.
 - Prefer direct `node ...` commands (do not switch to `npm` wrappers unless explicitly requested).
 - Decision suite remains fixed to `quick,medium,balanced`; display preset only affects summary lines.
+- Benchmark rows are generated in memory from fixed preset seeds. Normal benchmark/evolution runs do not read `algorithms/<id>/tables/*.bin`.
 
 ## Safety and Non-Strategic Failures
 
