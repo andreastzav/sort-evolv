@@ -91,6 +91,50 @@ Important paths:
 - `algorithms/<id>/tables/` is ignored; benchmarks generate deterministic rows from seeds instead of loading binary tables.
 - `AGENTS.md` stores operational rules for autonomous evolution.
 
+## Architecture
+
+The project is organized as small CLI entry points over reusable core modules.
+
+```text
+User or LLM agent
+  |
+  | node *_cli.js --sorting <id> ...
+  v
+CLI entry points
+  |-- sorting_experiments_cli.js     evolution loop commands
+  |-- benchmarks_cli.js              independent benchmark runs
+  |-- benchmark_search_cli.js        native/original/candidate comparisons
+  |-- unit_tests_cli.js              correctness gate
+  |-- evolution_graph_cli.js         graph rendering
+  `-- supporting CLIs              datasets, shortlist, ideas, smoke tests
+
+Core modules
+  |-- sorting_profile_core.js        sorter-specific paths and labels
+  |-- shared_benchmark_session_core.js benchmark execution order/warmup/session flow
+  |-- benchmarks_core.js            benchmark cases, metrics, and report formatting
+  |-- sorting_experiments_*_core.js orchestrator decisions, persistence, planning, reporting
+  |-- orchestrator_*_core.js        Local Beam DFS policy and planner primitives
+  |-- generation_core.js            deterministic row generation
+  |-- store_table_core.js           optional binary dataset format
+  `-- unit-tests-core.js            shared sorter correctness suite
+
+Artifacts
+  |-- <id>.js                       active working sorter edited during evolution
+  |-- <id>_original.js              original baseline/reference file
+  |-- <base>.js                     immutable root baseline for an evolution tree
+  |-- algorithms/<id>/snapshots/    orchestrator-owned immutable candidates
+  `-- algorithms/<id>/evolution/    metadata, progress logs, shortlists, idea exports
+```
+
+The normal evolution path is:
+
+1. `sorting_experiments_cli.js next` asks the planner for the next parent.
+2. `prepare` copies that parent into the active working sorter file.
+3. A human or LLM makes one deliberate edit to the working sorter.
+4. `auto-record` runs syntax, unit tests, benchmark, winner decision, snapshot persistence, and progress logging.
+
+Sorter behavior is intentionally isolated behind the `sortFn(array, compareFn)` API. The harness may benchmark many sorter IDs, but every sorter has its own profile-derived artifact tree under `algorithms/<id>/`.
+
 ## Current Sorters
 
 ```text
