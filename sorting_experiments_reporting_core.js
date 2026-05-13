@@ -118,6 +118,9 @@ export function createReportingCore(options = {}) {
       record.native_p50 = formatMs(baseline?.p50Ms);
       record[`${candidateLogToken}_avg`] = formatMs(candidate?.avgMs);
       record[`${candidateLogToken}_p50`] = formatMs(candidate?.p50Ms);
+      record.delta_vs_historical_immediate_parent_overall_score_p50 = formatPct(
+        snapshotRecord.deltaVsParentPct
+      );
       record.delta_vs_immediate_parent_overall_score_p50 = formatPct(snapshotRecord.deltaVsParentPct);
       record.display_preset_improvement_vs_native_avg = formatPct(totals.improvementVsNativePct);
       if (totals.comparison) {
@@ -142,7 +145,10 @@ export function createReportingCore(options = {}) {
       const suite = snapshotRecord.benchmarkSuite;
       const suiteDeltaVsAnchor = Number(suite.overallDeltaVsAnchorPct ?? suite.overallDeltaVsParentPct);
       const currentOverallScore = Number(suite.current?.overallScore);
-      const anchorOverallScore = Number(suite.parent?.overallScore);
+      const anchorOverallScore = Number((suite.anchor ?? suite.parent)?.overallScore);
+      const sameSessionImmediateParentDelta = Number(
+        suite.overallDeltaVsImmediateParentSameSessionPct
+      );
       const currentImprovementVsNativeOverallPct = scoreToImprovementVsNativePct(currentOverallScore);
       const anchorImprovementVsNativeOverallPct = scoreToImprovementVsNativePct(anchorOverallScore);
 
@@ -169,6 +175,10 @@ export function createReportingCore(options = {}) {
       record.overall_score_p50 = formatScore(currentOverallScore);
       record.anchor_overall_score_p50 = formatScore(anchorOverallScore);
       record.delta_vs_anchor_overall_score_p50 = formatPct(suiteDeltaVsAnchor);
+      if (Number.isFinite(sameSessionImmediateParentDelta)) {
+        record.delta_vs_immediate_parent_same_session_overall_score_p50 =
+          formatPct(sameSessionImmediateParentDelta);
+      }
       record.anchor_improvement_vs_native_overall_p50 = formatPct(anchorImprovementVsNativeOverallPct);
       record.improvement_vs_native_overall_p50 = formatPct(currentImprovementVsNativeOverallPct);
 
@@ -177,7 +187,15 @@ export function createReportingCore(options = {}) {
         Number.isFinite(suite.parentSuiteBenchmarkTotalMs)
       ) {
         record.suite_benchmark_current_total = formatDuration(Number(suite.currentSuiteBenchmarkTotalMs));
+        record.suite_benchmark_anchor_total = formatDuration(
+          Number(suite.anchorSuiteBenchmarkTotalMs ?? suite.parentSuiteBenchmarkTotalMs)
+        );
         record.suite_benchmark_parent_total = formatDuration(Number(suite.parentSuiteBenchmarkTotalMs));
+        if (Number.isFinite(Number(suite.immediateParentSuiteBenchmarkTotalMs))) {
+          record.suite_benchmark_immediate_parent_total = formatDuration(
+            Number(suite.immediateParentSuiteBenchmarkTotalMs)
+          );
+        }
         record.suite_benchmark_combined_total = formatDuration(Number(suite.combinedSuiteBenchmarkTotalMs));
       }
     }
@@ -274,12 +292,20 @@ export function createReportingCore(options = {}) {
             `${candidateLogToken}_avg`
           )} ${candidateLogToken}_p50=${recordField(record, `${candidateLogToken}_p50`)}`
         );
+        if (hasRecordField(record, "delta_vs_historical_immediate_parent_overall_score_p50")) {
+          lines.push(
+            `delta_vs_historical_immediate_parent_overall_score_p50=${recordField(
+              record,
+              "delta_vs_historical_immediate_parent_overall_score_p50"
+            )}`
+          );
+        }
         if (hasRecordField(record, "delta_vs_immediate_parent_overall_score_p50")) {
           lines.push(
             `delta_vs_immediate_parent_overall_score_p50=${recordField(
               record,
               "delta_vs_immediate_parent_overall_score_p50"
-            )}`
+            )} (legacy historical)`
           );
         }
         if (hasRecordField(record, "display_preset_improvement_vs_native_avg")) {
@@ -403,7 +429,16 @@ export function createReportingCore(options = {}) {
           `suite_benchmark_current_total=${recordField(
             record,
             "suite_benchmark_current_total"
-          )} suite_benchmark_parent_total=${recordField(record, "suite_benchmark_parent_total")}`
+          )} suite_benchmark_anchor_total=${recordField(
+            record,
+            "suite_benchmark_anchor_total"
+          )} suite_benchmark_parent_total=${recordField(
+            record,
+            "suite_benchmark_parent_total"
+          )} suite_benchmark_immediate_parent_total=${recordField(
+            record,
+            "suite_benchmark_immediate_parent_total"
+          )}`
         );
       }
       if (hasRecordField(record, "suite_benchmark_combined_total")) {
@@ -422,6 +457,9 @@ export function createReportingCore(options = {}) {
           )} delta_vs_anchor_overall_score_p50=${recordField(
             record,
             "delta_vs_anchor_overall_score_p50"
+          )} delta_vs_immediate_parent_same_session_overall_score_p50=${recordField(
+            record,
+            "delta_vs_immediate_parent_same_session_overall_score_p50"
           )} anchor_improvement_vs_native_overall_p50=${recordField(
             record,
             "anchor_improvement_vs_native_overall_p50"

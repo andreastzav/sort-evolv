@@ -27,6 +27,11 @@ const WORST_PRESET_SCORE_HARD_LIMIT = 1.02;
 const STRONG_NOISE_PENALTY_THRESHOLD = 2;
 const STRICT_NATIVE_OUTLIER_DROP = false;
 
+function baseStemFromFileName(fileName) {
+  const baseName = path.basename(String(fileName || ""));
+  return baseName.toLowerCase().endsWith(".js") ? baseName.slice(0, -3) : baseName;
+}
+
 function defaultInputFileForBase(baseFile, profile) {
   return path.join(
     evolutionDirForBase(baseFile, profile),
@@ -418,8 +423,14 @@ function buildTextOutput(data) {
   lines.push(
     `Noise policy: MADx${OUTLIER_MAD_MULTIPLIER}, rel_fallback=${(OUTLIER_RELATIVE_FALLBACK * 100).toFixed(1)}%, display_overall_gap>${DISPLAY_VS_OVERALL_GAP_PCT.toFixed(1)}%`
   );
+  lines.push(
+    "Scoring context: historical progress-log scores; shortlist ranks candidates for follow-up, not final same-session truth."
+  );
+  lines.push(
+    "Verification: rebenchmark shortlisted candidates in a fresh shared session before promoting or comparing across old branches."
+  );
   lines.push("");
-  lines.push(`Top ${data.config.top_overall_diagnostic_count} By overall_score_p50:`);
+  lines.push(`Top ${data.config.top_overall_diagnostic_count} By historical overall_score_p50:`);
   for (let i = 0; i < data.top_overall_by_score.length; i += 1) {
     const item = data.top_overall_by_score[i];
     lines.push(
@@ -483,8 +494,18 @@ function buildTextOutput(data) {
     "4. Ranking order: overall_score_p50 asc, worst_preset_score asc, preset_spread asc, noise_penalty asc, delta_vs_anchor_overall_score_p50 desc."
   );
   lines.push(
-    "5. Diversity policy: family cap disabled; no forced specialist/contrarian slots."
+    "5. Score source: historical progress rows; native/anchor/candidate were same-session inside each row, but different rows may come from different machine/session conditions."
   );
+  lines.push(
+    "6. Diversity policy: family cap disabled; no forced specialist/contrarian slots."
+  );
+  if (Array.isArray(data.rebenchmark_commands) && data.rebenchmark_commands.length > 0) {
+    lines.push("");
+    lines.push("Suggested Fresh Rebench Commands:");
+    for (let i = 0; i < data.rebenchmark_commands.length; i += 1) {
+      lines.push(`${i + 1}. ${data.rebenchmark_commands[i]}`);
+    }
+  }
 
   return `${lines.join("\n")}\n`;
 }
@@ -514,6 +535,34 @@ function normalizeForJson(candidate) {
     noise_penalty: candidate.noise_penalty,
     noise_reasons: candidate.noise_reasons,
   };
+}
+
+function buildRebenchmarkCommand(candidate, args, profile) {
+  const snapshotId = String(candidate?.snapshot_id || "").trim();
+  if (snapshotId === "") {
+    return "";
+  }
+
+  const baseStem = baseStemFromFileName(args.baseFile);
+  const candidateFile = path.join(
+    profile.rootDir,
+    profile.snapshotDirName,
+    baseStem,
+    `${profile.snapshotPrefix}${snapshotId}.js`
+  );
+
+  return [
+    "node",
+    "benchmark_search_cli.js",
+    "--sorting",
+    profile.sortingId,
+    "--base-file",
+    args.baseFile,
+    "--candidate",
+    candidateFile,
+    "--presets",
+    "quick,medium,balanced,large",
+  ].join(" ");
 }
 
 function buildExcludedReasons(candidate) {
@@ -686,10 +735,22 @@ export async function runShortlistCandidatesCli(argv) {
       improvement_vs_native_overall_p50: item.improvement_vs_native_overall_p50,
     };
   });
+  const rebenchmarkCommands = shortlist
+    .map((item) => buildRebenchmarkCommand(item, args, profile))
+    .filter((command) => command !== "");
 
   const outputJson = {
     generated_at: new Date().toISOString(),
     input_file: args.input,
+    scoring_context: {
+      source: "historical_progress_log",
+      interpretation:
+        "Shortlist ranks historical rows for follow-up. Rebenchmark candidates in a fresh shared session before promotion or cross-branch comparison.",
+      same_row_context:
+        "Within each auto-record row, native, anchor, and candidate scores came from the same shared decision session.",
+      cross_row_caveat:
+        "Rows can come from different benchmark sessions and machine conditions, so absolute ranks are diagnostic rather than final.",
+    },
     config: {
       top: args.top,
       top_overall_diagnostic_count: TOP_OVERALL_DIAGNOSTIC_COUNT,
@@ -712,6 +773,7 @@ export async function runShortlistCandidatesCli(argv) {
     shortlist,
     excluded_top_overall: excludedTopOverall,
     important_decision_metrics: importantDecisionMetrics,
+    rebenchmark_commands: rebenchmarkCommands,
     selection_criteria: {
       hard_filters: [
         "type=snapshot",
@@ -733,6 +795,8 @@ export async function runShortlistCandidatesCli(argv) {
         "noise_penalty asc",
         "delta_vs_anchor_overall_score_p50 desc",
       ],
+      score_source:
+        "historical progress rows; verify shortlisted candidates with benchmark_search_cli before trusting absolute order",
       slot_policy: {
         max_per_family: null,
         family_key: "first_3_branch_segments",

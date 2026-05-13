@@ -249,7 +249,7 @@ function printHelp() {
   console.log("  record --idea <text> --status <winner|loser> [--parent <id>] [--new-branch]");
   console.log("         [--benchmark-preset <id>] [--benchmark-runs <n>] [--skip-benchmark] [--skip-tests]");
   console.log("  auto-record --idea <text> [--display-preset <id>] [--benchmark-runs <n>]");
-  console.log("             [--skip-tests] [--parent <id>] [--new-branch]");
+  console.log("             [--include-immediate-parent] [--skip-tests] [--parent <id>] [--new-branch]");
   console.log("  status");
   console.log("  list [--limit <n>]");
   console.log("  next");
@@ -296,6 +296,7 @@ function printHelp() {
     `  Local Beam DFS: LOCAL_BEAM_WIDTH=${ORCHESTRATOR_LOCAL_BEAM_POLICY.localBeamWidth}, MAX_CHILDREN_PER_LOSER=${ORCHESTRATOR_LOCAL_BEAM_POLICY.maxChildrenPerLoser}, MAX_UGLY_CONTINUATIONS_PER_FAMILY=${ORCHESTRATOR_LOCAL_BEAM_POLICY.maxUglyContinuationsPerFamily}.`
   );
   console.log("  --display-preset in auto-record selects the preset shown in raw timing summary/log lines.");
+  console.log("  --include-immediate-parent adds opt-in same-session immediate-parent telemetry; decisions still use anchor.");
   console.log("");
   console.log(`Active base file: ${ACTIVE_BASE_FILE || "n/a (pass --base-file)"}`);
   console.log(`Active base stem: ${ACTIVE_BASE_STEM || "<base-stem> (pass --base-file)"}`);

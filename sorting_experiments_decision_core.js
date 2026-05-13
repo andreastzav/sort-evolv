@@ -129,6 +129,7 @@ export function parseAutoRecordArgs(argv, options = {}) {
     newBranch: false,
     displayPreset: defaultBenchmarkPreset,
     benchmarkRuns: null,
+    includeImmediateParent: false,
     skipTests: false,
   };
 
@@ -189,6 +190,10 @@ export function parseAutoRecordArgs(argv, options = {}) {
 
         args.benchmarkRuns = parsed;
         i += 1;
+        break;
+      }
+      case "--include-immediate-parent": {
+        args.includeImmediateParent = true;
         break;
       }
       case "--skip-tests": {
@@ -449,11 +454,45 @@ export async function runSharedDecisionBenchmarkSuite(params) {
   const anchorSortFn = await loadSortFunctionFromFile(anchorFilePath);
   const candidateSorter = createSharedSorter("candidate", path.basename(params.workingFile), candidateSortFn);
   const anchorSorter = createSharedSorter("anchor", path.basename(anchorFilePath), anchorSortFn);
+  const includeImmediateParent = params.args?.includeImmediateParent === true;
+  let immediateParentSorter = null;
+  let immediateParentFilePath = "";
+  let immediateParentIsAnchor = false;
+
+  if (includeImmediateParent && params.parentSnapshot) {
+    if (params.parentSnapshot.id === params.anchorSnapshot.id) {
+      immediateParentSorter = anchorSorter;
+      immediateParentFilePath = anchorFilePath;
+      immediateParentIsAnchor = true;
+    } else {
+      immediateParentFilePath = await resolveAnchorSorterFilePath(params.metadata, params.parentSnapshot, {
+        rootId: params.rootId,
+        resolveSnapshotFilePath: params.resolveSnapshotFilePath,
+        fileExists: params.fileExists,
+      });
+      const immediateParentSortFn = await loadSortFunctionFromFile(immediateParentFilePath);
+      immediateParentSorter = createSharedSorter(
+        "immediate_parent",
+        path.basename(immediateParentFilePath),
+        immediateParentSortFn
+      );
+    }
+  }
+
+  const sorters = [NATIVE_SORTER, anchorSorter];
+  const targetSorterIds = [anchorSorter.id];
+  if (immediateParentSorter && immediateParentSorter.id !== anchorSorter.id) {
+    sorters.push(immediateParentSorter);
+    targetSorterIds.push(immediateParentSorter.id);
+  }
+  sorters.push(candidateSorter);
+  targetSorterIds.push(candidateSorter.id);
+
   const suite = runSharedPresetSuite({
     presetIds: params.settings.presetIds,
-    sorters: [NATIVE_SORTER, anchorSorter, candidateSorter],
+    sorters,
     baselineSorterId: NATIVE_SORTER.id,
-    targetSorterIds: [anchorSorter.id, candidateSorter.id],
+    targetSorterIds,
     benchmarkRunsOverride: params.args.benchmarkRuns,
     directions: params.settings.directions,
     orderMode: params.settings.orderMode,
@@ -463,17 +502,43 @@ export async function runSharedDecisionBenchmarkSuite(params) {
     storeRawRuns: params.settings.storeRawRuns,
     validateSorted: true,
   });
+  const currentTotalsByPreset = suite.totalsByTargetId[candidateSorter.id] || Object.create(null);
+  const anchorTotalsByPreset = suite.totalsByTargetId[anchorSorter.id] || Object.create(null);
+  const immediateParentTotalsByPreset = immediateParentSorter
+    ? immediateParentIsAnchor
+      ? anchorTotalsByPreset
+      : suite.totalsByTargetId[immediateParentSorter.id] || Object.create(null)
+    : null;
 
   return {
-    currentTotalsByPreset: suite.totalsByTargetId[candidateSorter.id] || Object.create(null),
-    anchorTotalsByPreset: suite.totalsByTargetId[anchorSorter.id] || Object.create(null),
+    currentTotalsByPreset,
+    anchorTotalsByPreset,
+    immediateParentTotalsByPreset,
+    immediateParentSuite: immediateParentTotalsByPreset
+      ? buildDecisionSuiteSummary(immediateParentTotalsByPreset, params.settings.presetIds)
+      : null,
     rawRunsByPreset: suite.rawRunsByPreset,
     suiteMeasuredTotalMs: Number(suite.suiteMeasuredTotalMs),
     suiteWarmupTotalMs: Number(suite.suiteWarmupTotalMs),
     currentSuiteBenchmarkTotalMs: Number(suite.suiteBenchmarkTotalMsByTargetId[candidateSorter.id]),
     anchorSuiteBenchmarkTotalMs: Number(suite.suiteBenchmarkTotalMsByTargetId[anchorSorter.id]),
+    immediateParentSuiteBenchmarkTotalMs: immediateParentSorter
+      ? immediateParentIsAnchor
+        ? Number(suite.suiteBenchmarkTotalMsByTargetId[anchorSorter.id])
+        : Number(suite.suiteBenchmarkTotalMsByTargetId[immediateParentSorter.id])
+      : Number.NaN,
     combinedSuiteBenchmarkTotalMs: Number(suite.combinedSuiteBenchmarkTotalMs),
-    benchmarkFlow: "shared_preset_session_native_anchor_candidate",
+    benchmarkFlow: immediateParentSorter
+      ? "shared_preset_session_native_anchor_immediate_parent_candidate"
+      : "shared_preset_session_native_anchor_candidate",
+    immediateParent: immediateParentSorter
+      ? {
+          id: params.parentSnapshot.id,
+          sorterId: immediateParentSorter.id,
+          file: immediateParentFilePath,
+          isAnchor: immediateParentIsAnchor,
+        }
+      : null,
     abTestingEnabled: Boolean(suite.abTestingEnabled),
     orderMode: String(suite.orderMode),
   };

@@ -1,0 +1,436 @@
+{
+  "generated_at": "2026-05-13T08:27:20.945Z",
+  "input_file": "algorithms\\codexsort\\evolution\\codexsort_initial\\codexsort_progress.jsonl",
+  "scoring_context": {
+    "source": "historical_progress_log",
+    "interpretation": "Shortlist ranks historical rows for follow-up. Rebenchmark candidates in a fresh shared session before promotion or cross-branch comparison.",
+    "same_row_context": "Within each auto-record row, native, anchor, and candidate scores came from the same shared decision session.",
+    "cross_row_caveat": "Rows can come from different benchmark sessions and machine conditions, so absolute ranks are diagnostic rather than final."
+  },
+  "config": {
+    "top": 10,
+    "top_overall_diagnostic_count": 10,
+    "strict_noise": false,
+    "worst_preset_score_hard_limit": 1.02,
+    "strong_noise_penalty_threshold": 2,
+    "outlier_mad_multiplier": 3,
+    "outlier_relative_fallback": 0.15,
+    "display_vs_overall_gap_pct": 5
+  },
+  "counts": {
+    "records": 251,
+    "snapshots": 251,
+    "benchmark_valid": 251,
+    "after_filters": 244,
+    "shortlisted": 10,
+    "excluded_top_overall": 0
+  },
+  "top_overall_by_score": [
+    {
+      "snapshot_id": "0170",
+      "overall_score_p50": 0.833927
+    },
+    {
+      "snapshot_id": "0148",
+      "overall_score_p50": 0.863937
+    },
+    {
+      "snapshot_id": "0094",
+      "overall_score_p50": 0.865624
+    },
+    {
+      "snapshot_id": "0151",
+      "overall_score_p50": 0.867507
+    },
+    {
+      "snapshot_id": "0174",
+      "overall_score_p50": 0.868424
+    },
+    {
+      "snapshot_id": "0077",
+      "overall_score_p50": 0.869111
+    },
+    {
+      "snapshot_id": "0245",
+      "overall_score_p50": 0.871294
+    },
+    {
+      "snapshot_id": "0125",
+      "overall_score_p50": 0.875915
+    },
+    {
+      "snapshot_id": "0155",
+      "overall_score_p50": 0.876511
+    },
+    {
+      "snapshot_id": "0158",
+      "overall_score_p50": 0.878161
+    }
+  ],
+  "shortlist": [
+    {
+      "snapshot_id": "0170",
+      "status": "loser",
+      "parent": "0169",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S02",
+      "family": "B01.S01.S01",
+      "depth": "3",
+      "idea": "cap58 with ratio56 on 0162",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.833927,
+      "quick_score_p50": 0.824727,
+      "medium_score_p50": 0.81776,
+      "balanced_score_p50": 0.859899,
+      "worst_preset_score": 0.859899,
+      "preset_spread": 0.042138999999999927,
+      "quick_medium_score": 0.8212361119190997,
+      "delta_vs_anchor_overall_score_p50": -0.867,
+      "improvement_vs_native_overall_p50": 16.607300000000002,
+      "display_preset_improvement_vs_native_p50": 18.224,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0148",
+      "status": "winner",
+      "parent": "0147",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03",
+      "family": "B01.S01.S01",
+      "depth": "2",
+      "idea": "upper43 only above 7168",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.863937,
+      "quick_score_p50": 0.83448,
+      "medium_score_p50": 0.847551,
+      "balanced_score_p50": 0.911726,
+      "worst_preset_score": 0.911726,
+      "preset_spread": 0.07724600000000004,
+      "quick_medium_score": 0.840990106053573,
+      "delta_vs_anchor_overall_score_p50": 3.902,
+      "improvement_vs_native_overall_p50": 13.606300000000005,
+      "display_preset_improvement_vs_native_p50": 15.245,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0094",
+      "status": "winner",
+      "parent": "0093",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S01",
+      "family": "B01.S01.S01",
+      "depth": "3",
+      "idea": "quick-side large minrun 43 fallback",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.865624,
+      "quick_score_p50": 0.851788,
+      "medium_score_p50": 0.863969,
+      "balanced_score_p50": 0.881369,
+      "worst_preset_score": 0.881369,
+      "preset_spread": 0.02958099999999997,
+      "quick_medium_score": 0.8578568800050507,
+      "delta_vs_anchor_overall_score_p50": 2.05,
+      "improvement_vs_native_overall_p50": 13.437600000000005,
+      "display_preset_improvement_vs_native_p50": 13.603,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0151",
+      "status": "loser",
+      "parent": "0150",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S01",
+      "family": "B01.S01.S01",
+      "depth": "2",
+      "idea": "upper43 threshold7808 midpoint",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.867507,
+      "quick_score_p50": 0.845272,
+      "medium_score_p50": 0.860784,
+      "balanced_score_p50": 0.897282,
+      "worst_preset_score": 0.897282,
+      "preset_spread": 0.05201,
+      "quick_medium_score": 0.852992739270388,
+      "delta_vs_anchor_overall_score_p50": -1.001,
+      "improvement_vs_native_overall_p50": 13.249299999999998,
+      "display_preset_improvement_vs_native_p50": 13.922,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0174",
+      "status": "loser",
+      "parent": "0173",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03",
+      "family": "B01.S01.S01",
+      "depth": "2",
+      "idea": "sample33 ratio54 threshold17",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.868424,
+      "quick_score_p50": 0.881534,
+      "medium_score_p50": 0.85881,
+      "balanced_score_p50": 0.865086,
+      "worst_preset_score": 0.881534,
+      "preset_spread": 0.022724000000000077,
+      "quick_medium_score": 0.8700978189491111,
+      "delta_vs_anchor_overall_score_p50": 1.132,
+      "improvement_vs_native_overall_p50": 13.157600000000002,
+      "display_preset_improvement_vs_native_p50": 14.119,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0077",
+      "status": "winner",
+      "parent": "0076",
+      "branch": "B01.S01.S01.S02.S01.S02.S03",
+      "family": "B01.S01.S01",
+      "depth": "3",
+      "idea": "remove forced-run precondition",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.869111,
+      "quick_score_p50": 0.856255,
+      "medium_score_p50": 0.885383,
+      "balanced_score_p50": 0.865948,
+      "worst_preset_score": 0.885383,
+      "preset_spread": 0.029128000000000043,
+      "quick_medium_score": 0.8706972037769503,
+      "delta_vs_anchor_overall_score_p50": 4.213,
+      "improvement_vs_native_overall_p50": 13.088900000000002,
+      "display_preset_improvement_vs_native_p50": 11.462,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0245",
+      "status": "winner",
+      "parent": "0244",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01",
+      "family": "B01.S01.S01",
+      "depth": "5",
+      "idea": "sample32 cap56 strict cap check",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.871294,
+      "quick_score_p50": 0.853232,
+      "medium_score_p50": 0.847669,
+      "balanced_score_p50": 0.914536,
+      "worst_preset_score": 0.914536,
+      "preset_spread": 0.06686700000000001,
+      "quick_medium_score": 0.8504459513737483,
+      "delta_vs_anchor_overall_score_p50": 2.391,
+      "improvement_vs_native_overall_p50": 12.8706,
+      "display_preset_improvement_vs_native_p50": 15.233,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0125",
+      "status": "loser",
+      "parent": "0124",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S01",
+      "family": "B01.S01.S01",
+      "depth": "3",
+      "idea": "cap59 with low-card ratio54",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.875915,
+      "quick_score_p50": 0.868043,
+      "medium_score_p50": 0.86279,
+      "balanced_score_p50": 0.897305,
+      "worst_preset_score": 0.897305,
+      "preset_spread": 0.03451500000000007,
+      "quick_medium_score": 0.8654125143363712,
+      "delta_vs_anchor_overall_score_p50": 0.974,
+      "improvement_vs_native_overall_p50": 12.4085,
+      "display_preset_improvement_vs_native_p50": 13.721,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0155",
+      "status": "winner",
+      "parent": "0149",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02",
+      "family": "B01.S01.S01",
+      "depth": "1",
+      "idea": "replay:0087 huge minrun53 on 0149",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.876511,
+      "quick_score_p50": 0.899722,
+      "medium_score_p50": 0.859063,
+      "balanced_score_p50": 0.871242,
+      "worst_preset_score": 0.899722,
+      "preset_spread": 0.040659,
+      "quick_medium_score": 0.8791574833248023,
+      "delta_vs_anchor_overall_score_p50": 2.767,
+      "improvement_vs_native_overall_p50": 12.348899999999997,
+      "display_preset_improvement_vs_native_p50": 14.094,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0158",
+      "status": "loser",
+      "parent": "0157",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01",
+      "family": "B01.S01.S01",
+      "depth": "1",
+      "idea": "huge52 starts at 12288",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.878161,
+      "quick_score_p50": 0.868704,
+      "medium_score_p50": 0.879324,
+      "balanced_score_p50": 0.886546,
+      "worst_preset_score": 0.886546,
+      "preset_spread": 0.017841999999999913,
+      "quick_medium_score": 0.8739978696175409,
+      "delta_vs_anchor_overall_score_p50": -0.458,
+      "improvement_vs_native_overall_p50": 12.183900000000003,
+      "display_preset_improvement_vs_native_p50": 12.068,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    }
+  ],
+  "excluded_top_overall": [],
+  "important_decision_metrics": [
+    {
+      "snapshot_id": "0170",
+      "overall_score_p50": 0.833927,
+      "worst_preset_score": 0.859899,
+      "preset_spread": 0.042138999999999927,
+      "delta_vs_anchor_overall_score_p50": -0.867,
+      "improvement_vs_native_overall_p50": 16.607300000000002
+    },
+    {
+      "snapshot_id": "0148",
+      "overall_score_p50": 0.863937,
+      "worst_preset_score": 0.911726,
+      "preset_spread": 0.07724600000000004,
+      "delta_vs_anchor_overall_score_p50": 3.902,
+      "improvement_vs_native_overall_p50": 13.606300000000005
+    },
+    {
+      "snapshot_id": "0094",
+      "overall_score_p50": 0.865624,
+      "worst_preset_score": 0.881369,
+      "preset_spread": 0.02958099999999997,
+      "delta_vs_anchor_overall_score_p50": 2.05,
+      "improvement_vs_native_overall_p50": 13.437600000000005
+    },
+    {
+      "snapshot_id": "0151",
+      "overall_score_p50": 0.867507,
+      "worst_preset_score": 0.897282,
+      "preset_spread": 0.05201,
+      "delta_vs_anchor_overall_score_p50": -1.001,
+      "improvement_vs_native_overall_p50": 13.249299999999998
+    },
+    {
+      "snapshot_id": "0174",
+      "overall_score_p50": 0.868424,
+      "worst_preset_score": 0.881534,
+      "preset_spread": 0.022724000000000077,
+      "delta_vs_anchor_overall_score_p50": 1.132,
+      "improvement_vs_native_overall_p50": 13.157600000000002
+    },
+    {
+      "snapshot_id": "0077",
+      "overall_score_p50": 0.869111,
+      "worst_preset_score": 0.885383,
+      "preset_spread": 0.029128000000000043,
+      "delta_vs_anchor_overall_score_p50": 4.213,
+      "improvement_vs_native_overall_p50": 13.088900000000002
+    },
+    {
+      "snapshot_id": "0245",
+      "overall_score_p50": 0.871294,
+      "worst_preset_score": 0.914536,
+      "preset_spread": 0.06686700000000001,
+      "delta_vs_anchor_overall_score_p50": 2.391,
+      "improvement_vs_native_overall_p50": 12.8706
+    },
+    {
+      "snapshot_id": "0125",
+      "overall_score_p50": 0.875915,
+      "worst_preset_score": 0.897305,
+      "preset_spread": 0.03451500000000007,
+      "delta_vs_anchor_overall_score_p50": 0.974,
+      "improvement_vs_native_overall_p50": 12.4085
+    },
+    {
+      "snapshot_id": "0155",
+      "overall_score_p50": 0.876511,
+      "worst_preset_score": 0.899722,
+      "preset_spread": 0.040659,
+      "delta_vs_anchor_overall_score_p50": 2.767,
+      "improvement_vs_native_overall_p50": 12.348899999999997
+    },
+    {
+      "snapshot_id": "0158",
+      "overall_score_p50": 0.878161,
+      "worst_preset_score": 0.886546,
+      "preset_spread": 0.017841999999999913,
+      "delta_vs_anchor_overall_score_p50": -0.458,
+      "improvement_vs_native_overall_p50": 12.183900000000003
+    }
+  ],
+  "rebenchmark_commands": [
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0170.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0148.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0094.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0151.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0174.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0077.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0245.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0125.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0155.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0158.js --presets quick,medium,balanced,large"
+  ],
+  "selection_criteria": {
+    "hard_filters": [
+      "type=snapshot",
+      "tests_failed=0",
+      "overall_score_p50 and preset_quick/medium/balanced_score_p50 are finite",
+      "improvement_vs_native_overall_p50 > 0",
+      "worst_preset_score <= 1.02"
+    ],
+    "noise_policy": {
+      "outlier_mad_multiplier": 3,
+      "outlier_relative_fallback": 0.15,
+      "display_vs_overall_gap_pct": 5,
+      "strict_noise_penalty_threshold": 2
+    },
+    "ranking_order": [
+      "overall_score_p50 asc",
+      "worst_preset_score asc",
+      "preset_spread asc",
+      "noise_penalty asc",
+      "delta_vs_anchor_overall_score_p50 desc"
+    ],
+    "score_source": "historical progress rows; verify shortlisted candidates with benchmark_search_cli before trusting absolute order",
+    "slot_policy": {
+      "max_per_family": null,
+      "family_key": "first_3_branch_segments",
+      "forced_specialist_slots": 0,
+      "forced_contrarian_slots": 0
+    }
+  }
+}

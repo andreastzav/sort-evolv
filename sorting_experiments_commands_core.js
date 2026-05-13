@@ -360,14 +360,18 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
     if (!args.skipTests) {
       console.log("  unit tests passed, proceeding to benchmark");
     }
+    const benchmarkFlowLabel = args.includeImmediateParent
+      ? "native+anchor+immediate-parent+candidate"
+      : "native+anchor+candidate";
     console.log(
-      `  flow: shared preset session (native+anchor+candidate), order=${ctx.AUTO_DECISION_ORDER_MODE}, AB_TESTING=${ctx.AUTO_DECISION_AB_TESTING ? "on" : "off"}`
+      `  flow: shared preset session (${benchmarkFlowLabel}), order=${ctx.AUTO_DECISION_ORDER_MODE}, AB_TESTING=${ctx.AUTO_DECISION_AB_TESTING ? "on" : "off"}`
     );
 
     const benchmarkStepStartedMs = Date.now();
     const decisionBenchmarkSuite = await ctx.runSharedDecisionBenchmarkSuite({
       metadata,
       anchorSnapshot,
+      parentSnapshot,
       args,
       workingFile: ctx.WORKING_FILE,
       rootId: ctx.ROOT_ID,
@@ -430,8 +434,24 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
       parentOverallScoreFromMetadata,
       decision.currentOverallScore
     );
+    const immediateParentSuite = decisionBenchmarkSuite.immediateParentSuite || null;
+    const immediateParentOverallScore = Number(immediateParentSuite?.overallScore);
+    const deltaVsImmediateParentSameSessionScorePct = ctx.computePresetDeltaPct(
+      immediateParentOverallScore,
+      decision.currentOverallScore
+    );
+    const immediateParentPresetScoreFromDecision = Number(
+      immediateParentSuite?.byPreset?.[displayPresetId]?.score
+    );
+    const deltaVsImmediateParentSameSessionPresetScoreP50Pct = ctx.computePresetDeltaPct(
+      immediateParentPresetScoreFromDecision,
+      currentPresetScoreFromDecision
+    );
     const currentSuiteBenchmarkTotalMs = Number(decisionBenchmarkSuite.currentSuiteBenchmarkTotalMs);
     const parentSuiteBenchmarkTotalMs = Number(decisionBenchmarkSuite.anchorSuiteBenchmarkTotalMs);
+    const immediateParentSuiteBenchmarkTotalMs = Number(
+      decisionBenchmarkSuite.immediateParentSuiteBenchmarkTotalMs
+    );
     const combinedSuiteBenchmarkTotalMs = Number(decisionBenchmarkSuite.combinedSuiteBenchmarkTotalMs);
     const maxSpeculativeLosses = ctx.getMaxSpeculativeLosses(constraints, ctx.plannerDefaults());
     const startsNewVariant =
@@ -529,16 +549,41 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
           primaryMetric: decision.primaryMetric,
           thresholdImprovementPct: decision.thresholdImprovementPct,
           guardrailMaxRegressionPct: decision.guardrailMaxRegressionPct,
+          anchor: decision.parentSuite,
           parent: decision.parentSuite,
           current: decision.currentSuite,
           overallDeltaVsAnchorPct: decision.improvementPct,
+          historicalImmediateParent: Number.isFinite(parentOverallScoreFromMetadata)
+            ? {
+                id: parentSnapshot.id,
+                overallScore: parentOverallScoreFromMetadata,
+                overallDeltaPct: deltaVsParentScorePct,
+                displayPresetScore: parentPresetScoreFromMetadata,
+                displayPresetDeltaPct: deltaVsParentPresetScoreP50Pct,
+              }
+            : null,
+          immediateParent: decisionBenchmarkSuite.immediateParent
+            ? {
+                ...decisionBenchmarkSuite.immediateParent,
+                suite: immediateParentSuite,
+                overallDeltaPct: deltaVsImmediateParentSameSessionScorePct,
+                displayPresetScore: immediateParentPresetScoreFromDecision,
+                displayPresetDeltaPct: deltaVsImmediateParentSameSessionPresetScoreP50Pct,
+                suiteBenchmarkTotalMs: immediateParentSuiteBenchmarkTotalMs,
+              }
+            : null,
+          overallDeltaVsHistoricalImmediateParentPct: deltaVsParentScorePct,
+          overallDeltaVsImmediateParentSameSessionPct: deltaVsImmediateParentSameSessionScorePct,
           overallDeltaVsParentPct: deltaVsParentScorePct,
           anchorId: anchorSnapshot.id,
           parentId: parentSnapshot.id,
-          deltaVsImmediateParentPct: deltaVsParentScorePct,
+          deltaVsHistoricalImmediateParentPct: deltaVsParentScorePct,
+          deltaVsImmediateParentPct: deltaVsImmediateParentSameSessionScorePct,
           perPresetDeltaPct: decision.presetDeltas,
           currentSuiteBenchmarkTotalMs,
+          anchorSuiteBenchmarkTotalMs: parentSuiteBenchmarkTotalMs,
           parentSuiteBenchmarkTotalMs,
+          immediateParentSuiteBenchmarkTotalMs,
           combinedSuiteBenchmarkTotalMs,
           ...(ctx.AUTO_DECISION_STORE_RAW_RUN_VALUES
             ? { rawRunsByPreset: decisionBenchmarkSuite.rawRunsByPreset }
@@ -548,10 +593,10 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
           mode: "auto",
           rule:
             ctx.AUTO_DECISION_MODE === "pareto"
-              ? `syntax check -> unit tests -> shared preset sessions (native+anchor+candidate) with ${ctx.AUTO_DECISION_ORDER_MODE} order; AB_TESTING=${
+              ? `syntax check -> unit tests -> shared preset sessions (${benchmarkFlowLabel}) with ${ctx.AUTO_DECISION_ORDER_MODE} order; AB_TESTING=${
                 ctx.AUTO_DECISION_AB_TESTING ? "on" : "off"
               }; Pareto winner if >=1 target preset improves by threshold and all presets satisfy regression guardrail`
-              : `syntax check -> unit tests -> shared preset sessions (native+anchor+candidate) with ${ctx.AUTO_DECISION_ORDER_MODE} order; AB_TESTING=${
+              : `syntax check -> unit tests -> shared preset sessions (${benchmarkFlowLabel}) with ${ctx.AUTO_DECISION_ORDER_MODE} order; AB_TESTING=${
                 ctx.AUTO_DECISION_AB_TESTING ? "on" : "off"
               }; winner if overall geomean score p50 improves by threshold and guardrail passes`,
           decisionMode: decision.decisionMode,
@@ -560,9 +605,14 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
           guardrailMaxRegressionPct: decision.guardrailMaxRegressionPct,
           syntaxCheckPassed: true,
           anchorId: anchorSnapshot.id,
+          anchorOverallScore: decision.parentOverallScore,
           parentOverallScore: decision.parentOverallScore,
           currentOverallScore: decision.currentOverallScore,
           overallDeltaVsAnchorPct: decision.improvementPct,
+          historicalImmediateParentOverallScore: parentOverallScoreFromMetadata,
+          overallDeltaVsHistoricalImmediateParentPct: deltaVsParentScorePct,
+          immediateParentOverallScore: immediateParentOverallScore,
+          overallDeltaVsImmediateParentSameSessionPct: deltaVsImmediateParentSameSessionScorePct,
           overallDeltaVsParentPct: deltaVsParentScorePct,
           decisionPassed: decision.decisionPassed,
           overallPassed: decision.overallPassed,
@@ -573,9 +623,14 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
           guardrailBreaches: decision.guardrailBreaches,
           displayPresetId,
           anchorPresetScoreP50: Number(displayPresetDeltaVsAnchor?.parentScore),
+          historicalImmediateParentPresetScoreP50: parentPresetScoreFromMetadata,
+          immediateParentPresetScoreP50: immediateParentPresetScoreFromDecision,
           parentPresetScoreP50: parentPresetScoreFromMetadata,
           currentPresetScoreP50: currentPresetScoreFromDecision,
           deltaVsAnchorPresetScoreP50Pct: Number(displayPresetDeltaVsAnchor?.deltaPct),
+          deltaVsHistoricalImmediateParentPresetScoreP50Pct: deltaVsParentPresetScoreP50Pct,
+          deltaVsImmediateParentSameSessionPresetScoreP50Pct:
+            deltaVsImmediateParentSameSessionPresetScoreP50Pct,
           deltaVsParentPresetScoreP50Pct: deltaVsParentPresetScoreP50Pct,
           parentBenchmarkCandidateAvgMs: Number(parentBenchmarkCandidateMetrics?.avgMs),
           currentBenchmarkCandidateAvgMs: Number(currentBenchmarkCandidateMetrics?.avgMs),
@@ -646,7 +701,12 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
     );
     if (Number.isFinite(deltaVsParentScorePct)) {
       console.log(
-        `  telemetry: overall delta vs immediate parent ${ctx.reporting.formatPct(deltaVsParentScorePct)}`
+        `  telemetry: overall delta vs historical immediate parent ${ctx.reporting.formatPct(deltaVsParentScorePct)}`
+      );
+    }
+    if (Number.isFinite(deltaVsImmediateParentSameSessionScorePct)) {
+      console.log(
+        `  telemetry: overall delta vs immediate parent same-session ${ctx.reporting.formatPct(deltaVsImmediateParentSameSessionScorePct)}`
       );
     }
     console.log(
@@ -657,7 +717,7 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
     for (let i = 0; i < decision.presetDeltas.length; i += 1) {
       const presetDelta = decision.presetDeltas[i];
       console.log(
-        `  preset ${presetDelta.presetId}: score parent ${ctx.reporting.formatScore(
+        `  preset ${presetDelta.presetId}: score anchor ${ctx.reporting.formatScore(
           presetDelta.parentScore
         )} -> current ${ctx.reporting.formatScore(presetDelta.currentScore)} (delta ${ctx.reporting.formatPct(
           presetDelta.deltaPct
@@ -685,7 +745,11 @@ export function createSortingExperimentCommandHandlers(resolveContext) {
     console.log(
       `  benchmark step total: ${ctx.reporting.formatDuration(benchmarkStepTotalMs)} (current suite ${ctx.reporting.formatDuration(
         currentSuiteBenchmarkTotalMs
-      )}, parent suite ${ctx.reporting.formatDuration(parentSuiteBenchmarkTotalMs)})`
+      )}, anchor suite ${ctx.reporting.formatDuration(parentSuiteBenchmarkTotalMs)}${
+        Number.isFinite(immediateParentSuiteBenchmarkTotalMs)
+          ? `, immediate parent suite ${ctx.reporting.formatDuration(immediateParentSuiteBenchmarkTotalMs)}`
+          : ""
+      })`
     );
     console.log(`  iteration total: ${ctx.reporting.formatDuration(Date.now() - iterationStartedMs)}`);
     if (testSummary) {

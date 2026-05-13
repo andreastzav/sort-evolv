@@ -1,0 +1,63 @@
+Shortlist generated at 2026-05-13T08:27:20.945Z
+Input: algorithms\codexsort\evolution\codexsort_initial\codexsort_progress.jsonl
+Counts: records=251, snapshots=251, benchmark_valid=251, after_filters=244, shortlisted=10
+Config: top=10, strict_noise=false
+Noise policy: MADx3, rel_fallback=15.0%, display_overall_gap>5.0%
+Scoring context: historical progress-log scores; shortlist ranks candidates for follow-up, not final same-session truth.
+Verification: rebenchmark shortlisted candidates in a fresh shared session before promoting or comparing across old branches.
+
+Top 10 By historical overall_score_p50:
+1. snapshot=0170 | overall=0.833927
+2. snapshot=0148 | overall=0.863937
+3. snapshot=0094 | overall=0.865624
+4. snapshot=0151 | overall=0.867507
+5. snapshot=0174 | overall=0.868424
+6. snapshot=0077 | overall=0.869111
+7. snapshot=0245 | overall=0.871294
+8. snapshot=0125 | overall=0.875915
+9. snapshot=0155 | overall=0.876511
+10. snapshot=0158 | overall=0.878161
+
+Shortlist (10 selected):
+1. snapshot=0170 | role=top_ranked | status=loser | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S02 | family=B01.S01.S01 | overall=0.833927 | quick=0.824727 | medium=0.817760 | balanced=0.859899 | worst=0.859899 | spread=0.042139 | delta_vs_anchor=-0.867% | noise_penalty=0 | idea=cap58 with ratio56 on 0162
+2. snapshot=0148 | role=top_ranked | status=winner | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03 | family=B01.S01.S01 | overall=0.863937 | quick=0.834480 | medium=0.847551 | balanced=0.911726 | worst=0.911726 | spread=0.077246 | delta_vs_anchor=3.902% | noise_penalty=0 | idea=upper43 only above 7168
+3. snapshot=0094 | role=top_ranked | status=winner | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S01 | family=B01.S01.S01 | overall=0.865624 | quick=0.851788 | medium=0.863969 | balanced=0.881369 | worst=0.881369 | spread=0.029581 | delta_vs_anchor=2.050% | noise_penalty=0 | idea=quick-side large minrun 43 fallback
+4. snapshot=0151 | role=top_ranked | status=loser | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S01 | family=B01.S01.S01 | overall=0.867507 | quick=0.845272 | medium=0.860784 | balanced=0.897282 | worst=0.897282 | spread=0.052010 | delta_vs_anchor=-1.001% | noise_penalty=0 | idea=upper43 threshold7808 midpoint
+5. snapshot=0174 | role=top_ranked | status=loser | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03 | family=B01.S01.S01 | overall=0.868424 | quick=0.881534 | medium=0.858810 | balanced=0.865086 | worst=0.881534 | spread=0.022724 | delta_vs_anchor=1.132% | noise_penalty=0 | idea=sample33 ratio54 threshold17
+6. snapshot=0077 | role=top_ranked | status=winner | branch=B01.S01.S01.S02.S01.S02.S03 | family=B01.S01.S01 | overall=0.869111 | quick=0.856255 | medium=0.885383 | balanced=0.865948 | worst=0.885383 | spread=0.029128 | delta_vs_anchor=4.213% | noise_penalty=0 | idea=remove forced-run precondition
+7. snapshot=0245 | role=top_ranked | status=winner | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01 | family=B01.S01.S01 | overall=0.871294 | quick=0.853232 | medium=0.847669 | balanced=0.914536 | worst=0.914536 | spread=0.066867 | delta_vs_anchor=2.391% | noise_penalty=0 | idea=sample32 cap56 strict cap check
+8. snapshot=0125 | role=top_ranked | status=loser | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S01 | family=B01.S01.S01 | overall=0.875915 | quick=0.868043 | medium=0.862790 | balanced=0.897305 | worst=0.897305 | spread=0.034515 | delta_vs_anchor=0.974% | noise_penalty=0 | idea=cap59 with low-card ratio54
+9. snapshot=0155 | role=top_ranked | status=winner | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02 | family=B01.S01.S01 | overall=0.876511 | quick=0.899722 | medium=0.859063 | balanced=0.871242 | worst=0.899722 | spread=0.040659 | delta_vs_anchor=2.767% | noise_penalty=0 | idea=replay:0087 huge minrun53 on 0149
+10. snapshot=0158 | role=top_ranked | status=loser | branch=B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01 | family=B01.S01.S01 | overall=0.878161 | quick=0.868704 | medium=0.879324 | balanced=0.886546 | worst=0.886546 | spread=0.017842 | delta_vs_anchor=-0.458% | noise_penalty=0 | idea=huge52 starts at 12288
+
+Important Decision Metrics (End):
+1. snapshot=0170 | overall_score_p50=0.833927 | worst_preset_score=0.859899 | preset_spread=0.042139 | delta_vs_anchor_overall_score_p50=-0.867% | improvement_vs_native_overall_p50=16.607%
+2. snapshot=0148 | overall_score_p50=0.863937 | worst_preset_score=0.911726 | preset_spread=0.077246 | delta_vs_anchor_overall_score_p50=3.902% | improvement_vs_native_overall_p50=13.606%
+3. snapshot=0094 | overall_score_p50=0.865624 | worst_preset_score=0.881369 | preset_spread=0.029581 | delta_vs_anchor_overall_score_p50=2.050% | improvement_vs_native_overall_p50=13.438%
+4. snapshot=0151 | overall_score_p50=0.867507 | worst_preset_score=0.897282 | preset_spread=0.052010 | delta_vs_anchor_overall_score_p50=-1.001% | improvement_vs_native_overall_p50=13.249%
+5. snapshot=0174 | overall_score_p50=0.868424 | worst_preset_score=0.881534 | preset_spread=0.022724 | delta_vs_anchor_overall_score_p50=1.132% | improvement_vs_native_overall_p50=13.158%
+6. snapshot=0077 | overall_score_p50=0.869111 | worst_preset_score=0.885383 | preset_spread=0.029128 | delta_vs_anchor_overall_score_p50=4.213% | improvement_vs_native_overall_p50=13.089%
+7. snapshot=0245 | overall_score_p50=0.871294 | worst_preset_score=0.914536 | preset_spread=0.066867 | delta_vs_anchor_overall_score_p50=2.391% | improvement_vs_native_overall_p50=12.871%
+8. snapshot=0125 | overall_score_p50=0.875915 | worst_preset_score=0.897305 | preset_spread=0.034515 | delta_vs_anchor_overall_score_p50=0.974% | improvement_vs_native_overall_p50=12.409%
+9. snapshot=0155 | overall_score_p50=0.876511 | worst_preset_score=0.899722 | preset_spread=0.040659 | delta_vs_anchor_overall_score_p50=2.767% | improvement_vs_native_overall_p50=12.349%
+10. snapshot=0158 | overall_score_p50=0.878161 | worst_preset_score=0.886546 | preset_spread=0.017842 | delta_vs_anchor_overall_score_p50=-0.458% | improvement_vs_native_overall_p50=12.184%
+
+Selection Criteria (End):
+1. Hard filters: benchmark-valid snapshot rows, tests_failed=0, full suite scores present.
+2. Hard filters (continued): improvement_vs_native_overall_p50>0 and worst_preset_score<=1.02.
+3. Noise handling: native_p50 outlier via MADx3 (or 15.0% fallback), display-vs-overall mismatch threshold 5.0%, strict drop penalty>=2 only when strict_noise=true.
+4. Ranking order: overall_score_p50 asc, worst_preset_score asc, preset_spread asc, noise_penalty asc, delta_vs_anchor_overall_score_p50 desc.
+5. Score source: historical progress rows; native/anchor/candidate were same-session inside each row, but different rows may come from different machine/session conditions.
+6. Diversity policy: family cap disabled; no forced specialist/contrarian slots.
+
+Suggested Fresh Rebench Commands:
+1. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0170.js --presets quick,medium,balanced,large
+2. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0148.js --presets quick,medium,balanced,large
+3. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0094.js --presets quick,medium,balanced,large
+4. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0151.js --presets quick,medium,balanced,large
+5. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0174.js --presets quick,medium,balanced,large
+6. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0077.js --presets quick,medium,balanced,large
+7. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0245.js --presets quick,medium,balanced,large
+8. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0125.js --presets quick,medium,balanced,large
+9. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0155.js --presets quick,medium,balanced,large
+10. node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\codexsort\snapshots\codexsort_initial\codexsort_0158.js --presets quick,medium,balanced,large
