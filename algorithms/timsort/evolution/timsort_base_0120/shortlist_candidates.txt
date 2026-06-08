@@ -1,7 +1,7 @@
-Shortlist generated at 2026-04-01T09:08:35.848Z
+Shortlist generated at 2026-05-13T06:37:06.201Z
 Input: algorithms\timsort\evolution\timsort_base_0120\timsort_progress.jsonl
-Counts: records=170, snapshots=170, benchmark_valid=170, after_filters=163, shortlisted=8
-Config: top=8, strict_noise=false
+Counts: records=173, snapshots=171, benchmark_valid=171, after_filters=164, shortlisted=20
+Config: top=20, strict_noise=false
 Noise policy: MADx3, rel_fallback=15.0%, display_overall_gap>5.0%
 
 Top 10 By overall_score_p50:
@@ -16,7 +16,7 @@ Top 10 By overall_score_p50:
 9. snapshot=0093 | overall=0.933755
 10. snapshot=0047 | overall=0.933908
 
-Shortlist (8 selected):
+Shortlist (20 selected):
 1. snapshot=0018 | role=top_ranked | status=winner | branch=B03.S01.S01.S01 | family=B03.S01.S01 | overall=0.914785 | quick=0.882881 | medium=0.915221 | balanced=0.947391 | worst=0.947391 | spread=0.064510 | delta_vs_anchor=3.064% | noise_penalty=0 | idea=B03.S01.S01.S01 depth1: from anchor0017 raise DEFAULT_MIN_MERGE 40->64
 2. snapshot=0060 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02 | family=B03.S01.S01 | overall=0.918728 | quick=0.877708 | medium=0.926377 | balanced=0.953726 | worst=0.953726 | spread=0.076018 | delta_vs_anchor=1.211% | noise_penalty=0 | idea=B03.S01.S01.S03.S02.S01.S01.S02 depth2: lower DEFAULT_MIN_MERGE 68->64 to recover medium
 3. snapshot=0064 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01 | family=B03.S01.S01 | overall=0.922966 | quick=0.914171 | medium=0.899777 | balanced=0.955861 | worst=0.955861 | spread=0.056084 | delta_vs_anchor=0.019% | noise_penalty=0 | idea=B03.S01.S01.S03.S02.S01.S01.S02.S01 depth3: restore DEFAULT_MIN_GALLOPING 8->7
@@ -25,10 +25,18 @@ Shortlist (8 selected):
 6. snapshot=0137 | role=top_ranked | status=winner | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03 | family=B03.S01.S01 | overall=0.927451 | quick=0.901048 | medium=0.935908 | balanced=0.946003 | worst=0.946003 | spread=0.044955 | delta_vs_anchor=2.494% | noise_penalty=0 | idea=implementation: with case4+threshold800 tune DEFAULT_MIN_GALLOPING 8->9
 7. snapshot=0089 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01 | family=B03.S01.S01 | overall=0.927634 | quick=0.911924 | medium=0.949982 | balanced=0.921417 | worst=0.949982 | spread=0.038058 | delta_vs_anchor=-1.084% | noise_penalty=0 | idea=B03...S03.S01 depth1: from anchor0088 raise DEFAULT_MIN_MERGE 84->88
 8. snapshot=0158 | role=top_ranked | status=winner | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02 | family=B03.S01.S01 | overall=0.928970 | quick=0.870406 | medium=0.953658 | balanced=0.965807 | worst=0.965807 | spread=0.095401 | delta_vs_anchor=1.967% | noise_penalty=0 | idea=implementation: final forward step tune DEFAULT_MIN_MERGE 72->76 on tmp288 sibling chain
-
-Excluded Top-Overall (Not In Shortlist) With Reasons:
-1. snapshot=0093 | overall=0.933755 | family=B03.S01.S01 | reasons=slot_policy
-2. snapshot=0047 | overall=0.933908 | family=B03.S01.S01 | reasons=slot_policy
+9. snapshot=0093 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S01 | family=B03.S01.S01 | overall=0.933755 | quick=0.917718 | medium=0.926127 | balanced=0.957898 | worst=0.957898 | spread=0.040180 | delta_vs_anchor=0.165% | noise_penalty=0 | idea=B03...S03.S01 depth5: final restore DEFAULT_MIN_GALLOPING 6->7
+10. snapshot=0047 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S01 | family=B03.S01.S01 | overall=0.933908 | quick=0.884728 | medium=0.939858 | balanced=0.979580 | worst=0.979580 | spread=0.094852 | delta_vs_anchor=2.446% | noise_penalty=0 | idea=B03.S01.S01.S03.S01 depth4: restore DEFAULT_MIN_GALLOPING 10->9
+11. snapshot=0051 | role=top_ranked | status=winner | branch=B03.S01.S01.S03.S02 | family=B03.S01.S01 | overall=0.934330 | quick=0.913397 | medium=0.947964 | balanced=0.941998 | worst=0.947964 | spread=0.034567 | delta_vs_anchor=2.719% | noise_penalty=0 | idea=B03.S01.S01.S03.S02 depth3: with minMerge68 lower BULK_COPY_THRESHOLD 1088->960
+12. snapshot=0108 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S03 | family=B03.S01.S01 | overall=0.934381 | quick=0.918528 | medium=0.932787 | balanced=0.952130 | worst=0.952130 | spread=0.033602 | delta_vs_anchor=-0.352% | noise_penalty=0 | idea=implementation: keep tiny copy path and tune DEFAULT_MIN_GALLOPING 7->6
+13. snapshot=0095 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S01.S02.S03.S02 | family=B03.S01.S01 | overall=0.934767 | quick=0.918558 | medium=0.934684 | balanced=0.951345 | worst=0.951345 | spread=0.032787 | delta_vs_anchor=-0.386% | noise_penalty=0 | idea=B03...S03.S02 depth2: raise BULK_COPY_THRESHOLD 928->960 for balanced guardrail
+14. snapshot=0116 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S01.S01 | family=B03.S01.S01 | overall=0.935005 | quick=0.912312 | medium=0.946650 | balanced=0.946474 | worst=0.946650 | spread=0.034338 | delta_vs_anchor=-0.313% | noise_penalty=0 | idea=implementation: with threshold704 tune DEFAULT_MIN_GALLOPING 8->9
+15. snapshot=0109 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02 | family=B03.S01.S01 | overall=0.935476 | quick=0.912690 | medium=0.929296 | balanced=0.965209 | worst=0.965209 | spread=0.052519 | delta_vs_anchor=-0.749% | noise_penalty=0 | idea=implementation: sibling from 0066 lower BULK_COPY_THRESHOLD 960->896
+16. snapshot=0036 | role=top_ranked | status=loser | branch=B03.S01.S01.S02 | family=B03.S01.S01 | overall=0.936096 | quick=0.857138 | medium=0.979784 | balanced=0.976742 | worst=0.979784 | spread=0.122646 | delta_vs_anchor=0.996% | noise_penalty=0 | idea=B03.S01.S01.S02 depth3: raise DEFAULT_MIN_GALLOPING 10->11
+17. snapshot=0133 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S02 | family=B03.S01.S01 | overall=0.936160 | quick=0.924572 | medium=0.933479 | balanced=0.950616 | worst=0.950616 | spread=0.026044 | delta_vs_anchor=0.993% | noise_penalty=0 | idea=implementation: add tiny copyFromBuffer fast path on tmp384/pool2 branch
+18. snapshot=0037 | role=top_ranked | status=loser | branch=B03.S01.S01.S02 | family=B03.S01.S01 | overall=0.937838 | quick=0.888643 | medium=0.937496 | balanced=0.990118 | worst=0.990118 | spread=0.101475 | delta_vs_anchor=-0.308% | noise_penalty=0 | idea=B03.S01.S01.S02 depth4: with minGalloping11 raise DEFAULT_MIN_MERGE 56->60
+19. snapshot=0163 | role=top_ranked | status=loser | branch=B03.S01.S01.S03.S02.S01.S01.S02.S01.S02.S03.S02.S01 | family=B03.S01.S01 | overall=0.939398 | quick=0.919857 | medium=0.934642 | balanced=0.964237 | worst=0.964237 | spread=0.044380 | delta_vs_anchor=-0.729% | noise_penalty=0 | idea=implementation: final forward step tune BULK_COPY_THRESHOLD 768->736 on 0159 chain
+20. snapshot=0039 | role=top_ranked | status=loser | branch=B03.S01.S01.S03 | family=B03.S01.S01 | overall=0.940442 | quick=0.911410 | medium=0.963022 | balanced=0.947645 | worst=0.963022 | spread=0.051612 | delta_vs_anchor=1.177% | noise_penalty=0 | idea=B03.S01.S01.S03 depth1: sibling from 0017 sweep DEFAULT_MIN_MERGE 40->48
 
 Important Decision Metrics (End):
 1. snapshot=0018 | overall_score_p50=0.914785 | worst_preset_score=0.947391 | preset_spread=0.064510 | delta_vs_anchor_overall_score_p50=3.064% | improvement_vs_native_overall_p50=8.522%
@@ -39,10 +47,22 @@ Important Decision Metrics (End):
 6. snapshot=0137 | overall_score_p50=0.927451 | worst_preset_score=0.946003 | preset_spread=0.044955 | delta_vs_anchor_overall_score_p50=2.494% | improvement_vs_native_overall_p50=7.255%
 7. snapshot=0089 | overall_score_p50=0.927634 | worst_preset_score=0.949982 | preset_spread=0.038058 | delta_vs_anchor_overall_score_p50=-1.084% | improvement_vs_native_overall_p50=7.237%
 8. snapshot=0158 | overall_score_p50=0.928970 | worst_preset_score=0.965807 | preset_spread=0.095401 | delta_vs_anchor_overall_score_p50=1.967% | improvement_vs_native_overall_p50=7.103%
+9. snapshot=0093 | overall_score_p50=0.933755 | worst_preset_score=0.957898 | preset_spread=0.040180 | delta_vs_anchor_overall_score_p50=0.165% | improvement_vs_native_overall_p50=6.624%
+10. snapshot=0047 | overall_score_p50=0.933908 | worst_preset_score=0.979580 | preset_spread=0.094852 | delta_vs_anchor_overall_score_p50=2.446% | improvement_vs_native_overall_p50=6.609%
+11. snapshot=0051 | overall_score_p50=0.934330 | worst_preset_score=0.947964 | preset_spread=0.034567 | delta_vs_anchor_overall_score_p50=2.719% | improvement_vs_native_overall_p50=6.567%
+12. snapshot=0108 | overall_score_p50=0.934381 | worst_preset_score=0.952130 | preset_spread=0.033602 | delta_vs_anchor_overall_score_p50=-0.352% | improvement_vs_native_overall_p50=6.562%
+13. snapshot=0095 | overall_score_p50=0.934767 | worst_preset_score=0.951345 | preset_spread=0.032787 | delta_vs_anchor_overall_score_p50=-0.386% | improvement_vs_native_overall_p50=6.523%
+14. snapshot=0116 | overall_score_p50=0.935005 | worst_preset_score=0.946650 | preset_spread=0.034338 | delta_vs_anchor_overall_score_p50=-0.313% | improvement_vs_native_overall_p50=6.500%
+15. snapshot=0109 | overall_score_p50=0.935476 | worst_preset_score=0.965209 | preset_spread=0.052519 | delta_vs_anchor_overall_score_p50=-0.749% | improvement_vs_native_overall_p50=6.452%
+16. snapshot=0036 | overall_score_p50=0.936096 | worst_preset_score=0.979784 | preset_spread=0.122646 | delta_vs_anchor_overall_score_p50=0.996% | improvement_vs_native_overall_p50=6.390%
+17. snapshot=0133 | overall_score_p50=0.936160 | worst_preset_score=0.950616 | preset_spread=0.026044 | delta_vs_anchor_overall_score_p50=0.993% | improvement_vs_native_overall_p50=6.384%
+18. snapshot=0037 | overall_score_p50=0.937838 | worst_preset_score=0.990118 | preset_spread=0.101475 | delta_vs_anchor_overall_score_p50=-0.308% | improvement_vs_native_overall_p50=6.216%
+19. snapshot=0163 | overall_score_p50=0.939398 | worst_preset_score=0.964237 | preset_spread=0.044380 | delta_vs_anchor_overall_score_p50=-0.729% | improvement_vs_native_overall_p50=6.060%
+20. snapshot=0039 | overall_score_p50=0.940442 | worst_preset_score=0.963022 | preset_spread=0.051612 | delta_vs_anchor_overall_score_p50=1.177% | improvement_vs_native_overall_p50=5.956%
 
 Selection Criteria (End):
 1. Hard filters: benchmark-valid snapshot rows, tests_failed=0, full suite scores present.
 2. Hard filters (continued): improvement_vs_native_overall_p50>0 and worst_preset_score<=1.02.
 3. Noise handling: native_p50 outlier via MADx3 (or 15.0% fallback), display-vs-overall mismatch threshold 5.0%, strict drop penalty>=2 only when strict_noise=true.
-4. Ranking order: overall_score_p50 asc, worst_preset_score asc, preset_spread asc, delta_vs_anchor_overall_score_p50 desc.
+4. Ranking order: overall_score_p50 asc, worst_preset_score asc, preset_spread asc, noise_penalty asc, delta_vs_anchor_overall_score_p50 desc.
 5. Diversity policy: family cap disabled; no forced specialist/contrarian slots.

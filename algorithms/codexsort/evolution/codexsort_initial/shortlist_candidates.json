@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T08:27:20.945Z",
+  "generated_at": "2026-05-15T06:07:14.981Z",
   "input_file": "algorithms\\codexsort\\evolution\\codexsort_initial\\codexsort_progress.jsonl",
   "scoring_context": {
     "source": "historical_progress_log",
@@ -8,7 +8,7 @@
     "cross_row_caveat": "Rows can come from different benchmark sessions and machine conditions, so absolute ranks are diagnostic rather than final."
   },
   "config": {
-    "top": 10,
+    "top": 8,
     "top_overall_diagnostic_count": 10,
     "strict_noise": false,
     "worst_preset_score_hard_limit": 1.02,
@@ -18,21 +18,37 @@
     "display_vs_overall_gap_pct": 5
   },
   "counts": {
-    "records": 251,
-    "snapshots": 251,
-    "benchmark_valid": 251,
-    "after_filters": 244,
-    "shortlisted": 10,
-    "excluded_top_overall": 0
+    "records": 720,
+    "snapshots": 720,
+    "benchmark_valid": 720,
+    "after_filters": 705,
+    "shortlisted": 8,
+    "excluded_top_overall": 2
   },
   "top_overall_by_score": [
+    {
+      "snapshot_id": "0486",
+      "overall_score_p50": 0.805761
+    },
+    {
+      "snapshot_id": "0580",
+      "overall_score_p50": 0.830164
+    },
     {
       "snapshot_id": "0170",
       "overall_score_p50": 0.833927
     },
     {
+      "snapshot_id": "0631",
+      "overall_score_p50": 0.854623
+    },
+    {
       "snapshot_id": "0148",
       "overall_score_p50": 0.863937
+    },
+    {
+      "snapshot_id": "0593",
+      "overall_score_p50": 0.865491
     },
     {
       "snapshot_id": "0094",
@@ -47,27 +63,64 @@
       "overall_score_p50": 0.868424
     },
     {
-      "snapshot_id": "0077",
-      "overall_score_p50": 0.869111
-    },
-    {
-      "snapshot_id": "0245",
-      "overall_score_p50": 0.871294
-    },
-    {
-      "snapshot_id": "0125",
-      "overall_score_p50": 0.875915
-    },
-    {
-      "snapshot_id": "0155",
-      "overall_score_p50": 0.876511
-    },
-    {
-      "snapshot_id": "0158",
-      "overall_score_p50": 0.878161
+      "snapshot_id": "0372",
+      "overall_score_p50": 0.869095
     }
   ],
   "shortlist": [
+    {
+      "snapshot_id": "0486",
+      "status": "loser",
+      "parent": "0485",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01.S02.S03.S03.S01.S01.S01.S01.S02.S02.S01.S02.S02.S02.S01.S01.S01.S01.S02.S02.S02.S02.S02.S02.S02.S01",
+      "family": "B01.S01.S01",
+      "depth": "1",
+      "idea": "cap54 stricter lowcard",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.805761,
+      "quick_score_p50": 0.748325,
+      "medium_score_p50": 0.740167,
+      "balanced_score_p50": 0.944493,
+      "worst_preset_score": 0.944493,
+      "preset_spread": 0.204326,
+      "quick_medium_score": 0.7442348219984066,
+      "delta_vs_anchor_overall_score_p50": -0.394,
+      "improvement_vs_native_overall_p50": 19.423900000000003,
+      "display_preset_improvement_vs_native_p50": 25.983,
+      "noise_flag": true,
+      "noise_penalty": 3,
+      "noise_reasons": [
+        "native_p50_outlier",
+        "display_vs_overall_gap"
+      ]
+    },
+    {
+      "snapshot_id": "0580",
+      "status": "loser",
+      "parent": "0578",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01.S02.S03.S03.S01.S01.S01.S01.S02.S02.S01.S02.S02.S02.S01.S01.S01.S01.S02.S02.S02.S02.S02.S02.S02.S02.S03.S01.S01.S01.S02.S02.S01.S02.S02.S01.S01.S02",
+      "family": "B01.S01.S01",
+      "depth": "3",
+      "idea": "balanced trim minspan256",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.830164,
+      "quick_score_p50": 0.806571,
+      "medium_score_p50": 0.844775,
+      "balanced_score_p50": 0.839668,
+      "worst_preset_score": 0.844775,
+      "preset_spread": 0.038204000000000016,
+      "quick_medium_score": 0.8254520074026109,
+      "delta_vs_anchor_overall_score_p50": -0.121,
+      "improvement_vs_native_overall_p50": 16.9836,
+      "display_preset_improvement_vs_native_p50": 15.522,
+      "noise_flag": true,
+      "noise_penalty": 2,
+      "noise_reasons": [
+        "native_p50_outlier"
+      ]
+    },
     {
       "snapshot_id": "0170",
       "status": "loser",
@@ -93,6 +146,32 @@
       "noise_reasons": []
     },
     {
+      "snapshot_id": "0631",
+      "status": "winner",
+      "parent": "0630",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01.S02.S03.S03.S01.S01.S01.S01.S02.S02.S01.S02.S02.S02.S01.S01.S01.S01.S02.S02.S02.S02.S02.S02.S02.S02.S03.S01.S01.S01.S02.S02.S01.S02.S02.S01.S02.S02.S02.S03.S01.S01",
+      "family": "B01.S01.S01",
+      "depth": "3",
+      "idea": "right-only trim minspan704",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.854623,
+      "quick_score_p50": 0.817907,
+      "medium_score_p50": 0.860808,
+      "balanced_score_p50": 0.886571,
+      "worst_preset_score": 0.886571,
+      "preset_spread": 0.06866399999999995,
+      "quick_medium_score": 0.8390833622805305,
+      "delta_vs_anchor_overall_score_p50": 3.27,
+      "improvement_vs_native_overall_p50": 14.537699999999997,
+      "display_preset_improvement_vs_native_p50": 13.919,
+      "noise_flag": true,
+      "noise_penalty": 2,
+      "noise_reasons": [
+        "native_p50_outlier"
+      ]
+    },
+    {
       "snapshot_id": "0148",
       "status": "winner",
       "parent": "0147",
@@ -112,6 +191,30 @@
       "delta_vs_anchor_overall_score_p50": 3.902,
       "improvement_vs_native_overall_p50": 13.606300000000005,
       "display_preset_improvement_vs_native_p50": 15.245,
+      "noise_flag": false,
+      "noise_penalty": 0,
+      "noise_reasons": []
+    },
+    {
+      "snapshot_id": "0593",
+      "status": "loser",
+      "parent": "0592",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01.S02.S03.S03.S01.S01.S01.S01.S02.S02.S01.S02.S02.S02.S01.S01.S01.S01.S02.S02.S02.S02.S02.S02.S02.S02.S03.S01.S01.S01.S02.S02.S01.S02.S02.S01.S02.S01",
+      "family": "B01.S01.S01",
+      "depth": "4",
+      "idea": "sample25 cap54 all bands",
+      "selection_role": "top_ranked",
+      "benchmark_preset": "medium",
+      "overall_score_p50": 0.865491,
+      "quick_score_p50": 0.845123,
+      "medium_score_p50": 0.849013,
+      "balanced_score_p50": 0.903554,
+      "worst_preset_score": 0.903554,
+      "preset_spread": 0.05843100000000001,
+      "quick_medium_score": 0.8470657669856574,
+      "delta_vs_anchor_overall_score_p50": 0.797,
+      "improvement_vs_native_overall_p50": 13.450899999999999,
+      "display_preset_improvement_vs_native_p50": 15.099,
       "noise_flag": false,
       "noise_penalty": 0,
       "noise_reasons": []
@@ -163,7 +266,9 @@
       "noise_flag": false,
       "noise_penalty": 0,
       "noise_reasons": []
-    },
+    }
+  ],
+  "excluded_top_overall": [
     {
       "snapshot_id": "0174",
       "status": "loser",
@@ -172,7 +277,7 @@
       "family": "B01.S01.S01",
       "depth": "2",
       "idea": "sample33 ratio54 threshold17",
-      "selection_role": "top_ranked",
+      "selection_role": "",
       "benchmark_preset": "medium",
       "overall_score_p50": 0.868424,
       "quick_score_p50": 0.881534,
@@ -186,131 +291,56 @@
       "display_preset_improvement_vs_native_p50": 14.119,
       "noise_flag": false,
       "noise_penalty": 0,
-      "noise_reasons": []
+      "noise_reasons": [],
+      "excluded_reasons": [
+        "slot_policy"
+      ]
     },
     {
-      "snapshot_id": "0077",
-      "status": "winner",
-      "parent": "0076",
-      "branch": "B01.S01.S01.S02.S01.S02.S03",
-      "family": "B01.S01.S01",
-      "depth": "3",
-      "idea": "remove forced-run precondition",
-      "selection_role": "top_ranked",
-      "benchmark_preset": "medium",
-      "overall_score_p50": 0.869111,
-      "quick_score_p50": 0.856255,
-      "medium_score_p50": 0.885383,
-      "balanced_score_p50": 0.865948,
-      "worst_preset_score": 0.885383,
-      "preset_spread": 0.029128000000000043,
-      "quick_medium_score": 0.8706972037769503,
-      "delta_vs_anchor_overall_score_p50": 4.213,
-      "improvement_vs_native_overall_p50": 13.088900000000002,
-      "display_preset_improvement_vs_native_p50": 11.462,
-      "noise_flag": false,
-      "noise_penalty": 0,
-      "noise_reasons": []
-    },
-    {
-      "snapshot_id": "0245",
-      "status": "winner",
-      "parent": "0244",
-      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01",
-      "family": "B01.S01.S01",
-      "depth": "5",
-      "idea": "sample32 cap56 strict cap check",
-      "selection_role": "top_ranked",
-      "benchmark_preset": "medium",
-      "overall_score_p50": 0.871294,
-      "quick_score_p50": 0.853232,
-      "medium_score_p50": 0.847669,
-      "balanced_score_p50": 0.914536,
-      "worst_preset_score": 0.914536,
-      "preset_spread": 0.06686700000000001,
-      "quick_medium_score": 0.8504459513737483,
-      "delta_vs_anchor_overall_score_p50": 2.391,
-      "improvement_vs_native_overall_p50": 12.8706,
-      "display_preset_improvement_vs_native_p50": 15.233,
-      "noise_flag": false,
-      "noise_penalty": 0,
-      "noise_reasons": []
-    },
-    {
-      "snapshot_id": "0125",
+      "snapshot_id": "0372",
       "status": "loser",
-      "parent": "0124",
-      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S01",
+      "parent": "0370",
+      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01.S03.S01.S02.S02.S03.S01.S01.S01.S01.S02.S01.S02.S03.S03.S01.S01.S01.S01.S02.S01",
       "family": "B01.S01.S01",
-      "depth": "3",
-      "idea": "cap59 with low-card ratio54",
-      "selection_role": "top_ranked",
+      "depth": "4",
+      "idea": "sample30 ratio545 near-winner nudge",
+      "selection_role": "",
       "benchmark_preset": "medium",
-      "overall_score_p50": 0.875915,
-      "quick_score_p50": 0.868043,
-      "medium_score_p50": 0.86279,
-      "balanced_score_p50": 0.897305,
-      "worst_preset_score": 0.897305,
-      "preset_spread": 0.03451500000000007,
-      "quick_medium_score": 0.8654125143363712,
-      "delta_vs_anchor_overall_score_p50": 0.974,
-      "improvement_vs_native_overall_p50": 12.4085,
-      "display_preset_improvement_vs_native_p50": 13.721,
+      "overall_score_p50": 0.869095,
+      "quick_score_p50": 0.822259,
+      "medium_score_p50": 0.89019,
+      "balanced_score_p50": 0.896831,
+      "worst_preset_score": 0.896831,
+      "preset_spread": 0.07457200000000008,
+      "quick_medium_score": 0.8555505474313017,
+      "delta_vs_anchor_overall_score_p50": 0.549,
+      "improvement_vs_native_overall_p50": 13.090500000000006,
+      "display_preset_improvement_vs_native_p50": 10.981,
       "noise_flag": false,
       "noise_penalty": 0,
-      "noise_reasons": []
-    },
-    {
-      "snapshot_id": "0155",
-      "status": "winner",
-      "parent": "0149",
-      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02",
-      "family": "B01.S01.S01",
-      "depth": "1",
-      "idea": "replay:0087 huge minrun53 on 0149",
-      "selection_role": "top_ranked",
-      "benchmark_preset": "medium",
-      "overall_score_p50": 0.876511,
-      "quick_score_p50": 0.899722,
-      "medium_score_p50": 0.859063,
-      "balanced_score_p50": 0.871242,
-      "worst_preset_score": 0.899722,
-      "preset_spread": 0.040659,
-      "quick_medium_score": 0.8791574833248023,
-      "delta_vs_anchor_overall_score_p50": 2.767,
-      "improvement_vs_native_overall_p50": 12.348899999999997,
-      "display_preset_improvement_vs_native_p50": 14.094,
-      "noise_flag": false,
-      "noise_penalty": 0,
-      "noise_reasons": []
-    },
-    {
-      "snapshot_id": "0158",
-      "status": "loser",
-      "parent": "0157",
-      "branch": "B01.S01.S01.S02.S01.S02.S03.S02.S01.S02.S01.S01.S01.S01.S03.S01.S01.S03.S01.S02.S01.S01",
-      "family": "B01.S01.S01",
-      "depth": "1",
-      "idea": "huge52 starts at 12288",
-      "selection_role": "top_ranked",
-      "benchmark_preset": "medium",
-      "overall_score_p50": 0.878161,
-      "quick_score_p50": 0.868704,
-      "medium_score_p50": 0.879324,
-      "balanced_score_p50": 0.886546,
-      "worst_preset_score": 0.886546,
-      "preset_spread": 0.017841999999999913,
-      "quick_medium_score": 0.8739978696175409,
-      "delta_vs_anchor_overall_score_p50": -0.458,
-      "improvement_vs_native_overall_p50": 12.183900000000003,
-      "display_preset_improvement_vs_native_p50": 12.068,
-      "noise_flag": false,
-      "noise_penalty": 0,
-      "noise_reasons": []
+      "noise_reasons": [],
+      "excluded_reasons": [
+        "slot_policy"
+      ]
     }
   ],
-  "excluded_top_overall": [],
   "important_decision_metrics": [
+    {
+      "snapshot_id": "0486",
+      "overall_score_p50": 0.805761,
+      "worst_preset_score": 0.944493,
+      "preset_spread": 0.204326,
+      "delta_vs_anchor_overall_score_p50": -0.394,
+      "improvement_vs_native_overall_p50": 19.423900000000003
+    },
+    {
+      "snapshot_id": "0580",
+      "overall_score_p50": 0.830164,
+      "worst_preset_score": 0.844775,
+      "preset_spread": 0.038204000000000016,
+      "delta_vs_anchor_overall_score_p50": -0.121,
+      "improvement_vs_native_overall_p50": 16.9836
+    },
     {
       "snapshot_id": "0170",
       "overall_score_p50": 0.833927,
@@ -320,12 +350,28 @@
       "improvement_vs_native_overall_p50": 16.607300000000002
     },
     {
+      "snapshot_id": "0631",
+      "overall_score_p50": 0.854623,
+      "worst_preset_score": 0.886571,
+      "preset_spread": 0.06866399999999995,
+      "delta_vs_anchor_overall_score_p50": 3.27,
+      "improvement_vs_native_overall_p50": 14.537699999999997
+    },
+    {
       "snapshot_id": "0148",
       "overall_score_p50": 0.863937,
       "worst_preset_score": 0.911726,
       "preset_spread": 0.07724600000000004,
       "delta_vs_anchor_overall_score_p50": 3.902,
       "improvement_vs_native_overall_p50": 13.606300000000005
+    },
+    {
+      "snapshot_id": "0593",
+      "overall_score_p50": 0.865491,
+      "worst_preset_score": 0.903554,
+      "preset_spread": 0.05843100000000001,
+      "delta_vs_anchor_overall_score_p50": 0.797,
+      "improvement_vs_native_overall_p50": 13.450899999999999
     },
     {
       "snapshot_id": "0094",
@@ -342,67 +388,17 @@
       "preset_spread": 0.05201,
       "delta_vs_anchor_overall_score_p50": -1.001,
       "improvement_vs_native_overall_p50": 13.249299999999998
-    },
-    {
-      "snapshot_id": "0174",
-      "overall_score_p50": 0.868424,
-      "worst_preset_score": 0.881534,
-      "preset_spread": 0.022724000000000077,
-      "delta_vs_anchor_overall_score_p50": 1.132,
-      "improvement_vs_native_overall_p50": 13.157600000000002
-    },
-    {
-      "snapshot_id": "0077",
-      "overall_score_p50": 0.869111,
-      "worst_preset_score": 0.885383,
-      "preset_spread": 0.029128000000000043,
-      "delta_vs_anchor_overall_score_p50": 4.213,
-      "improvement_vs_native_overall_p50": 13.088900000000002
-    },
-    {
-      "snapshot_id": "0245",
-      "overall_score_p50": 0.871294,
-      "worst_preset_score": 0.914536,
-      "preset_spread": 0.06686700000000001,
-      "delta_vs_anchor_overall_score_p50": 2.391,
-      "improvement_vs_native_overall_p50": 12.8706
-    },
-    {
-      "snapshot_id": "0125",
-      "overall_score_p50": 0.875915,
-      "worst_preset_score": 0.897305,
-      "preset_spread": 0.03451500000000007,
-      "delta_vs_anchor_overall_score_p50": 0.974,
-      "improvement_vs_native_overall_p50": 12.4085
-    },
-    {
-      "snapshot_id": "0155",
-      "overall_score_p50": 0.876511,
-      "worst_preset_score": 0.899722,
-      "preset_spread": 0.040659,
-      "delta_vs_anchor_overall_score_p50": 2.767,
-      "improvement_vs_native_overall_p50": 12.348899999999997
-    },
-    {
-      "snapshot_id": "0158",
-      "overall_score_p50": 0.878161,
-      "worst_preset_score": 0.886546,
-      "preset_spread": 0.017841999999999913,
-      "delta_vs_anchor_overall_score_p50": -0.458,
-      "improvement_vs_native_overall_p50": 12.183900000000003
     }
   ],
   "rebenchmark_commands": [
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0486.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0580.js --presets quick,medium,balanced,large",
     "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0170.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0631.js --presets quick,medium,balanced,large",
     "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0148.js --presets quick,medium,balanced,large",
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0593.js --presets quick,medium,balanced,large",
     "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0094.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0151.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0174.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0077.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0245.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0125.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0155.js --presets quick,medium,balanced,large",
-    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0158.js --presets quick,medium,balanced,large"
+    "node benchmark_search_cli.js --sorting codexsort --base-file codexsort_initial.js --candidate algorithms\\codexsort\\snapshots\\codexsort_initial\\codexsort_0151.js --presets quick,medium,balanced,large"
   ],
   "selection_criteria": {
     "hard_filters": [
